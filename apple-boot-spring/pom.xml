@@ -6,13 +6,13 @@
 	<parent>
 		<artifactId>apple-boot</artifactId>
 		<groupId>com.appleframework.boot</groupId>
-		<version>0.1.2.RELEASE</version>
+		<version>0.1.3.RELEASE</version>
 	</parent>
 	<artifactId>apple-boot-spring</artifactId>
 	<name>apple-boot-spring</name>
 	<url>http://mvnrepo.appleframework.com</url>
 	<properties>
-		<project.version>0.1.2.RELEASE</project.version>
+		<project.version>0.1.3.RELEASE</project.version>
 	</properties>
 
 	<dependencies>

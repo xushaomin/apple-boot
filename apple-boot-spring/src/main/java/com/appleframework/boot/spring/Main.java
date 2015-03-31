@@ -109,7 +109,7 @@ public class Main {
 				} catch (Exception e) {
 					logger.error("注册JMX服务出错：" + e.getMessage(), e);
 				}
-                logger.warn("服务 " + container.getClass().getSimpleName() + " 启动!");
+                logger.warn("服务 " + container.getType() + " 启动!");
             }
             
             logger.warn(new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss]").format(new Date()) + " 所有服务启动成功!");

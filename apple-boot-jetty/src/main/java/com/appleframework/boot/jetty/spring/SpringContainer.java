@@ -6,7 +6,7 @@ import org.eclipse.jetty.webapp.WebAppContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.appleframework.boot.core.Container;
-import com.appleframework.config.core.PropertyConfigurer;
+import com.appleframework.boot.utils.SystemPropertiesUtils;
 
 /**
  * SpringContainer. (SPI, Singleton, ThreadSafe)
@@ -32,17 +32,12 @@ public class SpringContainer implements Container {
         WebAppContext webAppContext = context.getBean("webAppContext", WebAppContext.class);
         //webAppContext.setMaxFormContentSize(9000000);
   
-        logger.info("Start jetty web context context= " + webAppContext.getContextPath() + ";resource base=" + webAppContext.getResourceBase());
+        logger.warn("Start jetty web context context= " + webAppContext.getContextPath() 
+        		+ ";resource base=" + webAppContext.getResourceBase());
         try {
             Server server = context.getBean("jettyServer", Server.class);
             server.start();
             server.join();
-            
-            String applicationName = PropertyConfigurer.getString(Container.APPLICATION_NAME_KEY);
-            if(null != applicationName) {
-            	context.setDisplayName(applicationName);
-            }
-            
             logger.warn("启动成功");
         } catch (Exception e) {
         	logger.error("Failed to start jetty server on " + ":" + ", cause: " + e.getMessage(), e);
@@ -81,12 +76,7 @@ public class SpringContainer implements Container {
 
 	@Override
 	public String getName() {
-		if (context != null) {
-			return context.getDisplayName();
-    	}
-    	else {
-    		return PropertyConfigurer.getString(Container.APPLICATION_NAME_KEY);
-    	}
+    	return SystemPropertiesUtils.getApplicationName();
 	}
     
 	@Override

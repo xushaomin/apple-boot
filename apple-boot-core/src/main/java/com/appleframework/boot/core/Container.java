@@ -6,9 +6,7 @@ package com.appleframework.boot.core;
  * @author cruise.xu
  */
 public interface Container {
-	
-	public static String APPLICATION_NAME_KEY = "application.name";
-	
+		
 	/**
      * name.
      */

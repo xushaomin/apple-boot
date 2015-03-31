@@ -55,8 +55,8 @@ public class Main {
 			final List<Container> containers = new ArrayList<Container>();
 			Container springContainer = new SpringContainer();
 			Container logContainer = new Log4jContainer();
-			containers.add(springContainer);
 			containers.add(logContainer);
+			containers.add(springContainer);
 
 			if ("true".equals(System.getProperty(SHUTDOWN_HOOK_KEY))) {
 				Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -78,22 +78,23 @@ public class Main {
 			}
 
 			for (Container container : containers) {
-				try {
+                try {
+					
 					Hashtable<String, String> properties = new Hashtable<String, String>();
 
 					properties.put(TYPE_KEY, DEFAULT_TYPE);
 					properties.put(ID_KEY, container.getType());
 					
 					ObjectName oname = ObjectName.getInstance("com.appleframework", properties);
-
-					if (container instanceof SpringContainer) {
+					if(container instanceof SpringContainer) {
 						SpringContainerManager mbean = new SpringContainerManager();
 
 						if (mbs.isRegistered(oname)) {
 							mbs.unregisterMBean(oname);
 						}
 						mbs.registerMBean(mbean, oname);
-					} else if (container instanceof Log4jContainer) {
+					}
+					else if(container instanceof Log4jContainer) {
 						LoggingConfig mbean = new LoggingConfig();
 
 						if (mbs.isRegistered(oname)) {
@@ -101,13 +102,13 @@ public class Main {
 						}
 						mbs.registerMBean(mbean, oname);
 					}
-					logger.warn("JMX服务" + container.getType() + "注册成功");
 				} catch (Exception e) {
-					logger.error("JMX服务" + container.getType() + "注册失败：" + e.getMessage(), e);
+					logger.error("注册JMX服务出错：" + e.getMessage(), e);
 				}
-				container.start();
-				logger.warn("服务 " + container.getName() + " 启动!");
-			}
+                logger.warn("服务 " + container.getType() + " 启动中!");
+                container.start();
+                
+            }
 			logger.warn(new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss]").format(new Date()) + " 所有服务启动成功!");
 		} catch (RuntimeException e) {
 			logger.error(e.getMessage(), e);
