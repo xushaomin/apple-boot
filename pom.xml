@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.appleframework.boot</groupId>
 	<artifactId>apple-boot</artifactId>
-	<version>0.1.3.RELEASE</version>
+	<version>0.1.4.RELEASE</version>
 	<packaging>pom</packaging>
 
 	<name>apple-boot</name>
@@ -14,7 +13,7 @@
 	<properties>
 		<file.encoding>UTF-8</file.encoding>
 		<java.version>1.6</java.version>
-		<project.version>0.1.3.RELEASE</project.version>
+		<project.version>0.1.4.RELEASE</project.version>
 		<spring.version>4.0.5.RELEASE</spring.version>
 		<config.version>0.1.1.RELEASE</config.version>
 		<jetty.version>8.1.6.v20120903</jetty.version>
@@ -81,7 +80,8 @@
 	    <module>apple-boot-core</module>
 		<module>apple-boot-spring</module>
 		<module>apple-boot-jetty</module>
-	</modules>
+    <module>apple-boot-tomcat</module>
+  </modules>
 
 	<build>
 		<plugins>
