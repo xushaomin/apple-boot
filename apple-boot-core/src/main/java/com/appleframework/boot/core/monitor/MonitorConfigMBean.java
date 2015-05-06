@@ -18,4 +18,6 @@ public interface MonitorConfigMBean {
 
 	public String getInstallPath();
 	
+	public String getProtocolName();
+	
 }
