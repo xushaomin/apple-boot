@@ -59,9 +59,9 @@ public class Main {
 			Container springContainer = new SpringContainer();
 			Container log4jContainer = new Log4jContainer();
             Container monitorContainer = new MonitorContainer();
-            containers.add(springContainer);
             containers.add(log4jContainer);
             containers.add(monitorContainer);
+            containers.add(springContainer);
             
             logger.info("Use container type(" + Arrays.toString(args) + ") to run serivce.");
             
