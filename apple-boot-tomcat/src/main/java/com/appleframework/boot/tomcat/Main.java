@@ -58,9 +58,9 @@ public class Main {
 			Container springContainer = new SpringContainer();
 			Container log4jContainer = new Log4jContainer();
             Container monitorContainer = new MonitorContainer();
-            containers.add(springContainer);
             containers.add(log4jContainer);
             containers.add(monitorContainer);
+            containers.add(springContainer);
 
 			if ("true".equals(System.getProperty(SHUTDOWN_HOOK_KEY))) {
 				Runtime.getRuntime().addShutdownHook(new Thread() {
