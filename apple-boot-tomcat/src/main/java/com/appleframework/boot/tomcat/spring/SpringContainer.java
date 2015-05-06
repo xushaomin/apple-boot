@@ -16,7 +16,7 @@ public class SpringContainer implements Container {
 
 	private static Logger logger = Logger.getLogger(SpringContainer.class);
     
-    public static final String DEFAULT_SPRING_CONFIG = "classpath*:META-INF/apple/spring-tomcat.xml";
+    public static final String DEFAULT_SPRING_CONFIG = "classpath*:META-INF/apple/apple-boot-tomcat-spring.xml";
 
     static ClassPathXmlApplicationContext context;
     
