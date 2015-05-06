@@ -17,7 +17,7 @@ public class SpringContainer implements Container {
 
 	private static Logger logger = Logger.getLogger(SpringContainer.class);
     
-    public static final String DEFAULT_SPRING_CONFIG = "classpath*:META-INF/apple/spring-jetty.xml";
+    public static final String DEFAULT_SPRING_CONFIG = "classpath*:META-INF/apple/apple-boot-jetty-spring.xml";
 
     static ClassPathXmlApplicationContext context;
     

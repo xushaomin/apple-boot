@@ -34,7 +34,8 @@ public class SpringJettyMain {
 				logger.warn("配置项：env=" + EnvConfigurer.env);
 			}
 		}
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath*:META-INF/apple/spring-jetty.xml");
+        ApplicationContext applicationContext = 
+        		new ClassPathXmlApplicationContext("classpath*:META-INF/apple/apple-boot-jetty-spring.xml");
     	//ApplicationContext applicationContext = new FileSystemXmlApplicationContext("webapp/WEB-INF/apple/spring-jetty.xml");
         WebAppContext webAppContext = applicationContext.getBean("webAppContext", WebAppContext.class);
         //webAppContext.setMaxFormContentSize(9000000);
