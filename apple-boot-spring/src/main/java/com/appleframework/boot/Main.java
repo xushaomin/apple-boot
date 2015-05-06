@@ -16,6 +16,8 @@ import org.apache.log4j.Logger;
 import com.appleframework.boot.core.Container;
 import com.appleframework.boot.core.log4j.Log4jContainer;
 import com.appleframework.boot.core.log4j.LoggingConfig;
+import com.appleframework.boot.core.monitor.MonitorConfig;
+import com.appleframework.boot.core.monitor.MonitorContainer;
 import com.appleframework.boot.spring.SpringContainer;
 import com.appleframework.boot.spring.jmx.SpringContainerManager;
 import com.appleframework.config.core.EnvConfigurer;
@@ -53,11 +55,13 @@ public class Main {
         	        	
         	MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
             
-            final List<Container> containers = new ArrayList<Container>();
-            Container springContainer = new SpringContainer();
-            Container log4JContainer = new Log4jContainer();
+        	final List<Container> containers = new ArrayList<Container>();
+			Container springContainer = new SpringContainer();
+			Container log4jContainer = new Log4jContainer();
+            Container monitorContainer = new MonitorContainer();
             containers.add(springContainer);
-            containers.add(log4JContainer);
+            containers.add(log4jContainer);
+            containers.add(monitorContainer);
             
             logger.info("Use container type(" + Arrays.toString(args) + ") to run serivce.");
             
@@ -101,6 +105,14 @@ public class Main {
 					}
 					else if(container instanceof Log4jContainer) {
 						LoggingConfig mbean = new LoggingConfig();
+
+						if (mbs.isRegistered(oname)) {
+							mbs.unregisterMBean(oname);
+						}
+						mbs.registerMBean(mbean, oname);
+					}
+					else if(container instanceof MonitorContainer) {
+						MonitorConfig mbean = new MonitorConfig();
 
 						if (mbs.isRegistered(oname)) {
 							mbs.unregisterMBean(oname);
