@@ -75,7 +75,7 @@ public class SpringContainer implements Container {
     
 	@Override
 	public String getType() {
-		return "TomcatContainer";
+		return "SpringContainer";
 	}
 
 }
