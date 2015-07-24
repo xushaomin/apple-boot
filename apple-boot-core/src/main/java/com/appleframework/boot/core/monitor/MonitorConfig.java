@@ -23,7 +23,6 @@ public class MonitorConfig implements MonitorConfigMBean {
 	private static String KEY_JMX_PORT         = "jmx.port";
 	private static String KEY_INSTALL_PATH     = "install.path";
 	private static String KEY_PROTOCOL_NAME    = "protocol.name";
-	
 
 	public String getApplicationName() {
 		return SystemPropertiesUtils.getString(KEY_APPLICATION_NAME);
@@ -60,7 +59,5 @@ public class MonitorConfig implements MonitorConfigMBean {
 	public String getProtocolName() {
 		return SystemPropertiesUtils.getString(KEY_PROTOCOL_NAME);
 	}
-	
-	
 
 }

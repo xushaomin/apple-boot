@@ -24,8 +24,7 @@ public class LoggingConfig implements LoggingConfigMBean {
 		List<String> resultList = new ArrayList<String>();
 		while (enumList.hasMoreElements()) {
 			logger = (Logger) enumList.nextElement();
-			if (filter == null
-					|| (filter != null && logger.getName().contains(filter))) {
+			if (filter == null || (filter != null && logger.getName().contains(filter))) {
 				resultList.add(logger.getName());
 			}
 		}
@@ -60,8 +59,13 @@ public class LoggingConfig implements LoggingConfigMBean {
 		assignLogLevel(target, Level.TRACE);
 	}
 	
-	public void assignLevel(String target, Level Level ) {
+	public void assignLevel(String target, Level Level) {
 		assignLogLevel(target, Level);
+	}
+	
+	public void assignLevel(String logLevel) {
+		Level level = Level.toLevel(logLevel);
+		this.assignLogLevel(null, level);
 	}
 
 	private void assignLogLevel(String target, Level level) {
@@ -101,8 +105,6 @@ public class LoggingConfig implements LoggingConfigMBean {
 		return sw.toString();
 	}
 	
-	
-	
 	public void assignInfoLevel() {
 		assignLogLevel(null, Level.INFO);
 	}
@@ -115,7 +117,7 @@ public class LoggingConfig implements LoggingConfigMBean {
 		assignLogLevel(null, Level.ERROR);
 	}
 
-	public void assignDebug() {
+	public void assignDebugLevel() {
 		assignLogLevel(null, Level.DEBUG);
 	}
 

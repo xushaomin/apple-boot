@@ -64,8 +64,15 @@ public interface LoggingConfigMBean {
 	 */
 	public String printLog4jConfig();
 	
+	/**
+	 * assigns the {@link Level#level} to the target
+	 */
 	public void assignLevel(String target, Level Level);
 	
+	/**
+	 * assigns the {@link Level#level} to the RootLogger
+	 */
+	public void assignLevel(String level);
 	
 	/**
 	 * assigns the {@link Level#INFO} to the RootLogger
@@ -85,7 +92,7 @@ public interface LoggingConfigMBean {
 	/**
 	 * assigns the {@link Level#DEBUG} to the RootLogger
 	 */
-	public void assignDebug();
+	public void assignDebugLevel();
 	
 	/**
 	 * assigns the {@link Level#FATAL} to the RootLogger

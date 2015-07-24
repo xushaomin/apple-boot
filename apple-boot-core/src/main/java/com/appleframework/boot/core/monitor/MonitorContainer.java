@@ -85,7 +85,7 @@ public class MonitorContainer implements Container {
 		String path = url.getPath();
 		int indexConf = path.lastIndexOf("/conf");
 		String installPath = path.substring(0, indexConf);
-		logger.error(installPath);
+		logger.info(installPath);
 		return installPath;
 	}
 
