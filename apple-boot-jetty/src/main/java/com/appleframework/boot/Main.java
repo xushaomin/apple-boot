@@ -79,8 +79,8 @@ public class Main {
 					
 					Hashtable<String, String> properties = new Hashtable<String, String>();
 
-					properties.put(TYPE_KEY, DEFAULT_TYPE);
-					properties.put(ID_KEY, container.getType());
+					properties.put(Container.TYPE_KEY, Container.DEFAULT_TYPE);
+					properties.put(Container.ID_KEY, container.getType());
 					
 					ObjectName oname = ObjectName.getInstance("com.appleframework", properties);
 					if(container instanceof SpringContainer) {
