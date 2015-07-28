@@ -30,14 +30,7 @@ import com.appleframework.config.core.EnvConfigurer;
 public class Main {
 
     public static final String SHUTDOWN_HOOK_KEY = "shutdown.hook";
-    
-    /* 默认的Type */
-	private static final String DEFAULT_TYPE = "container";
-	/* type的key */
-	private static final String TYPE_KEY = "type";
-	/* name的key */
-	private static final String ID_KEY = "id";
-    
+        
     private static Logger logger = Logger.getLogger(Main.class);
     
     private static volatile boolean running = true;
@@ -91,8 +84,8 @@ public class Main {
 					
 					Hashtable<String, String> properties = new Hashtable<String, String>();
 
-					properties.put(TYPE_KEY, DEFAULT_TYPE);
-					properties.put(ID_KEY, container.getType());
+					properties.put(Container.TYPE_KEY, Container.DEFAULT_TYPE);
+					properties.put(Container.ID_KEY, container.getType());
 					
 					ObjectName oname = ObjectName.getInstance("com.appleframework", properties);
 					if(container instanceof SpringContainer) {

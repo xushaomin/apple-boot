@@ -29,14 +29,7 @@ import com.appleframework.config.core.EnvConfigurer;
 public class Main {
 
     public static final String SHUTDOWN_HOOK_KEY = "shutdown.hook";
-    
-    /* 默认的Type */
-	private static final String DEFAULT_TYPE = "container";
-	/* type的key */
-	private static final String TYPE_KEY = "type";
-	/* name的key */
-	private static final String ID_KEY = "id";
-    
+        
     private static Logger logger = Logger.getLogger(Main.class);
     
     protected static volatile boolean running = true;
