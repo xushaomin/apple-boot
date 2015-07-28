@@ -12,10 +12,13 @@ import com.appleframework.boot.core.Container;
 public class Log4jContainer implements Container {
 
 	private static Logger logger = Logger.getLogger(Log4jContainer.class);
+	
+	private static long startTime = System.currentTimeMillis();
 
 	@Override
 	public void start() {
 		logger.warn("Log4jContainer start");
+		startTime = System.currentTimeMillis();
 	}
 
 	@Override
@@ -47,5 +50,11 @@ public class Log4jContainer implements Container {
 	public String getType() {
 		return "LogContainer";
 	}
+
+	public long getStartTime() {
+		return startTime;
+	}
+	
+	
 
 }

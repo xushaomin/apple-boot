@@ -36,5 +36,10 @@ public interface Container {
      * status.
      */
     boolean isRunning();
+    
+    /**
+     * startTime.
+     */
+    long getStartTime();
 
 }

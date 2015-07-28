@@ -114,6 +114,9 @@ public class Main {
 						}
 						mbs.registerMBean(mbean, oname);
 					}
+					else {
+						
+					}
 				} catch (Exception e) {
 					logger.error("注册JMX服务出错：" + e.getMessage(), e);
 				}

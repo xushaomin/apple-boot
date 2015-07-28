@@ -15,11 +15,14 @@ public class MonitorContainer implements Container {
 
 	private static Logger logger = Logger.getLogger(MonitorContainer.class);
 	
+	private static long startTime = System.currentTimeMillis();
+	
 	private static String CONTAINER_NAME = "MonitorContainer";
 
 	@Override
 	public void start() {
 		logger.warn(CONTAINER_NAME + " start");
+		startTime = System.currentTimeMillis();
 		this.send();
 	}
 
@@ -87,6 +90,10 @@ public class MonitorContainer implements Container {
 		String installPath = path.substring(0, indexConf);
 		logger.info(installPath);
 		return installPath;
+	}
+
+	public long getStartTime() {
+		return startTime;
 	}
 
 }

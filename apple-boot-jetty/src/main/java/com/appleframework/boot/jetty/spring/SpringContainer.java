@@ -21,6 +21,8 @@ public class SpringContainer implements Container {
 
     static ClassPathXmlApplicationContext context;
     
+	private static long startTime = System.currentTimeMillis();
+    
     public static ClassPathXmlApplicationContext getContext() {
 		return context;
 	}
@@ -34,6 +36,7 @@ public class SpringContainer implements Container {
   
         logger.warn("Start jetty web context context= " + webAppContext.getContextPath() 
         		+ ";resource base=" + webAppContext.getResourceBase());
+        startTime = System.currentTimeMillis();
         try {
             Server server = context.getBean("jettyServer", Server.class);
             server.start();
@@ -81,7 +84,14 @@ public class SpringContainer implements Container {
     
 	@Override
 	public String getType() {
-		return "JettyContainer";
+		return "SpringContainer";
 	}
+
+	@Override
+	public long getStartTime() {
+		return startTime;
+	}
+	
+	
 
 }

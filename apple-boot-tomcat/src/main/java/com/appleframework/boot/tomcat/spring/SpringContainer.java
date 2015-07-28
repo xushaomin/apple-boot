@@ -20,6 +20,8 @@ public class SpringContainer implements Container {
 
     static ClassPathXmlApplicationContext context;
     
+	private static long startTime = System.currentTimeMillis();
+    
     public static ClassPathXmlApplicationContext getContext() {
 		return context;
 	}
@@ -36,6 +38,7 @@ public class SpringContainer implements Container {
         } catch (Exception e) {
         	logger.error("Failed to start tomcat server on " + ":" + ", cause: " + e.getMessage(), e);
         }
+        startTime = System.currentTimeMillis();
     }
 
     public void stop() {
@@ -78,4 +81,9 @@ public class SpringContainer implements Container {
 		return "SpringContainer";
 	}
 
+	@Override
+	public long getStartTime() {
+		return startTime;
+	}
+	
 }
