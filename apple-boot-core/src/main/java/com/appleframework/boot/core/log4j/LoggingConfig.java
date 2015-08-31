@@ -43,7 +43,7 @@ public class LoggingConfig implements LoggingConfigMBean {
 		assignLogLevel(target, Level.ERROR);
 	}
 
-	public void assignDebug(String target) {
+	public void assignDebugLevel(String target) {
 		assignLogLevel(target, Level.DEBUG);
 	}
 

@@ -33,7 +33,7 @@ public interface LoggingConfigMBean {
 	 * assigns the {@link Level#DEBUG} to the given class
 	 * @param target the FQCN of the class
 	 */
-	public void assignDebug(String target);
+	public void assignDebugLevel(String target);
 	
 	/**
 	 * assigns the {@link Level#FATAL} to the given class
