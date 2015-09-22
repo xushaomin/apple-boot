@@ -11,11 +11,7 @@
 	<artifactId>apple-boot-tomcat</artifactId>
 	<name>apple-boot-tomcat</name>
 	<url>http://mvnrepo.appleframework.com</url>
-	
-	<properties>
-		<tomcat.version>7.0.64</tomcat.version>
-	</properties>
-	
+		
 	<dependencies>
 	
 		<dependency>
