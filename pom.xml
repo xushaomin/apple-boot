@@ -17,10 +17,18 @@
 		<spring.version>4.2.0.RELEASE</spring.version>
 		<config.version>0.1.2.RELEASE</config.version>
 		<jetty.version>8.1.17.v20150415</jetty.version>
+		<tomcat.version>7.0.64</tomcat.version>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
+		
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.12</version>
+				<scope>test</scope>
+			</dependency>
 
 			<dependency>
 				<groupId>com.appleframework.config</groupId>
@@ -44,27 +52,6 @@
 				<groupId>log4j</groupId>
 				<artifactId>log4j</artifactId>
 				<version>1.2.16</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.eclipse.jetty</groupId>
-				<artifactId>jetty-server</artifactId>
-				<version>${jetty.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.eclipse.jetty</groupId>
-				<artifactId>jetty-webapp</artifactId>
-				<version>${jetty.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.eclipse.jetty</groupId>
-				<artifactId>test-jetty-servlet</artifactId>
-				<version>${jetty.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.eclipse.jetty</groupId>
-				<artifactId>jetty-util</artifactId>
-				<version>${jetty.version}</version>
 			</dependency>
 			
 			<dependency>
