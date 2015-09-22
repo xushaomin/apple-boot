@@ -16,7 +16,7 @@
 		<project.version>0.1.6.RELEASE</project.version>
 		<spring.version>4.2.0.RELEASE</spring.version>
 		<config.version>0.1.2.RELEASE</config.version>
-		<jetty.version>8.1.6.v20120903</jetty.version>
+		<jetty.version>8.1.17.v20150415</jetty.version>
 	</properties>
 
 	<dependencyManagement>
