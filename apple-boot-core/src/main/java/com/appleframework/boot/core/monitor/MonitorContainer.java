@@ -76,7 +76,7 @@ public class MonitorContainer implements Container {
 			HttpUtils.post(MONITOR_URL, params);
 			return true;
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error("通过httpclient发送监控同步数据通知失败");
 			return false;
 		}
 	}
