@@ -1,6 +1,8 @@
 package com.appleframework.boot.core.monitor;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -8,6 +10,7 @@ import org.jgroups.JChannel;
 import org.jgroups.Message;
 
 import com.appleframework.boot.core.Container;
+import com.appleframework.boot.utils.HttpUtils;
 import com.appleframework.boot.utils.NetUtils;
 import com.appleframework.boot.utils.SystemPropertiesUtils;
 
@@ -18,6 +21,8 @@ public class MonitorContainer implements Container {
 	private static long startTime = System.currentTimeMillis();
 	
 	private static String CONTAINER_NAME = "MonitorContainer";
+	
+	private static String MONITOR_URL = "http://monitor.appleframework.com/collect/application";
 
 	@Override
 	public void start() {
@@ -52,6 +57,31 @@ public class MonitorContainer implements Container {
 	}
 	
 	private void send() {
+		boolean isPostSuccess = postMessage();
+		if(isPostSuccess == false) {
+			sendMessage();
+		}
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private boolean postMessage() {
+		try {
+			logger.warn("发送监控同步数据通知");
+			Properties prop = SystemPropertiesUtils.getProp();
+			String hostName = NetUtils.getLocalHost();
+			prop.put("node.ip", NetUtils.getIpByHost(hostName));
+			prop.put("node.host", hostName);
+			prop.put("install.path", getInstallPath());
+			Map<String, String> params = new HashMap<String, String>((Map)prop);
+			HttpUtils.post(MONITOR_URL, params);
+			return true;
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			return false;
+		}
+	}
+	
+	private void sendMessage() {
 		try {
 			/**
 			 * 参数里指定Channel使用的协议栈，如果是空的，则使用默认的协议栈，

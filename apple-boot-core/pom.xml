@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>apple-boot</artifactId>
 		<groupId>com.appleframework.boot</groupId>
-		<version>0.1.9.RELEASE</version>
+		<version>0.2.0.RELEASE</version>
 	</parent>
 	<artifactId>apple-boot-core</artifactId>
 	<name>apple-boot-core</name>
@@ -26,6 +26,11 @@
 		<dependency>
     		<groupId>org.jgroups</groupId>
   			<artifactId>jgroups</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
 		</dependency>
 
 	</dependencies>
