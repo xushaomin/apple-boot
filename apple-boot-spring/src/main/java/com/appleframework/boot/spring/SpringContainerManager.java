@@ -1,7 +1,7 @@
-package com.appleframework.boot.spring.jmx;
+package com.appleframework.boot.spring;
 
 import com.appleframework.boot.core.Container;
-import com.appleframework.boot.spring.SpringContainer;
+import com.appleframework.boot.jmx.SpringContainerManagerMBean;
 
 
 /**
