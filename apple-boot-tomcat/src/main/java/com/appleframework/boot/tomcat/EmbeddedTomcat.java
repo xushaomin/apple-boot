@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
  * */
 public class EmbeddedTomcat {
 
-	private static Logger logger = Logger.getLogger(Main.class);
+	private static Logger logger = Logger.getLogger(EmbeddedTomcat.class);
 
 	private static Tomcat tomcat = null;
 	private static String ENCODING = "UTF-8";
