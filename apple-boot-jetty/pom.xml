@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>apple-boot</artifactId>
 		<groupId>com.appleframework.boot</groupId>
-		<version>0.2.0.RELEASE</version>
+		<version>0.2.1.RELEASE</version>
 	</parent>
 	<artifactId>apple-boot-jetty</artifactId>
 	<name>apple-boot-jetty</name>
