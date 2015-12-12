@@ -32,10 +32,10 @@ public class SpringContainer implements Container {
         context = new ClassPathXmlApplicationContext(configPath.split("[,\\s]+"));
         
         WebAppContext webAppContext = context.getBean("webAppContext", WebAppContext.class);
-        webAppContext.setMaxFormContentSize(-1);
-  
-        logger.warn("Start jetty web context context= " + webAppContext.getContextPath() 
-        		+ ";resource base=" + webAppContext.getResourceBase());
+        //webAppContext.setMaxFormContentSize(-1);
+        
+        logger.warn("Start jetty web context maxFormContentSize= " + webAppContext.getMaxFormContentSize()); 
+        logger.warn("Start jetty web context context= " + webAppContext.getContextPath() + ";resource base=" + webAppContext.getResourceBase());
         startTime = System.currentTimeMillis();
         try {
             Server server = context.getBean("jettyServer", Server.class);
