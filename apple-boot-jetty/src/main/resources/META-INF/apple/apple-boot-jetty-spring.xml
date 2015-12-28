@@ -19,12 +19,10 @@
 		<property name="maxFormContentSize" value="${web.maxFormContentSize:-1}" />
 	</bean>
 	
-	<!-- 
 	<bean id="threadPool" class="org.eclipse.jetty.util.thread.QueuedThreadPool">
-		<property name="minThreads" value="${web.min.threads:10}" />
+		<property name="minThreads" value="${web.min.threads:100}" />
 		<property name="maxThreads" value="${web.max.threads:1000}" />
 	</bean>
-	 -->
 	 
 	<bean id="jettyServer" class="org.eclipse.jetty.server.Server" destroy-method="stop">
 		<property name="connectors">
@@ -35,7 +33,7 @@
 			</list>
 		</property>
 		<property name="handler" ref="webAppContext" />
-		<!-- <property name="threadPool" ref="threadPool" /> -->
+		<property name="threadPool" ref="threadPool" />
 	</bean>
 
 </beans>
