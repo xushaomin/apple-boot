@@ -13,6 +13,7 @@ import com.appleframework.boot.core.Container;
 import com.appleframework.boot.utils.HttpUtils;
 import com.appleframework.boot.utils.NetUtils;
 import com.appleframework.boot.utils.SystemPropertiesUtils;
+import com.appleframework.config.core.EnvConfigurer;
 
 public class MonitorContainer implements Container {
 
@@ -72,6 +73,9 @@ public class MonitorContainer implements Container {
 			prop.put("node.ip", NetUtils.getIpByHost(hostName));
 			prop.put("node.host", hostName);
 			prop.put("install.path", getInstallPath());
+			if(null != EnvConfigurer.env) {
+				prop.put("deploy.env", EnvConfigurer.env);
+			}
 			Map<String, String> params = new HashMap<String, String>((Map)prop);
 			HttpUtils.post(MONITOR_URL, params);
 			return true;
