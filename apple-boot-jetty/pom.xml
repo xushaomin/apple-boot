@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>apple-boot</artifactId>
 		<groupId>com.appleframework.boot</groupId>
-		<version>0.2.3.RELEASE</version>
+		<version>0.2.4.RELEASE</version>
 	</parent>
 	<artifactId>apple-boot-jetty</artifactId>
 	<name>apple-boot-jetty</name>
@@ -19,12 +19,7 @@
 			<artifactId>apple-boot-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-
-		<dependency>
-			<groupId>com.appleframework.config</groupId>
-			<artifactId>apple-config-core</artifactId>
-		</dependency>
-
+		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -51,7 +46,14 @@
 			<artifactId>jetty-util</artifactId>
 			<version>${jetty.version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
 
+		<!-- 
 		<dependency>
 			<groupId>org.eclipse.jetty.orbit</groupId>
 			<artifactId>org.apache.jasper.glassfish</artifactId>
@@ -75,7 +77,7 @@
 			<artifactId>com.sun.el</artifactId>
 			<version>2.2.0.v201303151357</version>
 		</dependency>
-
+		 -->
 		<dependency>
 			<groupId>com.google.collections</groupId>
 			<artifactId>google-collections</artifactId>

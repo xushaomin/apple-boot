@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>apple-boot</artifactId>
 		<groupId>com.appleframework.boot</groupId>
-		<version>0.2.3.RELEASE</version>
+		<version>0.2.4.RELEASE</version>
 	</parent>
 	<artifactId>apple-boot-core</artifactId>
 	<name>apple-boot-core</name>
@@ -33,10 +33,5 @@
 			<artifactId>httpclient</artifactId>
 		</dependency>
 		
-		<dependency>
-			<groupId>com.appleframework.config</groupId>
-			<artifactId>apple-config-core</artifactId>
-		</dependency>
-
 	</dependencies>
 </project>
