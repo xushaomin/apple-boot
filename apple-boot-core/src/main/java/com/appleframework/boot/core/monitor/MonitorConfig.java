@@ -12,7 +12,6 @@ public class MonitorConfig implements MonitorConfigMBean {
 	// private Integer webPort;
 	// private Integer jmxPort;
 	// private String installPath;
-	// private String protocolName;
 
 	private static String KEY_APPLICATION_NAME = "application.name";
 	private static String KEY_DATA_ID          = "deploy.dataId";
@@ -22,7 +21,6 @@ public class MonitorConfig implements MonitorConfigMBean {
 	private static String KEY_WEB_PORT         = "web.port";
 	private static String KEY_JMX_PORT         = "jmx.port";
 	private static String KEY_INSTALL_PATH     = "install.path";
-	private static String KEY_PROTOCOL_NAME    = "protocol.name";
 
 	public String getApplicationName() {
 		return SystemPropertiesUtils.getString(KEY_APPLICATION_NAME);
@@ -55,9 +53,5 @@ public class MonitorConfig implements MonitorConfigMBean {
 	public String getInstallPath() {
 		return SystemPropertiesUtils.getString(KEY_INSTALL_PATH);
 	}
-
-	public String getProtocolName() {
-		return SystemPropertiesUtils.getString(KEY_PROTOCOL_NAME);
-	}
-
+	
 }
