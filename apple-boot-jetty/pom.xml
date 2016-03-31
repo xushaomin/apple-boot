@@ -57,11 +57,14 @@
 			<artifactId>jetty-jmx</artifactId>
 			<version>${jetty.version}</version>
 		</dependency>
+		
+		<!-- 
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-monitor</artifactId>
 			<version>${jetty.version}</version>
 		</dependency>
+		 -->
 		
 		<dependency>
 			<groupId>javax.servlet</groupId>
