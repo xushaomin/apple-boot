@@ -1,6 +1,9 @@
 package com.appleframework.boot.jetty.spring;
 
+import java.lang.management.ManagementFactory;
+
 import org.apache.log4j.Logger;
+import org.eclipse.jetty.jmx.MBeanContainer;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -39,6 +42,12 @@ public class SpringContainer implements Container {
         startTime = System.currentTimeMillis();
         try {
             Server server = context.getBean("jettyServer", Server.class);
+            
+            // Setup JMX
+			MBeanContainer mbeanContainer = new MBeanContainer(ManagementFactory.getPlatformMBeanServer());
+            server.getContainer().addEventListener(mbeanContainer);
+            server.addBean(mbeanContainer);
+            
             server.start();
             server.join();
             logger.warn("启动成功");
