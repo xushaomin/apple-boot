@@ -1,4 +1,4 @@
-package com.appleframework.boot.core;
+package com.appleframework.config.core;
 
 public class EnvConfigurer {
 
