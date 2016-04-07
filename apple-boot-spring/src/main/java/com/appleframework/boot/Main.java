@@ -37,6 +37,7 @@ public class Main {
 
     public static void main(String[] args) {
         try {
+        	Version.logVersion();
         	for (int i = 0; i < args.length; i++) {
 				String envArgs = args[i];
 				if(envArgs.indexOf("env=") > -1) {
