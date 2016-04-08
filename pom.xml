@@ -4,7 +4,7 @@
 
 	<groupId>com.appleframework.boot</groupId>
 	<artifactId>apple-boot</artifactId>
-	<version>0.2.4.RELEASE</version>
+	<version>0.2.5.RELEASE</version>
 	<packaging>pom</packaging>
 
 	<name>apple-boot</name>
@@ -13,7 +13,7 @@
 	<properties>
 		<file.encoding>UTF-8</file.encoding>
 		<java.version>1.7</java.version>
-		<project.version>0.2.4.RELEASE</project.version>
+		<project.version>0.2.5.RELEASE</project.version>
 		<spring.version>4.2.0.RELEASE</spring.version>
 		<jetty.version>8.1.19.v20160209</jetty.version>
 		<tomcat.version>8.0.33</tomcat.version>
@@ -79,7 +79,7 @@
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>httpclient</artifactId>
 				<version>4.3.5</version>
-			</dependency>
+			</dependency>			
 
 		</dependencies>
 	</dependencyManagement>
@@ -143,6 +143,55 @@
 					</systemProperties>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>3.0.1</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                        <DynamicImport-Package>*</DynamicImport-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+            
+   			<plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.2</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.10</version>
+                <configuration>
+                    <downloadSources>true</downloadSources>
+                    <forceRecheck>true</forceRecheck>
+                </configuration>
+            </plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestEntries>  
+                     		<Bundle-Name>${project.artifactId}</Bundle-Name>
+                     		<Bundle-Version>${project.version}</Bundle-Version>
+                     	</manifestEntries>  
+					</archive>
+				</configuration>
+			</plugin>
+            
 		</plugins>
 	</build>
 

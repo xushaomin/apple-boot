@@ -49,12 +49,9 @@ public class Main {
 			MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
 
 			final List<Container> containers = new ArrayList<Container>();
-			Container springContainer = new SpringContainer();
-			Container log4jContainer = new Log4jContainer();
-            Container monitorContainer = new MonitorContainer();
-            containers.add(log4jContainer);
-            containers.add(monitorContainer);
-            containers.add(springContainer);
+            containers.add(new MonitorContainer());
+            containers.add(new Log4jContainer());
+            containers.add(new SpringContainer());
 
 			if ("true".equals(System.getProperty(SHUTDOWN_HOOK_KEY))) {
 				Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -84,30 +81,28 @@ public class Main {
 					properties.put(Container.ID_KEY, container.getType());
 					
 					ObjectName oname = ObjectName.getInstance("com.appleframework", properties);
+					Object mbean = null;
 					if(container instanceof SpringContainer) {
-						SpringContainerManager mbean = new SpringContainerManager();
-
-						if (mbs.isRegistered(oname)) {
-							mbs.unregisterMBean(oname);
-						}
-						mbs.registerMBean(mbean, oname);
+						mbean = new SpringContainerManager();
 					}
 					else if(container instanceof Log4jContainer) {
-						LoggingConfig mbean = new LoggingConfig();
-
-						if (mbs.isRegistered(oname)) {
-							mbs.unregisterMBean(oname);
-						}
-						mbs.registerMBean(mbean, oname);
+						mbean = new LoggingConfig();
 					}
 					else if(container instanceof MonitorContainer) {
-						MonitorConfig mbean = new MonitorConfig();
-
-						if (mbs.isRegistered(oname)) {
-							mbs.unregisterMBean(oname);
-						}
-						mbs.registerMBean(mbean, oname);
+						mbean = new MonitorConfig();
 					}
+					else {
+						mbean = null;
+					}
+					
+					if(null == mbean)
+						continue;
+					
+					if (mbs.isRegistered(oname)) {
+						mbs.unregisterMBean(oname);
+					}
+					mbs.registerMBean(mbean, oname);
+
 				} catch (Exception e) {
 					logger.error("注册JMX服务出错：" + e.getMessage(), e);
 				}

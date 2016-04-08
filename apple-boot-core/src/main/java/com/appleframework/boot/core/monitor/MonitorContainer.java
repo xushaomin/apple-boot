@@ -121,9 +121,14 @@ public class MonitorContainer implements Container {
 		URL url = Thread.currentThread().getContextClassLoader().getResource("");
 		String path = url.getPath();
 		int indexConf = path.lastIndexOf("/conf");
-		String installPath = path.substring(0, indexConf);
-		logger.info(installPath);
-		return installPath;
+		if( indexConf > -1) {
+			String installPath = path.substring(0, indexConf);
+			logger.info(installPath);
+			return installPath;
+		}
+		else {
+			return path;
+		}
 	}
 
 	public long getStartTime() {
