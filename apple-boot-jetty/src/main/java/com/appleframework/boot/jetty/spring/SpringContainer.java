@@ -93,7 +93,7 @@ public class SpringContainer implements Container {
     
 	@Override
 	public String getType() {
-		return "SpringContainer";
+		return "JettyContainer";
 	}
 
 	@Override
