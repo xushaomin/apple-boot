@@ -11,6 +11,10 @@
 		</property>
 	</bean>
 	
+	<bean id="serverPort" class="com.appleframework.boot.jetty.spring.ServerPort">
+		<property name="port" value="${web.port}" />
+	</bean>
+	
 	<bean id="webAppContext" class="org.eclipse.jetty.webapp.WebAppContext">
 		<property name="contextPath" value="${web.context:/}" />
 		<property name="resourceBase" value="./webapp" />
@@ -24,16 +28,17 @@
 		<property name="maxThreads" value="${web.max.threads:1000}" />
 	</bean>
 	 
+	<!-- 
 	<bean id="jettyServer" class="org.eclipse.jetty.server.Server" destroy-method="stop">
-		<property name="connectors">
-			<list>
-				<bean id="connector" class="org.eclipse.jetty.server.nio.SelectChannelConnector">
-					<property name="port" value="${web.port}" />
-				</bean>
-			</list>
-		</property>
 		<property name="handler" ref="webAppContext" />
 		<property name="threadPool" ref="threadPool" />
 	</bean>
+	 
+	
+	<bean id="jettyConnector" class="org.eclipse.jetty.server.ServerConnector">
+		<constructor-arg index="0" ref="jettyServer" />
+		<property name="port" value="${web.port}" />
+	</bean>
+	-->
 
 </beans>
