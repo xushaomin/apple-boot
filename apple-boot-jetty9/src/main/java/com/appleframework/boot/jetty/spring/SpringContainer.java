@@ -5,6 +5,8 @@ import java.lang.management.ManagementFactory;
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.jmx.MBeanContainer;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.ServerConnector;
+import org.eclipse.jetty.util.thread.QueuedThreadPool;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -36,12 +38,20 @@ public class SpringContainer implements Container {
         
         WebAppContext webAppContext = context.getBean("webAppContext", WebAppContext.class);
         //webAppContext.setMaxFormContentSize(-1);
+        QueuedThreadPool threadPool = context.getBean("threadPool", QueuedThreadPool.class);
+        ServerPort serverPort = context.getBean("serverPort", ServerPort.class);
         
         logger.warn("Start jetty web context maxFormContentSize= " + webAppContext.getMaxFormContentSize()); 
         logger.warn("Start jetty web context context= " + webAppContext.getContextPath() + ";resource base=" + webAppContext.getResourceBase());
         startTime = System.currentTimeMillis();
         try {
-            Server server = context.getBean("jettyServer", Server.class);
+        	
+            Server server = new Server(threadPool);
+            ServerConnector connector = new ServerConnector(server);
+            connector.setPort(serverPort.getPort());
+            server.addConnector(connector);
+            server.setHandler(webAppContext);
+            server.setStopAtShutdown(true);
             
             // Setup JMX
 			MBeanContainer mbeanContainer = new MBeanContainer(ManagementFactory.getPlatformMBeanServer());
