@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>apple-boot</artifactId>
 		<groupId>com.appleframework.boot</groupId>
-		<version>0.2.6.RELEASE</version>
+		<version>0.2.7.RELEASE</version>
 	</parent>
 	<artifactId>apple-boot-tomcat</artifactId>
 	<name>apple-boot-tomcat</name>

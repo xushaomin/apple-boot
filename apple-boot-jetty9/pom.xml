@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>apple-boot</artifactId>
 		<groupId>com.appleframework.boot</groupId>
-		<version>0.2.6.RELEASE</version>
+		<version>0.2.7.RELEASE</version>
 	</parent>
 	<artifactId>apple-boot-jetty9</artifactId>
 	<name>apple-boot-jetty9</name>
@@ -35,12 +35,14 @@
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-server</artifactId>
 			<version>${jetty9.version}</version>
+			<!-- 
 			<exclusions>
 				<exclusion>
 					<groupId>org.eclipse.jetty.orbit</groupId>
 					<artifactId>javax.servlet</artifactId>
 				</exclusion>
 			</exclusions>
+			 -->
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
@@ -58,19 +60,19 @@
 			<version>${jetty9.version}</version>
 		</dependency>
 		
-		<!-- 
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-jsp</artifactId>
 			<version>${jetty.version}</version>
 		</dependency>
 		
+		<!-- 		
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-monitor</artifactId>
 			<version>${jetty9.version}</version>
 		</dependency>
-		 -->
+		 
 		
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -83,7 +85,8 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-
+		-->
+		
 		<!-- 
 		<dependency>
 			<groupId>org.eclipse.jetty.orbit</groupId>
