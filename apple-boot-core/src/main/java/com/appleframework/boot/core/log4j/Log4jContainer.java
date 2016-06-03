@@ -5,6 +5,7 @@ import java.net.URL;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+import org.apache.log4j.xml.DOMConfigurator;
 
 import com.appleframework.boot.core.Container;
 
@@ -30,9 +31,13 @@ public class Log4jContainer implements Container {
 	public void restart() {
 		ClassLoader cl = getClass().getClassLoader();
 		LogManager.resetConfiguration();
-		URL log4jprops = cl.getResource("log4j.properties");
-		if (log4jprops != null) {
-			PropertyConfigurator.configure(log4jprops);
+		URL log4jUrl = cl.getResource("log4j.properties");
+		if (log4jUrl != null) {
+			PropertyConfigurator.configure(log4jUrl);
+		}
+		else {
+			log4jUrl = cl.getResource("log4j.xml");
+			DOMConfigurator.configure(log4jUrl); 
 		}
 	}
 
@@ -54,7 +59,5 @@ public class Log4jContainer implements Container {
 	public long getStartTime() {
 		return startTime;
 	}
-	
-	
 
 }
