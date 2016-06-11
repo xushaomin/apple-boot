@@ -2,6 +2,7 @@ package com.appleframework.boot.tomcat;
 
 import java.net.URL;
 
+import org.apache.catalina.Executor;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.log4j.Logger;
 
@@ -21,7 +22,7 @@ public class EmbeddedTomcat {
 	private String contextPath;
 	private String webAppPath;
 
-	public void startTomcat() throws Exception {
+	public void startTomcat(Executor executor) throws Exception {
 		try {
 			long startTime = System.currentTimeMillis();
 			tomcat = new Tomcat();
@@ -31,9 +32,19 @@ public class EmbeddedTomcat {
 			tomcat.addWebapp(contextPath, getWebAppPath());
 			// tomcat.enableNaming();//执行这句才能支持JDNI查找
 			tomcat.getConnector().setURIEncoding(ENCODING);
+			
+			if(null != executor)
+				tomcat.getService().addExecutor(executor);
+			
 			tomcat.start();
 			logger.warn("Tomcat started in " + (System.currentTimeMillis() - startTime) + " ms.");
 			tomcat.getServer().await();// 让服务器一直跑
+			
+			/*Runtime.getRuntime().addShutdownHook(new Thread() {
+	            public void run() {
+	                stop();
+	            }
+	        });*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -46,14 +57,6 @@ public class EmbeddedTomcat {
 		String webapp = path.substring(0, indexConf) + "/webapp";
 		logger.error(webapp);
 		this.webAppPath = webapp;
-	}
-
-	public static void main(String[] args) {
-		try {
-			new EmbeddedTomcat().startTomcat();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	public void setTomcatPort(int tomcatPort) {
@@ -96,6 +99,14 @@ public class EmbeddedTomcat {
 
 	public String getWebAppPath() {
 		return this.webAppPath;
+	}
+	
+	public static void main(String[] args) {
+		try {
+			new EmbeddedTomcat().startTomcat(null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

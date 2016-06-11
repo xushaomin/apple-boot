@@ -22,6 +22,7 @@
 	<bean id="threadPool" class="org.eclipse.jetty.util.thread.QueuedThreadPool">
 		<property name="minThreads" value="${web.min.threads:100}" />
 		<property name="maxThreads" value="${web.max.threads:1000}" />
+		<property name="maxQueued" value="${web.max.queued:-1}" />
 	</bean>
 	 
 	<bean id="jettyServer" class="org.eclipse.jetty.server.Server" destroy-method="stop">

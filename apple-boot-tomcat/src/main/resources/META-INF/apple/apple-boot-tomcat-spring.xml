@@ -10,6 +10,13 @@
 			</list>
 		</property>
 	</bean>
+		
+	<bean id="tomcatServer" class="org.apache.catalina.core.StandardThreadExecutor" init-method="initInternal"
+		destroy-method="destroyInternal">
+        <property name="minSpareThreads" value="${web.min.threads:100}" />
+		<property name="maxThreads" value="${web.max.threads:1000}" />
+		<property name="maxQueueSize" value="${web.max.queued:2147483647}" />
+    </bean>	
     
     <bean id="tomcatServer" class="com.appleframework.boot.tomcat.EmbeddedTomcat" destroy-method="destroy" 
     	init-method="init">
