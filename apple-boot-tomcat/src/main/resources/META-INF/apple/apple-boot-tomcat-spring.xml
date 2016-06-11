@@ -11,7 +11,7 @@
 		</property>
 	</bean>
 		
-	<bean id="tomcatServer" class="org.apache.catalina.core.StandardThreadExecutor" init-method="initInternal"
+	<bean id="executor" class="org.apache.catalina.core.StandardThreadExecutor" init-method="initInternal"
 		destroy-method="destroyInternal">
         <property name="minSpareThreads" value="${web.min.threads:100}" />
 		<property name="maxThreads" value="${web.max.threads:1000}" />
