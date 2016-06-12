@@ -18,27 +18,6 @@
 	<bean id="webAppEmbed" class="com.caucho.resin.WebAppEmbed">
 		<property name="contextPath" value="${web.context:/}" />
 		<property name="rootDirectory" value="./webapp" />
-		<property name="parentLoaderPriority" value="true" />
-		<property name="descriptor" value="webapp\\WEB-INF\\web.xml" />
-		<property name="maxFormContentSize" value="${web.maxFormContentSize:-1}" />
-	</bean>
-	
-	<bean id="threadPool" class="org.eclipse.jetty.util.thread.QueuedThreadPool">
-		<property name="minThreads" value="${web.min.threads:100}" />
-		<property name="maxThreads" value="${web.max.threads:1000}" />
-		<property name="maxQueued" value="${web.max.queued:-1}" />
-	</bean>
-	 
-	<bean id="jettyServer" class="org.eclipse.jetty.server.Server" destroy-method="stop">
-		<property name="connectors">
-			<list>
-				<bean id="connector" class="org.eclipse.jetty.server.nio.SelectChannelConnector">
-					<property name="port" value="${web.port}" />
-				</bean>
-			</list>
-		</property>
-		<property name="handler" ref="webAppContext" />
-		<property name="threadPool" ref="threadPool" />
 	</bean>
 
 </beans>
