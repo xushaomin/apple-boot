@@ -35,7 +35,7 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.caucho</groupId>			    
+			<groupId>com.caucho</groupId>
 			<artifactId>resin</artifactId>
 			<version>${resin.version}</version>
 		</dependency>
