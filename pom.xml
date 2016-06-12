@@ -85,6 +85,7 @@
 		<module>apple-boot-jetty</module>
 		<module>apple-boot-jetty9</module>
     	<module>apple-boot-tomcat</module>
+    	<module>apple-boot-resin</module>
   	</modules>
 
 	<build>
