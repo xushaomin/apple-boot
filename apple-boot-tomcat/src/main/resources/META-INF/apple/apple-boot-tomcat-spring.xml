@@ -20,6 +20,7 @@
     
     <bean id="tomcatServer" class="com.appleframework.boot.tomcat.EmbeddedTomcat" destroy-method="destroy" 
     	init-method="init">
+   		<property name="executor" ref="executor" />
         <property name="contextPath" value="${web.context}" />
         <property name="tomcatPort" value="${web.port}" />
     </bean>

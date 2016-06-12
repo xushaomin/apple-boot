@@ -29,7 +29,6 @@ public class SpringContainerManager implements SpringContainerManagerMBean {
 	@Override
 	public void stop() {
 		springContainer.stop();
-
 	}
 
 	@Override

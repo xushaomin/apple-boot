@@ -1,7 +1,5 @@
 package com.appleframework.boot.tomcat.spring;
 
-import org.apache.catalina.Executor;
-import org.apache.catalina.core.StandardThreadExecutor;
 import org.apache.log4j.Logger;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -34,11 +32,8 @@ public class SpringContainer implements Container {
         try {
         	EmbeddedTomcat server = context.getBean("tomcatServer", EmbeddedTomcat.class);
         	logger.warn("Start tomcat web context context= " + server.getContextPath() 
-              		+ ";webapp path=" + server.getWebAppPath());
-        	
-        	Executor executor = context.getBean("executor", StandardThreadExecutor.class);
-        	
-            server.startTomcat(executor);
+              		+ ";webapp path=" + server.getWebAppPath());        	
+            server.startTomcat();
             logger.warn("启动成功");
         } catch (Exception e) {
         	logger.error("Failed to start tomcat server on " + ":" + ", cause: " + e.getMessage(), e);

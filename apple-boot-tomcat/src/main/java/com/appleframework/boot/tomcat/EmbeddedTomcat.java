@@ -21,8 +21,9 @@ public class EmbeddedTomcat {
 	private int tomcatPort = TOMCAT_PORT;
 	private String contextPath;
 	private String webAppPath;
+	private Executor executor;
 
-	public void startTomcat(Executor executor) throws Exception {
+	public void startTomcat() throws Exception {
 		try {
 			long startTime = System.currentTimeMillis();
 			tomcat = new Tomcat();
@@ -101,9 +102,13 @@ public class EmbeddedTomcat {
 		return this.webAppPath;
 	}
 	
+	public void setExecutor(Executor executor) {
+		this.executor = executor;
+	}
+
 	public static void main(String[] args) {
 		try {
-			new EmbeddedTomcat().startTomcat(null);
+			new EmbeddedTomcat().startTomcat();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
