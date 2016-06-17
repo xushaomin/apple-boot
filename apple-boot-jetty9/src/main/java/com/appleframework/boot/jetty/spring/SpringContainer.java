@@ -109,8 +109,6 @@ public class SpringContainer implements Container {
 	@Override
 	public long getStartTime() {
 		return startTime;
-	}
-	
-	
+	}	
 
 }
