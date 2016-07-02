@@ -138,4 +138,10 @@ public class LoggingConfig implements LoggingConfigMBean {
 		assignLogLevel(null, Level.TRACE);
 	}
 
+	@Override
+	public String getRootLoggerLevel() {
+		return LogManager.getLoggerRepository().getRootLogger().getLevel().toString();
+	}
+
+	
 }

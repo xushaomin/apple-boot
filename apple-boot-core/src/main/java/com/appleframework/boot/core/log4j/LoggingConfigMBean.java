@@ -108,4 +108,9 @@ public interface LoggingConfigMBean {
 	 * deactivates the logging of the RootLogger
 	 */
 	public void deactivateLogging();
+	
+	/**
+	 * get the level of the RootLogger
+	 */
+	public String getRootLoggerLevel();
 }
