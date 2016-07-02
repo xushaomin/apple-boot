@@ -100,7 +100,5 @@ public class SpringContainer implements Container {
 	public long getStartTime() {
 		return startTime;
 	}
-	
-	
 
 }

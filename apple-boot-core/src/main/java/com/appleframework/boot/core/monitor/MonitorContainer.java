@@ -10,6 +10,7 @@ import org.jgroups.JChannel;
 import org.jgroups.Message;
 
 import com.appleframework.boot.core.Container;
+import com.appleframework.boot.core.log4j.Log4jUtils;
 import com.appleframework.boot.utils.HttpUtils;
 import com.appleframework.boot.utils.NetUtils;
 import com.appleframework.boot.utils.SystemPropertiesUtils;
@@ -68,14 +69,8 @@ public class MonitorContainer implements Container {
 	private boolean postMessage() {
 		try {
 			logger.warn("发送监控同步数据通知");
-			Properties prop = SystemPropertiesUtils.getProp();
-			String hostName = NetUtils.getLocalHost();
-			prop.put("node.ip", NetUtils.getIpByHost(hostName));
-			prop.put("node.host", hostName);
-			prop.put("install.path", getInstallPath());
-			if(null != EnvConfigurer.env) {
-				prop.put("deploy.env", EnvConfigurer.env);
-			}
+			
+			Properties prop = this.getMonitorProperties();
 			Map<String, String> params = new HashMap<String, String>((Map)prop);
 			HttpUtils.post(MONITOR_URL, params);
 			return true;
@@ -93,11 +88,7 @@ public class MonitorContainer implements Container {
 			 */
 			logger.warn("发送监控同步数据通知");
 			
-			Properties prop = SystemPropertiesUtils.getProp();
-			String hostName = NetUtils.getLocalHost();
-			prop.put("node.ip", NetUtils.getIpByHost(hostName));
-			prop.put("node.host", hostName);
-			prop.put("install.path", getInstallPath());
+			Properties prop = this.getMonitorProperties();
 			// 创建一个通道
 			JChannel channel = new JChannel();
 			// 加入一个群
@@ -117,6 +108,19 @@ public class MonitorContainer implements Container {
 		}
 	}
 	
+	private Properties getMonitorProperties(){
+		Properties prop = SystemPropertiesUtils.getProp();
+		String hostName = NetUtils.getLocalHost();
+		prop.put("node.ip", NetUtils.getIpByHost(hostName));
+		prop.put("node.host", hostName);
+		prop.put("install.path", getInstallPath());
+		if(null != EnvConfigurer.env) {
+			prop.put("deploy.env", EnvConfigurer.env);
+		}
+		prop.put("log.level", Log4jUtils.getRootLoggerLevel().toString());
+		return prop;
+	}
+	
 	private String getInstallPath() {
 		URL url = Thread.currentThread().getContextClassLoader().getResource("");
 		String path = url.getPath();
@@ -134,5 +138,4 @@ public class MonitorContainer implements Container {
 	public long getStartTime() {
 		return startTime;
 	}
-
 }

@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.apache.log4j.config.PropertyPrinter;
 import org.apache.log4j.spi.LoggerRepository;
+import org.apache.log4j.xml.DOMConfigurator;
 
 public class LoggingConfig implements LoggingConfigMBean {
 	
@@ -91,9 +92,13 @@ public class LoggingConfig implements LoggingConfigMBean {
 	public void resetConfiguration() {
 		ClassLoader cl = getClass().getClassLoader();
 		LogManager.resetConfiguration();
-		URL log4jprops = cl.getResource("log4j.properties");
-		if (log4jprops != null) {
-			PropertyConfigurator.configure(log4jprops);
+		URL log4jUrl = cl.getResource("log4j.properties");
+		if (log4jUrl != null) {
+			PropertyConfigurator.configure(log4jUrl);
+		}
+		else {
+			log4jUrl = cl.getResource("log4j.xml");
+			DOMConfigurator.configure(log4jUrl); 
 		}
 	}
 

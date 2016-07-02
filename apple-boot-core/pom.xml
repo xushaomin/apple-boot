@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>apple-boot</artifactId>
 		<groupId>com.appleframework.boot</groupId>
-		<version>0.2.8.RELEASE</version>
+		<version>0.2.9.RELEASE</version>
 	</parent>
 	<artifactId>apple-boot-core</artifactId>
 	<name>apple-boot-core</name>

@@ -4,7 +4,7 @@
 
 	<groupId>com.appleframework.boot</groupId>
 	<artifactId>apple-boot</artifactId>
-	<version>0.2.8.RELEASE</version>
+	<version>0.2.9.RELEASE</version>
 	<packaging>pom</packaging>
 
 	<name>apple-boot</name>
@@ -13,11 +13,11 @@
 	<properties>
 		<file.encoding>UTF-8</file.encoding>
 		<java.version>1.7</java.version>
-		<project.version>0.2.8.RELEASE</project.version>
+		<project.version>0.2.9.RELEASE</project.version>
 		<spring.version>4.2.0.RELEASE</spring.version>
 		<jetty.version>8.1.19.v20160209</jetty.version>
 		<jetty9.version>9.2.16.v20160414</jetty9.version>
-		<tomcat.version>8.0.33</tomcat.version>
+		<tomcat.version>8.0.36</tomcat.version>
 	</properties>
 
 	<dependencyManagement>
