@@ -2,8 +2,6 @@ package com.appleframework.boot.core;
 
 import org.apache.log4j.Logger;
 
-import com.appleframework.config.core.EnvConfigurer;
-
 public class CommandOption {
 
 	private static Logger logger = Logger.getLogger(CommandOption.class);
@@ -16,9 +14,6 @@ public class CommandOption {
 				String key = envs[0];
 				String value = envs[1];
 				setSystemProperty(key, value);
-				if (key.indexOf("env") > -1) {
-					EnvConfigurer.env = value;
-				}
 				logger.warn("配置项：" + key + "=" + value);
 
 			} else {

@@ -14,7 +14,6 @@ import com.appleframework.boot.utils.Constants;
 import com.appleframework.boot.utils.HttpUtils;
 import com.appleframework.boot.utils.NetUtils;
 import com.appleframework.boot.utils.SystemPropertiesUtils;
-import com.appleframework.config.core.EnvConfigurer;
 
 public class MonitorContainer implements Container {
 
@@ -129,7 +128,7 @@ public class MonitorContainer implements Container {
 		if(null == env){
 			env = getSystemProperty(Constants.KEY_ENV);
 			if(null == env){
-				env = EnvConfigurer.env;
+				env = "UNKNOWN";
 			}
 		}
 		return env;
@@ -144,7 +143,7 @@ public class MonitorContainer implements Container {
 			return System.getProperty(key);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
-			return "";
+			return null;
 		}
 	}
 }
