@@ -21,18 +21,10 @@ public class SystemPropertiesUtils {
 	
 	private static Properties prop = null;
 	
-	/*public PropertiesConfig(File file){
-		load(file);
-	}*/
-	
 	static {
 		load(ResourceUtils.getAsStream(SYSTEM_PROPERTIES));
 	}
-	
-	public SystemPropertiesUtils(String name) {
-				
-	}
-	
+		
 	private static void load(InputStream is){
 		prop = new Properties();
 		try {
