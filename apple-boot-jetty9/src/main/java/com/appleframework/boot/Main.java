@@ -12,6 +12,7 @@ import javax.management.ObjectName;
 
 import org.apache.log4j.Logger;
 
+import com.appleframework.boot.core.CommandOption;
 import com.appleframework.boot.core.Container;
 import com.appleframework.boot.core.log4j.Log4jContainer;
 import com.appleframework.boot.core.log4j.LoggingConfig;
@@ -19,7 +20,6 @@ import com.appleframework.boot.core.monitor.MonitorConfig;
 import com.appleframework.boot.core.monitor.MonitorContainer;
 import com.appleframework.boot.jetty.spring.SpringContainer;
 import com.appleframework.boot.jetty.spring.SpringContainerManager;
-import com.appleframework.config.core.EnvConfigurer;
 
 /**
  * spring+Jetty的容器
@@ -37,14 +37,8 @@ public class Main {
 	public static void main(String[] args) {
 		try {
 			Version.logVersion();
-			for (int i = 0; i < args.length; i++) {
-				String envArgs = args[i];
-				if (envArgs.indexOf("env=") > -1) {
-					String[] envs = envArgs.split("=");
-					EnvConfigurer.env = envs[1];
-					logger.warn("配置项：env=" + EnvConfigurer.env);
-				}
-			}
+			//处理启动参数
+			CommandOption.parser(args);
 
 			MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
 
