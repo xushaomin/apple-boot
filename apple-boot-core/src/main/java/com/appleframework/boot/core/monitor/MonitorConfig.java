@@ -4,15 +4,6 @@ import com.appleframework.boot.utils.SystemPropertiesUtils;
 
 public class MonitorConfig implements MonitorConfigMBean {
 
-	// private String applicationName;
-	// private String dataId;
-	// private String group;
-	// private String env;
-	// private Integer servicePort;
-	// private Integer webPort;
-	// private Integer jmxPort;
-	// private String installPath;
-
 	private static String KEY_APPLICATION_NAME = "application.name";
 	private static String KEY_DATA_ID          = "deploy.dataId";
 	private static String KEY_GROUP            = "deploy.group";
