@@ -29,7 +29,7 @@ public class CommandOption {
 
 	public static void setSystemProperty(String key, String value) {
 		try {
-
+			System.setProperty(key, value);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
