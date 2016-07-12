@@ -116,9 +116,6 @@ public class MonitorContainer implements Container {
 		prop.put("install.path", getInstallPath());
 		prop.put("deploy.env", getDeployEnv());
 		prop.put("log.level", Log4jUtils.getRootLoggerLevel().toString());
-		prop.put("start.param", getSystemProperty("startparam"));
-		prop.put("start.time", getSystemProperty("starttime"));
-		prop.put("app.id", getSystemProperty("apppid"));
 		prop.put("java.version", getSystemProperty("java.version"));
 		return prop;
 	}
@@ -147,7 +144,7 @@ public class MonitorContainer implements Container {
 			return System.getProperty(key);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
-			return null;
+			return "";
 		}
 	}
 }
