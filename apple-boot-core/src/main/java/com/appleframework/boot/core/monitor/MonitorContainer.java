@@ -116,15 +116,15 @@ public class MonitorContainer implements Container {
 		prop.put("install.path", getInstallPath());
 		prop.put("deploy.env", getDeployEnv());
 		prop.put("log.level", Log4jUtils.getRootLoggerLevel().toString());
-		prop.put("start.param", System.getProperty("startparam"));
-		prop.put("start.time", System.getProperty("starttime"));
-		prop.put("app.id", System.getProperty("apppid"));
-		prop.put("java.version", System.getProperty("java.version"));
+		prop.put("start.param", getSystemProperty("startparam"));
+		prop.put("start.time", getSystemProperty("starttime"));
+		prop.put("app.id", getSystemProperty("apppid"));
+		prop.put("java.version", getSystemProperty("java.version"));
 		return prop;
 	}
 	
 	private String getInstallPath() {
-		return System.getProperty("user.dir");
+		return getSystemProperty("user.dir");
 	}
 	
 	private String getDeployEnv() {
