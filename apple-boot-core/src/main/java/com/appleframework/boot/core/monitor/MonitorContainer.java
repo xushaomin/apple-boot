@@ -1,6 +1,5 @@
 package com.appleframework.boot.core.monitor;
 
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -14,7 +13,6 @@ import com.appleframework.boot.core.log4j.Log4jUtils;
 import com.appleframework.boot.utils.HttpUtils;
 import com.appleframework.boot.utils.NetUtils;
 import com.appleframework.boot.utils.SystemPropertiesUtils;
-import com.appleframework.config.core.EnvConfigurer;
 
 public class MonitorContainer implements Container {
 
@@ -114,28 +112,21 @@ public class MonitorContainer implements Container {
 		prop.put("node.ip", NetUtils.getIpByHost(hostName));
 		prop.put("node.host", hostName);
 		prop.put("install.path", getInstallPath());
-		if(null != EnvConfigurer.env) {
-			prop.put("deploy.env", EnvConfigurer.env);
-		}
+		prop.put("deploy.env", System.getProperty("deploy.env"));
 		prop.put("log.level", Log4jUtils.getRootLoggerLevel().toString());
+		prop.put("start.param", System.getProperty("startparam"));
+		prop.put("start.time", System.getProperty("starttime"));
+		prop.put("app.id", System.getProperty("apppid"));
+		prop.put("java.version", System.getProperty("java.version"));
 		return prop;
 	}
 	
 	private String getInstallPath() {
-		URL url = Thread.currentThread().getContextClassLoader().getResource("");
-		String path = url.getPath();
-		int indexConf = path.lastIndexOf("/conf");
-		if( indexConf > -1) {
-			String installPath = path.substring(0, indexConf);
-			logger.info(installPath);
-			return installPath;
-		}
-		else {
-			return path;
-		}
+		return System.getProperty("user.dir");
 	}
 
 	public long getStartTime() {
 		return startTime;
 	}
+	
 }
