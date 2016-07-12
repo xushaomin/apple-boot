@@ -2,21 +2,36 @@ package com.appleframework.boot.core;
 
 import org.apache.log4j.Logger;
 
+import com.appleframework.config.core.EnvConfigurer;
+
 public class CommandOption {
-	
-    private static Logger logger = Logger.getLogger(CommandOption.class);
+
+	private static Logger logger = Logger.getLogger(CommandOption.class);
 
 	public static void parser(String[] args) {
 		for (int i = 0; i < args.length; i++) {
 			String envArgs = args[i];
 			String[] envs = envArgs.split("=");
-			if(envs.length == 2) {
-				System.setProperty(envs[0], envs[1]);
-				logger.warn("配置项：" + envs[0] + "=" + envs[1]);
-			}
-			else {
+			if (envs.length == 2) {
+				String key = envs[0];
+				String value = envs[1];
+				setSystemProperty(key, value);
+				if (key.indexOf("env") > -1) {
+					EnvConfigurer.env = value;
+				}
+				logger.warn("配置项：" + key + "=" + value);
+
+			} else {
 				logger.error("错误参数：" + envArgs);
 			}
+		}
+	}
+
+	public static void setSystemProperty(String key, String value) {
+		try {
+
+		} catch (Exception e) {
+			logger.error(e.getMessage());
 		}
 	}
 }

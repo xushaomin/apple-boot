@@ -10,9 +10,11 @@ import org.jgroups.Message;
 
 import com.appleframework.boot.core.Container;
 import com.appleframework.boot.core.log4j.Log4jUtils;
+import com.appleframework.boot.utils.Constants;
 import com.appleframework.boot.utils.HttpUtils;
 import com.appleframework.boot.utils.NetUtils;
 import com.appleframework.boot.utils.SystemPropertiesUtils;
+import com.appleframework.config.core.EnvConfigurer;
 
 public class MonitorContainer implements Container {
 
@@ -112,7 +114,7 @@ public class MonitorContainer implements Container {
 		prop.put("node.ip", NetUtils.getIpByHost(hostName));
 		prop.put("node.host", hostName);
 		prop.put("install.path", getInstallPath());
-		prop.put("deploy.env", System.getProperty("deploy.env"));
+		prop.put("deploy.env", getDeployEnv());
 		prop.put("log.level", Log4jUtils.getRootLoggerLevel().toString());
 		prop.put("start.param", System.getProperty("startparam"));
 		prop.put("start.time", System.getProperty("starttime"));
@@ -124,9 +126,28 @@ public class MonitorContainer implements Container {
 	private String getInstallPath() {
 		return System.getProperty("user.dir");
 	}
+	
+	private String getDeployEnv() {
+		String env = getSystemProperty(Constants.KEY_DEPLOY_ENV);
+		if(null == env){
+			env = getSystemProperty(Constants.KEY_ENV);
+			if(null == env){
+				env = EnvConfigurer.env;
+			}
+		}
+		return env;
+	}
 
 	public long getStartTime() {
 		return startTime;
 	}
 	
+	private String getSystemProperty(String key) {
+		try {
+			return System.getProperty(key);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			return null;
+		}
+	}
 }
