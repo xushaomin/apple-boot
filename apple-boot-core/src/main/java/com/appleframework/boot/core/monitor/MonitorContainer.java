@@ -14,7 +14,6 @@ import com.appleframework.boot.utils.Constants;
 import com.appleframework.boot.utils.HttpUtils;
 import com.appleframework.boot.utils.NetUtils;
 import com.appleframework.boot.utils.SystemPropertiesUtils;
-import com.appleframework.config.core.EnvConfigurer;
 
 public class MonitorContainer implements Container {
 
@@ -116,20 +115,20 @@ public class MonitorContainer implements Container {
 		prop.put("install.path", getInstallPath());
 		prop.put("deploy.env", getDeployEnv());
 		prop.put("log.level", Log4jUtils.getRootLoggerLevel().toString());
-		prop.put("java.version", getSystemProperty("java.version"));
+		prop.put("java.version", System.getProperty("java.version"));
 		return prop;
 	}
 	
 	private String getInstallPath() {
-		return getSystemProperty("user.dir");
+		return System.getProperty("user.dir");
 	}
 	
 	private String getDeployEnv() {
-		String env = getSystemProperty(Constants.KEY_DEPLOY_ENV);
+		String env = System.getProperty(Constants.KEY_DEPLOY_ENV);
 		if(null == env){
-			env = getSystemProperty(Constants.KEY_ENV);
+			env = System.getProperty(Constants.KEY_ENV);
 			if(null == env){
-				env = EnvConfigurer.env;
+				env = "UNKNOWN";
 			}
 		}
 		return env;
@@ -139,12 +138,4 @@ public class MonitorContainer implements Container {
 		return startTime;
 	}
 	
-	private String getSystemProperty(String key) {
-		try {
-			return System.getProperty(key);
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-			return "";
-		}
-	}
 }
