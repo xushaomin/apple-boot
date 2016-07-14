@@ -177,7 +177,5 @@ public class MonitorContainer implements Container {
 		}
 		return value;
 	}
-    
-
 	
 }
