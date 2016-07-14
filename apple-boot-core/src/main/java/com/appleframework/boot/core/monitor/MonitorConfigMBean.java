@@ -17,5 +17,11 @@ public interface MonitorConfigMBean {
 	public Integer getJmxPort();
 
 	public String getInstallPath();
+	
+	public String getStartParam();
+	
+	public String getMemMax();
+	
+	public String getMemMin();
 		
 }
