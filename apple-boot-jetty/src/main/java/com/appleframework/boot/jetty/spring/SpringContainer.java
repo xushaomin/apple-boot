@@ -36,13 +36,15 @@ public class SpringContainer implements Container {
         
         WebAppContext webAppContext = context.getBean("webAppContext", WebAppContext.class);
         //webAppContext.setMaxFormContentSize(-1);
+        int size  = webAppContext.getMaxFormContentSize();
         
         logger.warn("Start jetty web context maxFormContentSize= " + webAppContext.getMaxFormContentSize()); 
         logger.warn("Start jetty web context context= " + webAppContext.getContextPath() + ";resource base=" + webAppContext.getResourceBase());
         startTime = System.currentTimeMillis();
         try {
             Server server = context.getBean("jettyServer", Server.class);
-            
+            server.setAttribute("org.eclipse.jetty.server.Request.maxFormContentSize", size);  
+
             // Setup JMX
 			MBeanContainer mbeanContainer = new MBeanContainer(ManagementFactory.getPlatformMBeanServer());
             server.getContainer().addEventListener(mbeanContainer);
@@ -50,7 +52,7 @@ public class SpringContainer implements Container {
             
             server.start();
             server.join();
-            logger.warn("启动成功");
+            logger.warn("Apple Boot " + Server.getVersion() + " Success !");
         } catch (Exception e) {
         	logger.error("Failed to start jetty server on " + ":" + ", cause: " + e.getMessage(), e);
         }
