@@ -81,6 +81,7 @@
 
 	<modules>
     	<module>apple-boot-core</module>
+    	<module>apple-boot-java</module>
 		<module>apple-boot-spring</module>
 		<module>apple-boot-jetty</module>
 		<module>apple-boot-jetty9</module>
