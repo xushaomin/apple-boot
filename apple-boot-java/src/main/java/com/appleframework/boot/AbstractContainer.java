@@ -10,7 +10,7 @@ import com.appleframework.boot.utils.SystemPropertiesUtils;
  * 
  * @author cruise.xu
  */
-public abstract class AbstractContainer implements Container, Runnable {
+public abstract class AbstractContainer implements Container {
 
 	private static Logger logger = Logger.getLogger(AbstractContainer.class);
         
