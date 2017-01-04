@@ -9,7 +9,7 @@ import com.appleframework.boot.core.Container;
  */
 public class SpringContainerManager implements SpringContainerManagerMBean {
 
-	Container springContainer = new SpringContainer();
+	Container springContainer;
 
 	@Override
 	public String getName() {
@@ -34,6 +34,10 @@ public class SpringContainerManager implements SpringContainerManagerMBean {
 	@Override
 	public boolean isRunning() {
 		return springContainer.isRunning();
+	}
+	
+	public void setSpringContainer(Container springContainer) {
+		this.springContainer = springContainer;
 	}
 
 }

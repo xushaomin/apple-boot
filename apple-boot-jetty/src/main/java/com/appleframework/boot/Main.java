@@ -46,7 +46,9 @@ public class Main {
 			final List<Container> containers = new ArrayList<Container>();
             containers.add(new Log4jContainer());
             containers.add(new MonitorContainer());
-            containers.add(new SpringContainer());
+            
+            SpringContainer springContainer = new SpringContainer();
+            containers.add(springContainer);
 
 			if ("true".equals(System.getProperty(SHUTDOWN_HOOK_KEY))) {
 				Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -78,7 +80,9 @@ public class Main {
 					ObjectName oname = ObjectName.getInstance("com.appleframework", properties);
 					Object mbean = null;
 					if(container instanceof SpringContainer) {
-						mbean = new SpringContainerManager();
+						SpringContainerManager manager = new SpringContainerManager();
+						manager.setSpringContainer(container);
+						mbean = manager;
 					}
 					else if(container instanceof Log4jContainer) {
 						mbean = new LoggingConfig();
