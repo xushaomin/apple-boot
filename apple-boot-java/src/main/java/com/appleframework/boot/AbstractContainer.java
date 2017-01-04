@@ -16,11 +16,13 @@ public abstract class AbstractContainer implements Container, Runnable {
         
 	private static long startTime = System.currentTimeMillis();
 	
+	private Thread schedulerThread;
+	
 	public abstract void doStart();
 
 	public void start() {
 		startTime = System.currentTimeMillis();
-		Thread schedulerThread = new Thread() {
+		schedulerThread = new Thread() {
 			@Override
 			public void run() {
 				doStart();
@@ -31,9 +33,10 @@ public abstract class AbstractContainer implements Container, Runnable {
 		schedulerThread.start();
 	}
 
-    public void stop() {
+    @SuppressWarnings("deprecation")
+	public void stop() {
         try {
-            
+        	schedulerThread.resume();
         } catch (Throwable e) {
             logger.error(e.getMessage(), e);
         }
@@ -42,7 +45,7 @@ public abstract class AbstractContainer implements Container, Runnable {
 	@Override
 	public void restart() {
 		try {
-			
+			schedulerThread.run();
         } catch (Throwable e) {
             logger.error(e.getMessage(), e);
         }
@@ -50,7 +53,7 @@ public abstract class AbstractContainer implements Container, Runnable {
 
 	@Override
 	public boolean isRunning() {
-    	return true;
+    	return schedulerThread.isAlive();
 	}
 	
 	@Override
