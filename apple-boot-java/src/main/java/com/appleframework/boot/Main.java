@@ -99,7 +99,7 @@ public class Main {
 					else {
 						JavaContainerManager containerManager = new JavaContainerManager();
 						containerManager.setContainer(container);
-						mbean = new JavaContainerManager();
+						mbean = containerManager;
 					}
 					
 					if (mbs.isRegistered(oname)) {
