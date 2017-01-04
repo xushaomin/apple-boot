@@ -15,10 +15,21 @@ public abstract class AbstractContainer implements Container, Runnable {
 	private static Logger logger = Logger.getLogger(AbstractContainer.class);
         
 	private static long startTime = System.currentTimeMillis();
+	
+	public abstract void doStart();
 
 	public void start() {
-        startTime = System.currentTimeMillis();
-    }
+		startTime = System.currentTimeMillis();
+		Thread schedulerThread = new Thread() {
+			@Override
+			public void run() {
+				doStart();
+			}
+		};
+		schedulerThread.setName("Java Container [" + this.getName() + "]");
+		schedulerThread.setDaemon(true);
+		schedulerThread.start();
+	}
 
     public void stop() {
         try {
@@ -49,7 +60,7 @@ public abstract class AbstractContainer implements Container, Runnable {
     
 	@Override
 	public String getType() {
-		return "SpringContainer";
+		return "JavaContainer";
 	}
 
 	@Override
