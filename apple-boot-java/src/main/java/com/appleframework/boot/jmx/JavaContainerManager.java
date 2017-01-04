@@ -1,4 +1,4 @@
-package com.appleframework.boot.spring;
+package com.appleframework.boot.jmx;
 
 import com.appleframework.boot.core.Container;
 

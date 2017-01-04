@@ -19,7 +19,7 @@ import com.appleframework.boot.core.log4j.Log4jContainer;
 import com.appleframework.boot.core.log4j.LoggingConfig;
 import com.appleframework.boot.core.monitor.MonitorConfig;
 import com.appleframework.boot.core.monitor.MonitorContainer;
-import com.appleframework.boot.spring.JavaContainerManager;
+import com.appleframework.boot.jmx.JavaContainerManager;
 
 /**
  * Main. (API, Static, ThreadSafe)

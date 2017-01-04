@@ -1,4 +1,4 @@
-package com.appleframework.boot.spring;
+package com.appleframework.boot.jmx;
 
 public interface JavaContainerManagerMBean {
 
