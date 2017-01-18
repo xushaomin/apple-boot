@@ -17,7 +17,8 @@
 		<spring.version>4.2.0.RELEASE</spring.version>
 		<jetty8.version>8.1.22.v20160922</jetty8.version>
 		<jetty9.version>9.2.16.v20160414</jetty9.version>
-		<tomcat.version>8.0.36</tomcat.version>
+		<tomcat8.version>8.0.36</tomcat8.version>
+		<tomcat9.version>9.0.0.M15</tomcat9.version>
 	</properties>
 
 	<dependencyManagement>
@@ -85,7 +86,7 @@
 		<module>apple-boot-spring</module>
 		<module>apple-boot-jetty8</module>
 		<module>apple-boot-jetty9</module>
-    	<module>apple-boot-tomcat</module>
+    	<module>apple-boot-tomcat8</module>
     	<module>apple-boot-resin</module>
   	</modules>
 

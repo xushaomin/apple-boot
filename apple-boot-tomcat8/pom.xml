@@ -8,8 +8,8 @@
 		<groupId>com.appleframework.boot</groupId>
 		<version>0.3.1.RELEASE</version>
 	</parent>
-	<artifactId>apple-boot-tomcat</artifactId>
-	<name>apple-boot-tomcat</name>
+	<artifactId>apple-boot-tomcat8</artifactId>
+	<name>apple-boot-tomcat8</name>
 	<url>http://mvnrepo.appleframework.com</url>
 		
 	<dependencies>
@@ -33,32 +33,32 @@
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-core</artifactId>
-			<version>${tomcat.version}</version>
+			<version>${tomcat8.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-logging-juli</artifactId>
-			<version>${tomcat.version}</version>
+			<version>${tomcat8.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
-			<version>${tomcat.version}</version>
+			<version>${tomcat8.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jasper</artifactId>
-			<version>${tomcat.version}</version>
+			<version>${tomcat8.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jasper-el</artifactId>
-			<version>${tomcat.version}</version>
+			<version>${tomcat8.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jsp-api</artifactId>
-			<version>${tomcat.version}</version>
+			<version>${tomcat8.version}</version>
 		</dependency>
 
 		<dependency>
