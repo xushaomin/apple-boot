@@ -1,6 +1,8 @@
 package com.appleframework.boot.jetty.spring;
 
 import java.lang.management.ManagementFactory;
+import java.util.Iterator;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.jmx.MBeanContainer;
@@ -9,6 +11,7 @@ import org.eclipse.jetty.webapp.WebAppContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.appleframework.boot.core.Container;
+import com.appleframework.boot.jetty.core.WebappContextAttribute;
 import com.appleframework.boot.utils.SystemPropertiesUtils;
 
 /**
@@ -30,6 +33,7 @@ public class SpringContainer implements Container {
 		return context;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void start() {
         String configPath = DEFAULT_SPRING_CONFIG;
         context = new ClassPathXmlApplicationContext(configPath.split("[,\\s]+"));
@@ -38,6 +42,16 @@ public class SpringContainer implements Container {
         //webAppContext.setMaxFormContentSize(-1);
         int size  = webAppContext.getMaxFormContentSize();
         
+        Iterator it = WebappContextAttribute.getIterator();
+		while (it.hasNext()) {
+			Map.Entry entry = (Map.Entry) it.next();
+			String key = (String) entry.getKey();
+			if(key.startsWith("org.eclipse.jetty.webapp")) {
+				Object value = entry.getValue();
+				webAppContext.setAttribute(key, value);
+			}
+		}
+		
         logger.warn("Start jetty web context maxFormContentSize= " + webAppContext.getMaxFormContentSize()); 
         logger.warn("Start jetty web context context= " + webAppContext.getContextPath() + ";resource base=" + webAppContext.getResourceBase());
         startTime = System.currentTimeMillis();
@@ -45,6 +59,14 @@ public class SpringContainer implements Container {
             Server server = context.getBean("jettyServer", Server.class);
             server.setAttribute("org.eclipse.jetty.server.Request.maxFormContentSize", size);  
 
+            while (it.hasNext()) {
+    			Map.Entry entry = (Map.Entry) it.next();
+    			String key = (String) entry.getKey();
+    			if(key.startsWith("org.eclipse.jetty.server")) {
+    				Object value = entry.getValue();
+    				server.setAttribute(key, value);
+    			}
+    		}
             // Setup JMX
 			MBeanContainer mbeanContainer = new MBeanContainer(ManagementFactory.getPlatformMBeanServer());
             server.getContainer().addEventListener(mbeanContainer);
