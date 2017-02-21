@@ -13,6 +13,7 @@ import javax.management.ObjectName;
 
 import org.apache.log4j.Logger;
 
+import com.appleframework.boot.config.ConfigContainer;
 import com.appleframework.boot.core.CommandOption;
 import com.appleframework.boot.core.Container;
 import com.appleframework.boot.core.log4j.Log4jContainer;
@@ -29,6 +30,8 @@ import com.appleframework.boot.jmx.JavaContainerManager;
 public class Main {
 
     public static final String SHUTDOWN_HOOK_KEY = "shutdown.hook";
+    
+	private static final String SYSTEM_PROPERTIES = "system.properties";
         
     private static Logger logger = Logger.getLogger(Main.class);
     
@@ -45,17 +48,18 @@ public class Main {
         	final List<Container> containers = new ArrayList<Container>();
             containers.add(new Log4jContainer());
             containers.add(new MonitorContainer());
+            containers.add(new ConfigContainer(SYSTEM_PROPERTIES));
             
             String applicationContainer = System.getProperty("container");
-            if(null != applicationContainer) {
-            	try {
-            		Class<?> clazz = Class.forName(applicationContainer);
-                    Container container = (Container)clazz.newInstance();
-                    containers.add(container);
+			if (null != applicationContainer) {
+				try {
+					Class<?> clazz = Class.forName(applicationContainer);
+					Container container = (Container) clazz.newInstance();
+					containers.add(container);
 				} catch (Exception e) {
 					logger.error("java container is error class: " + applicationContainer);
 				}
-            }
+			}
                         
             logger.info("Use container type(" + Arrays.toString(args) + ") to run serivce.");
             

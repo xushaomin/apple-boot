@@ -8,12 +8,12 @@
 		<artifactId>apple-boot</artifactId>
 		<version>0.3.2.RELEASE</version>
 	</parent>
-	<artifactId>apple-boot-resin</artifactId>
-	<name>apple-boot-resin</name>
+	<artifactId>apple-boot-config</artifactId>
+	<name>apple-boot-config</name>
 	<url>http://maven.apache.org</url>
 	
 	<properties>
-		<resin.version>4.0.46</resin.version>
+		<config.version>0.2.5.RELEASE</config.version>
 	</properties>
 	
 	<dependencies>
@@ -23,22 +23,26 @@
 			<artifactId>apple-boot-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-				
+		
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
+			<groupId>com.appleframework.config</groupId>
+			<artifactId>apple-config-core</artifactId>
+			<version>${config.version}</version>
+			<scope>provided</scope>
 		</dependency>
-
+		
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-beans</artifactId>
+			<groupId>com.appleframework.config</groupId>
+			<artifactId>apple-config-diamond</artifactId>
+			<version>${config.version}</version>
+			<scope>test</scope>
 		</dependency>
-
+		
 		<dependency>
-			<groupId>com.caucho</groupId>
-			<artifactId>resin</artifactId>
-			<version>${resin.version}</version>
-		</dependency>
-
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        
 	</dependencies>
 </project>
