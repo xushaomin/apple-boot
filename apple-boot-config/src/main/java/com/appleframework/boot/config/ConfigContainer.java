@@ -14,6 +14,8 @@ import com.appleframework.config.core.factory.ConfigurerFactory;
 public class ConfigContainer implements Container {
 	
 	private static Logger logger = Logger.getLogger(ConfigContainer.class);
+	
+	private static final String SYSTEM_PROPERTIES_FILE = "system.properties";
 
 	private static long startTime = System.currentTimeMillis();
     
@@ -36,17 +38,14 @@ public class ConfigContainer implements Container {
     	return true;
     }
     
-    public ConfigContainer(String systemPropertyFile) {
-    	String configContainer = System.getProperty("config-factory");
-    	if(null != configContainer) {
-			try {
-				Class<?> clazz = Class.forName(configContainer);
-				factory = (ConfigurerFactory)clazz.newInstance();
-				factory.setSystemPropertyFile(systemPropertyFile);
-			} catch (Exception e) {
-				logger.error("The container instance is error : " + e.getMessage());
-			}
-    	}
+	public ConfigContainer(String configContainer) {
+		try {
+			Class<?> clazz = Class.forName(configContainer);
+			factory = (ConfigurerFactory) clazz.newInstance();
+			factory.setSystemPropertyFile(SYSTEM_PROPERTIES_FILE);
+		} catch (Exception e) {
+			logger.error("The container instance is error : " + e.getMessage());
+		}
 	}
 
 	@Override
