@@ -10,9 +10,9 @@ import com.appleframework.boot.utils.SystemPropertiesUtils;
  * 
  * @author cruise.xu
  */
-public abstract class AbstractContainer implements Container {
+public abstract class AbstractThreadContainer implements Container {
 
-	private static Logger logger = Logger.getLogger(AbstractContainer.class);
+	private static Logger logger = Logger.getLogger(AbstractThreadContainer.class);
         
 	private static long startTime = System.currentTimeMillis();
 	
