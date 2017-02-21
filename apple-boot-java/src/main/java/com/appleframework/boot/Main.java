@@ -14,6 +14,7 @@ import javax.management.ObjectName;
 import org.apache.log4j.Logger;
 
 import com.appleframework.boot.config.ConfigContainer;
+import com.appleframework.boot.config.jmx.ConfigContainerManager;
 import com.appleframework.boot.core.CommandOption;
 import com.appleframework.boot.core.Container;
 import com.appleframework.boot.core.log4j.Log4jContainer;
@@ -101,6 +102,10 @@ public class Main {
 						mbean = new LoggingConfig();
 					} else if (container instanceof MonitorContainer) {
 						mbean = new MonitorConfig();
+					} else if (container instanceof ConfigContainer) {
+						ConfigContainerManager containerManager = new ConfigContainerManager();
+						containerManager.setContainer(container);
+						mbean = containerManager;
 					} else {
 						JavaContainerManager containerManager = new JavaContainerManager();
 						containerManager.setContainer(container);
