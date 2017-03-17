@@ -11,8 +11,11 @@
 		</property>
 	</bean>
 	
-	<bean id="serverPort" class="com.appleframework.boot.jetty.spring.ServerPort">
+	<bean id="connectorAttribute" class="com.appleframework.boot.jetty.spring.ConnectorAttribute">
 		<property name="port" value="${web.port}" />
+		<property name="acceptQueueSize" value="${web.acceptQueueSize}" />
+		<property name="acceptors" value="${web.acceptors}" />
+		<property name="selectors" value="${web.selectors}" />
 	</bean>
 	
 	<bean id="webAppContext" class="org.eclipse.jetty.webapp.WebAppContext">

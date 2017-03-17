@@ -43,7 +43,7 @@ public class SpringContainer implements Container {
         WebAppContext webAppContext = context.getBean("webAppContext", WebAppContext.class);
         //webAppContext.setMaxFormContentSize(-1);
         QueuedThreadPool threadPool = context.getBean("threadPool", QueuedThreadPool.class);
-        ServerPort serverPort = context.getBean("serverPort", ServerPort.class);
+        ConnectorAttribute connectorAttribute = context.getBean("connectorAttribute", ConnectorAttribute.class);
         
         Iterator it = WebappContextAttribute.getIterator();
 		while (it.hasNext()) {
@@ -61,8 +61,18 @@ public class SpringContainer implements Container {
         try {
         	
             Server server = new Server(threadPool);
-            ServerConnector connector = new ServerConnector(server);
-            connector.setPort(serverPort.getPort());
+            ServerConnector connector = null;
+            if(null != connectorAttribute.getAcceptors() && null != connectorAttribute.getSelectors()) {
+            	connector = new ServerConnector(server, connectorAttribute.getAcceptors(), connectorAttribute.getSelectors());
+            }
+            else {
+            	connector = new ServerConnector(server);
+            }
+            connector.setPort(connectorAttribute.getPort());
+			if (null != connectorAttribute.getAcceptQueueSize()) {
+				connector.setAcceptQueueSize(connectorAttribute.getAcceptQueueSize());
+			}
+
             server.addConnector(connector);
             server.setHandler(webAppContext);
             server.setStopAtShutdown(true);
