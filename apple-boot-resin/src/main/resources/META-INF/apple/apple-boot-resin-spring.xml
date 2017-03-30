@@ -11,9 +11,18 @@
 		</property>
 	</bean>
 	
-	<bean id="serverPort" class="com.appleframework.boot.resin.spring.ServerPort">
+	<bean id="contextAttribute" class="com.appleframework.boot.resin.spring.ContextAttribute">
 		<property name="port" value="${web.port}" />
-	</bean>
+		<property name="executorTaskMax" value="${web.executorTaskMax:16}" />
+		<property name="idleMax" value="${web.idleMax:1073741823}" />
+		<property name="idleMin" value="${web.idleMin:2}" />
+		<property name="idleTimeout" value="${web.idleTimeout:60000}" />
+		<property name="priorityIdleMin" value="${web.priorityIdleMin:2}" />
+		<property name="threadMax" value="${web.threadMax:8192}" />
+		<property name="throttleLimit" value="${web.throttleLimit:100}" />
+		<property name="throttlePeriod" value="${web.throttlePeriod:1000}" />
+		<property name="throttleSleepTime" value="${web.throttleSleepTime:0}" />
+	</bean>	  
 	
 	<bean id="webAppEmbed" class="com.caucho.resin.WebAppEmbed">
 		<property name="contextPath" value="${web.context:/}" />
