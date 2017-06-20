@@ -16,7 +16,7 @@ public class Log4jUtils {
 		try {
 			Logger logger = LogManager.getLoggerRepository().getRootLogger();
 			level = logger.getLevel().toString();
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			level = Level.WARN.toString();
 		}
 		return level;
