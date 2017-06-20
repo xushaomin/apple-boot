@@ -120,7 +120,7 @@ public class MonitorContainer implements Container {
 		prop.put("node.host", hostName);
 		prop.put("install.path", getInstallPath());
 		prop.put("deploy.env", getDeployEnv());
-		prop.put("log.level", Log4jUtils.getRootLoggerLevel().toString());
+		prop.put("log.level", Log4jUtils.getRootLoggerLevelString());
 		prop.put("java.version", System.getProperty("java.version"));
 		prop.put("start.param", runtimeParameters.toString());
 		prop.put("mem.max", this.getRuntimeParameter(runtimeParameters, "-Xmx"));

@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>apple-boot</artifactId>
 		<groupId>com.appleframework.boot</groupId>
-		<version>0.3.2.RELEASE</version>
+		<version>0.3.3-SNAPSHOT</version>
 	</parent>
 	<artifactId>apple-boot-spring</artifactId>
 	<name>apple-boot-spring</name>
