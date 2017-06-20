@@ -16,6 +16,8 @@ public class ConfigContainer implements Container {
 	private static Logger logger = Logger.getLogger(ConfigContainer.class);
 	
 	private static final String SYSTEM_PROPERTIES_FILE = "system.properties";
+	
+	private static String CONTAINER_NAME = "ConfigContainer";
 
 	private static long startTime = System.currentTimeMillis();
     
@@ -50,7 +52,7 @@ public class ConfigContainer implements Container {
 
 	@Override
 	public String getName() {
-    	return SystemPropertiesUtils.getApplicationName();
+    	return CONTAINER_NAME;
 	}
     
 	@Override
