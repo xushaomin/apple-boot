@@ -14,7 +14,6 @@ import org.jgroups.Message;
 
 import com.appleframework.boot.core.Container;
 import com.appleframework.boot.core.log4j.Log4jUtils;
-import com.appleframework.boot.utils.Constants;
 import com.appleframework.boot.utils.HttpUtils;
 import com.appleframework.boot.utils.NetUtils;
 import com.appleframework.boot.utils.SystemPropertiesUtils;
@@ -133,17 +132,14 @@ public class MonitorContainer implements Container {
 	}
 	
 	private String getDeployEnv() {
-		String env = System.getProperty(Constants.KEY_DEPLOY_ENV);
+		String env = EnvConfigurer.getEnv();
 		if (null == env) {
-			env = System.getProperty(Constants.KEY_ENV);
+			env = SystemPropertiesUtils.getString(EnvConfigurer.KEY_DEPLOY_ENV);
 			if (null == env) {
-				env = EnvConfigurer.env;
-				if (null == env) {
-					env = SystemPropertiesUtils.getString(Constants.KEY_DEPLOY_ENV);
-					if (null == env) {
-						env = "UNKNOWN";
-					}
-				}
+				env = "UNKNOWN";
+			}
+			else {
+				EnvConfigurer.setEnv(env);
 			}
 		}
 		return env;

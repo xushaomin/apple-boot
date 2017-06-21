@@ -2,6 +2,7 @@ package com.appleframework.boot.core;
 
 import org.apache.log4j.Logger;
 
+import com.appleframework.config.core.AppConfigurer;
 import com.appleframework.config.core.EnvConfigurer;
 
 public class CommandOption {
@@ -15,15 +16,17 @@ public class CommandOption {
 			if (envs.length == 2) {
 				String key = envs[0];
 				String value = envs[1];
-				System.setProperty(key, value);
 				logger.warn("配置项：" + key + "=" + value);
 				if(key.trim().toLowerCase().indexOf("env") > -1) {
-					EnvConfigurer.env = value;
+					EnvConfigurer.setEnv(value);
+				}
+				if(key.trim().toLowerCase().indexOf("name") > -1) {
+					AppConfigurer.setName(value);
 				}
 			} else {
 				logger.error("错误参数：" + envArgs);
 			}
 		}
 	}
-
+	
 }
