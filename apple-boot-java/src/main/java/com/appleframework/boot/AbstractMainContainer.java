@@ -3,7 +3,7 @@ package com.appleframework.boot;
 import org.apache.log4j.Logger;
 
 import com.appleframework.boot.core.Container;
-import com.appleframework.boot.utils.ApplicationNameUtils;
+import com.appleframework.boot.utils.ApplicationUtils;
 
 /**
  * SpringContainer. (SPI, Singleton, ThreadSafe)
@@ -47,7 +47,7 @@ public abstract class AbstractMainContainer implements Container {
 	
 	@Override
 	public String getName() {
-    	return ApplicationNameUtils.getApplicationName();
+    	return ApplicationUtils.getApplicationName();
 	}
     
 	@Override

@@ -4,7 +4,7 @@ import org.apache.log4j.Logger;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.appleframework.boot.core.Container;
-import com.appleframework.boot.utils.ApplicationNameUtils;
+import com.appleframework.boot.utils.ApplicationUtils;
 import com.caucho.env.thread.ThreadPool;
 import com.caucho.resin.HttpEmbed;
 import com.caucho.resin.ResinEmbed;
@@ -123,7 +123,7 @@ public class SpringContainer implements Container {
 
 	@Override
 	public String getName() {
-    	return ApplicationNameUtils.getApplicationName();
+    	return ApplicationUtils.getApplicationName();
 	}
     
 	@Override
