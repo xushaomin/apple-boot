@@ -3,7 +3,6 @@ package com.appleframework.boot.config;
 import org.apache.log4j.Logger;
 
 import com.appleframework.boot.core.Container;
-import com.appleframework.boot.utils.SystemPropertiesUtils;
 import com.appleframework.config.core.factory.ConfigurerFactory;
 
 /**

@@ -14,7 +14,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.appleframework.boot.core.Container;
 import com.appleframework.boot.jetty.core.WebappContextAttribute;
-import com.appleframework.boot.utils.SystemPropertiesUtils;
+import com.appleframework.boot.utils.ApplicationNameUtils;
 
 /**
  * SpringContainer. (SPI, Singleton, ThreadSafe)
@@ -131,7 +131,7 @@ public class SpringContainer implements Container {
 
 	@Override
 	public String getName() {
-    	return SystemPropertiesUtils.getApplicationName();
+    	return ApplicationNameUtils.getApplicationName();
 	}
     
 	@Override

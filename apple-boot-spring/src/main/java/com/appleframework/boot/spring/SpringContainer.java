@@ -4,7 +4,7 @@ import org.apache.log4j.Logger;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.appleframework.boot.core.Container;
-import com.appleframework.boot.utils.SystemPropertiesUtils;
+import com.appleframework.boot.utils.ApplicationNameUtils;
 
 /**
  * SpringContainer. (SPI, Singleton, ThreadSafe)
@@ -30,7 +30,7 @@ public class SpringContainer implements Container {
         context = new ClassPathXmlApplicationContext(configPath.split("[,\\s]+"));
         context.start();
         
-        String applicationName = SystemPropertiesUtils.getApplicationName();
+        String applicationName = ApplicationNameUtils.getApplicationName();
         if(null != applicationName) {
         	context.setDisplayName(applicationName);
         }
@@ -73,7 +73,7 @@ public class SpringContainer implements Container {
 	
 	@Override
 	public String getName() {
-    	return SystemPropertiesUtils.getApplicationName();
+    	return ApplicationNameUtils.getApplicationName();
 	}
     
 	@Override
