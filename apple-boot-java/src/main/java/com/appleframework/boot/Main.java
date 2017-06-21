@@ -15,7 +15,6 @@ import org.apache.log4j.Logger;
 
 import com.appleframework.boot.config.ConfigContainer;
 import com.appleframework.boot.config.jmx.ConfigContainerManager;
-import com.appleframework.boot.core.CommandOption;
 import com.appleframework.boot.core.Container;
 import com.appleframework.boot.core.log4j.Log4jContainer;
 import com.appleframework.boot.core.log4j.LoggingConfig;
@@ -38,9 +37,8 @@ public class Main {
 
 	public static void main(String[] args) {
 		try {
-			Version.logVersion();
-			// 处理启动参数
-			CommandOption.parser(args);
+			
+			StartUpInit.init(args);
 
 			MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
 

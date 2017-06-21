@@ -1,6 +1,5 @@
 package com.appleframework.boot.utils;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.text.MessageFormat;
 import java.util.Properties;
@@ -29,7 +28,7 @@ public class SystemPropertiesUtils {
 		prop = new Properties();
 		try {
 			prop.load(is);
-		} catch (IOException e) {			
+		} catch (Exception e) {			
 			logger.error("error happen when loading properties file:", e);
 		}
 	}
