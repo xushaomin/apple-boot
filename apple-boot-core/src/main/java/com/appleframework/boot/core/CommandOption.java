@@ -17,16 +17,17 @@ public class CommandOption {
 				String key = envs[0];
 				String value = envs[1];
 				logger.warn("配置项：" + key + "=" + value);
-				if(key.trim().toLowerCase().indexOf("env") > -1) {
+				if (key.trim().toLowerCase().indexOf("env") > -1) {
 					EnvConfigurer.setEnv(value);
-				}
-				if(key.trim().toLowerCase().indexOf("name") > -1) {
+				} else if (key.trim().toLowerCase().indexOf("name") > -1) {
 					AppConfigurer.setName(value);
+				} else {
+					System.setProperty(key, value);
 				}
 			} else {
 				logger.error("错误参数：" + envArgs);
 			}
 		}
 	}
-	
+
 }
