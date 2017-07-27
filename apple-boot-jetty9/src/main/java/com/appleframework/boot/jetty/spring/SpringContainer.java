@@ -63,7 +63,7 @@ public class SpringContainer implements Container {
         	
             Server server = new Server(threadPool);
             ServerConnector connector = null;
-            if(null != connectorAttribute.getAcceptors() && null != connectorAttribute.getSelectors()) {
+            if(connectorAttribute.getAcceptors() > 0 && connectorAttribute.getSelectors() > 0) {
             	connector = new ServerConnector(server, connectorAttribute.getAcceptors(), connectorAttribute.getSelectors());
             }
             else {

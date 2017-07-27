@@ -57,7 +57,7 @@ public class HttpUtils {
 		HttpClient httpclient = new DefaultHttpClient();
 		httpclient.getParams().setIntParameter("http.socket.timeout", timeout * 1000);
 		httpclient.getParams().setBooleanParameter("http.protocol.expect-continue", false);
-		String retVal = "";
+		String retVal = null;
 		try {
 			List<NameValuePair> formparams = new ArrayList<NameValuePair>();
 			logger.info(" post params is " + params);

@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
-import org.jgroups.JChannel;
-import org.jgroups.Message;
 
 import com.appleframework.boot.core.Container;
 import com.appleframework.boot.core.log4j.Log4jUtils;
@@ -62,9 +60,10 @@ public class MonitorContainer implements Container {
 	}
 	
 	private void send() {
-		boolean isPostSuccess = postMessage();
-		if(isPostSuccess == false) {
-			sendMessage();
+		for (int i = 0; i < 2; i++) {
+			if(postMessage()) {
+				break;
+			}
 		}
 	}
 	
@@ -72,43 +71,16 @@ public class MonitorContainer implements Container {
 	private boolean postMessage() {
 		try {
 			logger.warn("发送监控同步数据通知");
-			
+			String result = null;
 			Properties prop = this.getMonitorProperties();
 			Map<String, String> params = new HashMap<String, String>((Map)prop);
-			HttpUtils.post(MONITOR_URL, params);
-			return true;
+			result = HttpUtils.post(MONITOR_URL, params);
+			if(null != result)
+				return true;
 		} catch (Exception e) {
 			logger.error("通过httpclient发送监控同步数据通知失败");
-			return false;
 		}
-	}
-	
-	private void sendMessage() {
-		try {
-			/**
-			 * 参数里指定Channel使用的协议栈，如果是空的，则使用默认的协议栈，
-			 * 位于JGroups包里的udp.xml。参数可以是一个以冒号分隔的字符串， 或是一个XML文件，在XML文件里定义协议栈。
-			 */
-			logger.warn("发送监控同步数据通知");
-
-			Properties prop = this.getMonitorProperties();
-			// 创建一个通道
-			JChannel channel = new JChannel();
-			// 加入一个群
-			channel.connect("MonitorContainer");
-			// 发送事件
-			// 这里的Message的第一个参数是发送端地址
-			// 第二个是接收端地址
-			// 第三个是发送的字符串
-			// 具体参见jgroup send API
-			Message msg = new Message(null, null, prop);
-			// 发送
-			channel.send(msg);
-			// 关闭通道
-			channel.close();
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-		}
+		return false;
 	}
 	
 	private Properties getMonitorProperties(){
