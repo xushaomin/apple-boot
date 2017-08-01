@@ -77,18 +77,16 @@ public class HttpUtils {
 			ResponseHandler<String> responseHandler = new BasicResponseHandler();
 			String temp = httpclient.execute(httppost, responseHandler);
 			retVal = temp;
-			//new String(temp.getBytes(HTTP.ISO_8859_1),
-			// HTTP.UTF_8);
+			//new String(temp.getBytes(HTTP.ISO_8859_1), HTTP.UTF_8);
 			long end = System.currentTimeMillis();
 			logger.info("consume millis end time is " + (end - begin));
 			logger.info("return result is " + retVal);
 		} catch (IOException e) {
-			logger.error("SocketTimeoutException request url is " + url);
-			logger.error(" IOException is "+e.toString());
+			logger.info("SocketTimeoutException request url is " + url);
+			logger.info(" IOException is "+e.toString());
 			throw e;
-			
 		} catch (Exception ex) {
-			logger.error(" Exception is "+ex.toString());
+			logger.info(" Exception is "+ex.toString());
 			throw ex;
 		} finally {
 			httpclient.getConnectionManager().shutdown();
@@ -132,11 +130,11 @@ public class HttpUtils {
 			logger.info("consume millis end time is " + (end - begin));
 			logger.info("return result is " + retVal);
 		} catch (IOException e) {
-			logger.error("SocketTimeoutException request url is " + url);
-			logger.error(" IOException is "+e.toString());
+			logger.info("SocketTimeoutException request url is " + url);
+			logger.info(" IOException is "+e.toString());
 			throw e;
 		} catch (Exception ex) {
-			logger.error(" Exception is "+ex.toString());
+			logger.info(" Exception is "+ex.toString());
 			throw ex;
 		} finally {
 			httpclient.getConnectionManager().shutdown();
@@ -181,8 +179,8 @@ public class HttpUtils {
 			logger.info("consume millis end time is " + (end - begin));
 			logger.info("return result is " + retVal);
 		} catch (IOException e) {
-			logger.error("SocketTimeoutException request url is " + url);
-			logger.error(" IOException is "+e.toString());
+			logger.info("SocketTimeoutException request url is " + url);
+			logger.info(" IOException is "+e.toString());
 			throw e;
 		} finally {
 			httpclient.getConnectionManager().shutdown();

@@ -2,6 +2,7 @@ package com.appleframework.boot.core.monitor;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +26,9 @@ public class MonitorContainer implements Container {
 	
 	private static String CONTAINER_NAME = "MonitorContainer";
 	
-	private static String MONITOR_URL = "http://monitor.appleframework.com/collect/application";
+	private static String MONITOR_DOMAIN = "monitor.appleframework.com";
+	
+	private static String MONITOR_URL = "http://{0}/collect/application";
 
 	@Override
 	public void start() {
@@ -60,30 +63,36 @@ public class MonitorContainer implements Container {
 	}
 	
 	private void send() {
+		String monitorUrl = getMonitorUrl();
+		boolean success = false;
 		for (int i = 0; i < 2; i++) {
-			if(postMessage()) {
+			if (postMessage(monitorUrl, i)) {
+				success = true;
 				break;
 			}
+		}
+		if (!success) {
+			logger.error("通知监控中心失败，请检查域名" + getMonitorDomain() + "是否配置有效!");
 		}
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private boolean postMessage() {
+	private boolean postMessage(String monitorUrl, int time) {
 		try {
-			logger.warn("发送监控同步数据通知");
+			logger.info("第" + time + "次发送监控同步数据通知");
 			String result = null;
 			Properties prop = this.getMonitorProperties();
-			Map<String, String> params = new HashMap<String, String>((Map)prop);
-			result = HttpUtils.post(MONITOR_URL, params);
-			if(null != result)
+			Map<String, String> params = new HashMap<String, String>((Map) prop);
+			result = HttpUtils.post(monitorUrl, params);
+			if (null != result)
 				return true;
 		} catch (Exception e) {
-			logger.error("通过httpclient发送监控同步数据通知失败");
+			logger.info("通过httpclient发送监控同步数据通知失败");
 		}
 		return false;
 	}
 	
-	private Properties getMonitorProperties(){
+	private Properties getMonitorProperties() {
 		Properties prop = SystemPropertiesUtils.getProp();
 		String hostName = NetUtils.getLocalHost();
 		List<String> runtimeParameters = this.getRuntimeParameters();
@@ -144,6 +153,15 @@ public class MonitorContainer implements Container {
 			}
 		}
 		return value;
+	}
+	
+	private String getMonitorUrl() {
+		String domain = System.getProperty("monitor.domain", MONITOR_DOMAIN);
+		return MessageFormat.format(MONITOR_URL, domain);  
+	}
+	
+	private String getMonitorDomain() {
+		return System.getProperty("monitor.domain", MONITOR_DOMAIN);
 	}
 	
 }
