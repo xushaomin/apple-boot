@@ -43,8 +43,8 @@ public class Main {
             containers.add(new Log4jContainer());
             containers.add(new MonitorContainer());
             
-            JettyContainer springContainer = new JettyContainer();
-            containers.add(springContainer);
+            Container jettyContainer = new JettyContainer();
+            containers.add(jettyContainer);
 
 			if ("true".equals(System.getProperty(SHUTDOWN_HOOK_KEY))) {
 				Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -77,7 +77,7 @@ public class Main {
 					Object mbean = null;
 					if(container instanceof JettyContainer) {
 						JettyContainerManager manager = new JettyContainerManager();
-						manager.setSpringContainer(container);
+						manager.setContainer(container);
 						mbean = manager;
 					}
 					else if(container instanceof Log4jContainer) {
