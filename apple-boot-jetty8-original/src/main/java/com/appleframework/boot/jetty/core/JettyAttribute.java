@@ -31,7 +31,7 @@ public class JettyAttribute implements Attributes {
 	public static final String MAX_THREADS  = "web.max.threads";
 	public static final String MAX_QUEUED   = "web.max.queued";
 	
-	private static Properties prop = null;
+	private static Properties prop = new Properties();
 
 	static {
 		try {
@@ -52,11 +52,23 @@ public class JettyAttribute implements Attributes {
 	}
 
 	private static void load(InputStream is) {
-		prop = new Properties();
+		Properties props = new Properties();
 		try {
-			prop.load(is);
+			props.load(is);
+			convertProperties(props);
 		} catch (IOException e) {
 			logger.error("error happen when loading properties file");
+		}
+	}
+	
+	public static void convertProperties(Properties defaultProps) {
+		Enumeration<?> propertyNames = defaultProps.propertyNames();
+		while (propertyNames.hasMoreElements()) {
+			String propertyName = (String) propertyNames.nextElement();
+			String propertyValue = defaultProps.getProperty(propertyName);
+			if (null != propertyName) {
+				prop.setProperty(propertyName, propertyValue);
+			}
 		}
 	}
 
