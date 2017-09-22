@@ -37,17 +37,17 @@ public class JettyAttribute implements Attributes {
 		try {
 			load(ResourceUtils.getAsStream(PROPERTIES_JETTY));
 		} catch (Exception e) {
-			logger.error("error happen when loading jetty properties file");
+			logger.error("error happen when loading jetty.properties file");
 		}
 		try {
 			load(ResourceUtils.getAsStream(PROPERTIES_SYSTEM));
 		} catch (Exception e) {
-			logger.error("error happen when loading jetty properties file");
+			logger.error("error happen when loading system.properties file");
 		}
 		try {
 			load(ResourceUtils.getAsStream(PROPERTIES_APPLICATION));
 		} catch (Exception e) {
-			logger.error("error happen when loading jetty properties file");
+			logger.error("error happen when loading application.properties file");
 		}
 	}
 
@@ -56,7 +56,7 @@ public class JettyAttribute implements Attributes {
 		try {
 			prop.load(is);
 		} catch (IOException e) {
-			logger.error("error happen when loading jetty properties file");
+			logger.error("error happen when loading properties file");
 		}
 	}
 
