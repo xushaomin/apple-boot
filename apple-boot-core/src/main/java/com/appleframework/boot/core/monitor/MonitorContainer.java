@@ -64,9 +64,10 @@ public class MonitorContainer implements Container {
 	
 	private void send() {
 		String monitorUrl = getMonitorUrl();
+		Properties props = getMonitorProperties();
 		boolean success = false;
-		for (int i = 0; i < 2; i++) {
-			if (postMessage(monitorUrl, i)) {
+		for (int i = 1; i <= 3; i++) {
+			if (postMessage(props, monitorUrl, i)) {
 				success = true;
 				break;
 			}
@@ -77,12 +78,11 @@ public class MonitorContainer implements Container {
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private boolean postMessage(String monitorUrl, int time) {
+	private boolean postMessage(Properties props, String monitorUrl, int time) {
 		try {
 			logger.info("第" + time + "次发送监控同步数据通知");
 			String result = null;
-			Properties prop = this.getMonitorProperties();
-			Map<String, String> params = new HashMap<String, String>((Map) prop);
+			Map<String, String> params = new HashMap<String, String>((Map) props);
 			result = HttpUtils.post(monitorUrl, params);
 			if (null != result)
 				return true;

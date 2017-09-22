@@ -1,5 +1,6 @@
 package com.appleframework.boot.jetty.spring;
 
+import java.io.File;
 import java.lang.management.ManagementFactory;
 import java.util.Iterator;
 import java.util.Map;
@@ -41,7 +42,6 @@ public class SpringContainer implements Container {
         context = new ClassPathXmlApplicationContext(configPath.split("[,\\s]+"));
         
         WebAppContext webAppContext = context.getBean("webAppContext", WebAppContext.class);
-        //webAppContext.setMaxFormContentSize(-1);
         QueuedThreadPool threadPool = context.getBean("threadPool", QueuedThreadPool.class);
         ConnectorAttribute connectorAttribute = context.getBean("connectorAttribute", ConnectorAttribute.class);
         
@@ -53,11 +53,23 @@ public class SpringContainer implements Container {
 					|| key.startsWith("javax.servlet.context")) {
 				Object value = entry.getValue();
 				webAppContext.setAttribute(key, value);
+				
+				try {
+					if(key.equals("org.eclipse.jetty.webapp.basetempdir")) {
+						File dir = new File(value.toString());
+						if(!dir.exists() && dir.isDirectory()) {
+							dir.mkdirs();
+						}
+					}
+				} catch (Exception e) {
+					logger.error("create basetempdir fail :" + e.getMessage());
+				}
 			}
 		}
 		
         logger.warn("Start jetty web context maxFormContentSize= " + webAppContext.getMaxFormContentSize()); 
-        logger.warn("Start jetty web context context= " + webAppContext.getContextPath() + ";resource base=" + webAppContext.getResourceBase());
+        logger.warn("Start jetty web context context= " + webAppContext.getContextPath() + ";"
+        		+ "resource base=" + webAppContext.getResourceBase());
         startTime = System.currentTimeMillis();
         try {
         	

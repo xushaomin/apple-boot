@@ -1,5 +1,6 @@
 package com.appleframework.boot.jetty.spring;
 
+import java.io.File;
 import java.lang.management.ManagementFactory;
 import java.util.Iterator;
 import java.util.Map;
@@ -50,6 +51,17 @@ public class SpringContainer implements Container {
 					|| key.startsWith("javax.servlet.context")) {
 				Object value = entry.getValue();
 				webAppContext.setAttribute(key, value);
+				
+				try {
+					if(key.equals("org.eclipse.jetty.webapp.basetempdir")) {
+						File dir = new File(value.toString());
+						if(!dir.exists() && dir.isDirectory()) {
+							dir.mkdirs();
+						}
+					}
+				} catch (Exception e) {
+					logger.error("create basetempdir fail :" + e.getMessage());
+				}
 			}
 		}
 		
