@@ -90,6 +90,7 @@
     	<module>apple-boot-tomcat8</module>
     	<module>apple-boot-tomcat9</module>
     	<module>apple-boot-resin</module>
+    	<module>apple-boot-jetty8-original</module>
   	</modules>
 
 	<build>
