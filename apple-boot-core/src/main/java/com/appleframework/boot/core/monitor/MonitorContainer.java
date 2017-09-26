@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 
 import com.appleframework.boot.core.Container;
 import com.appleframework.boot.core.log4j.Log4jUtils;
+import com.appleframework.boot.utils.ApplicationUtils;
 import com.appleframework.boot.utils.HttpUtils;
 import com.appleframework.boot.utils.NetUtils;
 import com.appleframework.boot.utils.SystemPropertiesUtils;
@@ -95,7 +96,7 @@ public class MonitorContainer implements Container {
 	private Properties getMonitorProperties() {
 		String hostName = NetUtils.getLocalHost();
 		List<String> runtimeParameters = this.getRuntimeParameters();
-		SystemPropertiesUtils.put("application.name", SystemPropertiesUtils.getApplicationName());
+		SystemPropertiesUtils.put("application.name", ApplicationUtils.getApplicationName());
 		SystemPropertiesUtils.put("node.ip", NetUtils.getIpByHost(hostName));
 		SystemPropertiesUtils.put("node.host", hostName);
 		SystemPropertiesUtils.put("install.path", getInstallPath());
