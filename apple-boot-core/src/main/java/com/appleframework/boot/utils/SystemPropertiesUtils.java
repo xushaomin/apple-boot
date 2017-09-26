@@ -1,13 +1,12 @@
 package com.appleframework.boot.utils;
 
-import java.io.InputStream;
 import java.text.MessageFormat;
 import java.util.Enumeration;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
-import com.appleframework.config.core.AppConfigurer;
+import com.appleframework.config.core.EnvConfigurer;
 
 /**
  * @author xusm(2012-11-22)
@@ -23,20 +22,24 @@ public class SystemPropertiesUtils {
 	private static final String APPLE_APPLICATION_NAME_KEY  = "application.name";
 	private static final String SPRING_APPLICATION_NAME_KEY = "spring.application.name";
 	
+	private static final String CLASSPATH_URL_PREFIX = "classpath:";
+	
 	private static Properties prop = new Properties();
 	
 	static {
-		load(ResourceUtils.getAsStream(SYSTEM_PROPERTIES));
-		load(ResourceUtils.getAsStream(SPRING_PROPERTIES));
+		load(SYSTEM_PROPERTIES);
+		load(SPRING_PROPERTIES);
+		load(CLASSPATH_URL_PREFIX + SYSTEM_PROPERTIES);
+		load(CLASSPATH_URL_PREFIX + SPRING_PROPERTIES);
 	}
 		
-	private static void load(InputStream is) {
+	private static void load(String fileName) {
 		Properties props = new Properties();
 		try {
-			props.load(is);
+			props.load(ResourceUtils.getAsStream(fileName));
 			convertProperties(props);
 		} catch (Exception e) {
-			logger.error("error happen when loading properties file:", e);
+			logger.error("the properties file is not exist : " + fileName);
 		}
 	}
 	
@@ -60,9 +63,9 @@ public class SystemPropertiesUtils {
 	}
 	
 	public static String getEnv() {
-		String env = getString(AppConfigurer.KEY_APPLE_NAME);
+		String env = getString(EnvConfigurer.KEY_APPLE_DEPLOY_ENV);
 		if(null == env) {
-			env = getString(AppConfigurer.KEY_SPRING_NAME);
+			env = getString(EnvConfigurer.KEY_SPRING_DEPLOY_ENV);
 		}
 		return env;
 	}
@@ -84,7 +87,7 @@ public class SystemPropertiesUtils {
 			return (String)object;
 		}
 		else {
-			logger.warn("配置项为" + key + "的配置未在" + SYSTEM_PROPERTIES +"中添加或设置的内容为空");
+			logger.warn("配置项为" + key + "的配置未在properties文件中添加或设置的内容为空");
 			return null;
 		}
 	}
@@ -95,7 +98,7 @@ public class SystemPropertiesUtils {
 			return (String)object;
 		}
 		else {
-			logger.warn("配置项为" + key + "的配置未在" + SYSTEM_PROPERTIES +"中添加或设置的内容为空");
+			logger.warn("配置项为" + key + "的配置未在properties文件中添加或设置的内容为空");
 			return defaultValue;
 		}
 	}
@@ -106,7 +109,7 @@ public class SystemPropertiesUtils {
 			return (String)object;
 		}
 		else {
-			logger.warn("配置项为" + key + "的配置未在" + SYSTEM_PROPERTIES +"中添加或设置的内容为空");
+			logger.warn("配置项为" + key + "的配置未在properties文件中添加或设置的内容为空");
 			return null;
 		}
 	}
@@ -117,7 +120,7 @@ public class SystemPropertiesUtils {
 			return (String)object;
 		}
 		else {
-			logger.warn("配置项为" + key + "的配置未在" + SYSTEM_PROPERTIES +"中添加或设置的内容为空");
+			logger.warn("配置项为" + key + "的配置未在properties文件中添加或设置的内容为空");
 			return defaultString;
 		}
 	}
@@ -127,7 +130,7 @@ public class SystemPropertiesUtils {
 		if(null != object)
 			return Long.parseLong(object.toString());
 		else {
-			logger.warn("配置项为" + key + "的配置未在" + SYSTEM_PROPERTIES +"中添加或设置的内容为空");
+			logger.warn("配置项为" + key + "的配置未在properties文件中添加或设置的内容为空");
 			return null;
 		}
 	}
@@ -137,7 +140,7 @@ public class SystemPropertiesUtils {
 		if(null != object)
 			return Long.parseLong(object.toString());
 		else {
-			logger.warn("配置项为" + key + "的配置未在" + SYSTEM_PROPERTIES +"中添加或设置的内容为空");
+			logger.warn("配置项为" + key + "的配置未在properties文件中添加或设置的内容为空");
 			return defaultLong;
 		}
 	}
@@ -148,7 +151,7 @@ public class SystemPropertiesUtils {
 			return Integer.parseInt(object.toString());
 		}
 		else {
-			logger.warn("配置项为" + key + "的配置未在" + SYSTEM_PROPERTIES +"中添加或设置的内容为空");
+			logger.warn("配置项为" + key + "的配置未在properties文件中添加或设置的内容为空");
 			return null;
 		}
 	}
@@ -159,7 +162,7 @@ public class SystemPropertiesUtils {
 			return Integer.parseInt(object.toString());
 		}
 		else {
-			logger.warn("配置项为" + key + "的配置未在" + SYSTEM_PROPERTIES +"中添加或设置的内容为空");
+			logger.warn("配置项为" + key + "的配置未在properties文件中添加或设置的内容为空");
 			return defaultInt;
 		}
 	}
