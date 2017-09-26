@@ -4,10 +4,6 @@ import com.appleframework.boot.utils.SystemPropertiesUtils;
 
 public class MonitorConfig implements MonitorConfigMBean {
 
-	private static String KEY_APPLICATION_NAME = "application.name";
-	private static String KEY_DATA_ID          = "deploy.dataId";
-	private static String KEY_GROUP            = "deploy.group";
-	private static String KEY_ENV              = "deploy.env";
 	private static String KEY_SERVICE_PORT     = "service.port";
 	private static String KEY_WEB_PORT         = "web.port";
 	private static String KEY_JMX_PORT         = "jmx.port";
@@ -18,24 +14,9 @@ public class MonitorConfig implements MonitorConfigMBean {
 
 	@Override
 	public String getApplicationName() {
-		return SystemPropertiesUtils.getString(KEY_APPLICATION_NAME);
+		return SystemPropertiesUtils.getApplicationName();
 	}
-
-	@Override
-	public String getDataId() {
-		return SystemPropertiesUtils.getString(KEY_DATA_ID);
-	}
-
-	@Override
-	public String getGroup() {
-		return SystemPropertiesUtils.getString(KEY_GROUP);
-	}
-
-	@Override
-	public String getEnv() {
-		return SystemPropertiesUtils.getString(KEY_ENV);
-	}
-
+	
 	@Override
 	public Integer getServicePort() {
 		return SystemPropertiesUtils.getInteger(KEY_SERVICE_PORT);

@@ -54,6 +54,22 @@ public class SystemPropertiesUtils {
 		}
 	}
 	
+	public static void setProperty(String key, String value) {
+		try {
+			prop.setProperty(key, value);
+		} catch (Exception e) {
+			logger.error(e);
+		}
+	}
+
+	public static void put(Object key, Object value) {
+		try {
+			prop.put(key, value);
+		} catch (Exception e) {
+			logger.error(e);
+		}
+	}
+	
 	public static String getApplicationName() {
 		String name = getString(APPLE_APPLICATION_NAME_KEY);
 		if(null == name) {

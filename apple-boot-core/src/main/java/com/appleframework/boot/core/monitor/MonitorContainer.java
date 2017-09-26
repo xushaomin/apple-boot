@@ -93,19 +93,18 @@ public class MonitorContainer implements Container {
 	}
 	
 	private Properties getMonitorProperties() {
-		Properties prop = SystemPropertiesUtils.getProp();
 		String hostName = NetUtils.getLocalHost();
 		List<String> runtimeParameters = this.getRuntimeParameters();
-		prop.put("node.ip", NetUtils.getIpByHost(hostName));
-		prop.put("node.host", hostName);
-		prop.put("install.path", getInstallPath());
-		prop.put("deploy.env", getDeployEnv());
-		prop.put("log.level", Log4jUtils.getRootLoggerLevelString());
-		prop.put("java.version", System.getProperty("java.version"));
-		prop.put("start.param", runtimeParameters.toString());
-		prop.put("mem.max", this.getRuntimeParameter(runtimeParameters, "-Xmx"));
-		prop.put("mem.min", this.getRuntimeParameter(runtimeParameters, "-Xms"));
-		return prop;
+		SystemPropertiesUtils.put("node.ip", NetUtils.getIpByHost(hostName));
+		SystemPropertiesUtils.put("node.host", hostName);
+		SystemPropertiesUtils.put("install.path", getInstallPath());
+		SystemPropertiesUtils.put("deploy.env", getDeployEnv());
+		SystemPropertiesUtils.put("log.level", Log4jUtils.getRootLoggerLevelString());
+		SystemPropertiesUtils.put("java.version", System.getProperty("java.version"));
+		SystemPropertiesUtils.put("start.param", runtimeParameters.toString());
+		SystemPropertiesUtils.put("mem.max", this.getRuntimeParameter(runtimeParameters, "-Xmx"));
+		SystemPropertiesUtils.put("mem.min", this.getRuntimeParameter(runtimeParameters, "-Xms"));
+		return SystemPropertiesUtils.getProp();
 	}
 	
 	private String getInstallPath() {
