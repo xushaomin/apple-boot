@@ -2,9 +2,12 @@ package com.appleframework.boot.utils;
 
 import java.io.InputStream;
 import java.text.MessageFormat;
+import java.util.Enumeration;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
+
+import com.appleframework.config.core.AppConfigurer;
 
 /**
  * @author xusm(2012-11-22)
@@ -15,27 +18,53 @@ public class SystemPropertiesUtils {
 	private static Logger logger = Logger.getLogger(SystemPropertiesUtils.class);
 	
 	private static final String SYSTEM_PROPERTIES = "system.properties";
+	private static final String SPRING_PROPERTIES = "application.properties";
 	
-	public static final String APPLICATION_NAME_KEY = "application.name";
+	private static final String APPLE_APPLICATION_NAME_KEY  = "application.name";
+	private static final String SPRING_APPLICATION_NAME_KEY = "spring.application.name";
 	
-	private static Properties prop = null;
+	private static Properties prop = new Properties();
 	
 	static {
 		load(ResourceUtils.getAsStream(SYSTEM_PROPERTIES));
+		load(ResourceUtils.getAsStream(SPRING_PROPERTIES));
 	}
 		
-	private static void load(InputStream is){
-		prop = new Properties();
+	private static void load(InputStream is) {
+		Properties props = new Properties();
 		try {
-			prop.load(is);
-		} catch (Exception e) {			
+			props.load(is);
+			convertProperties(props);
+		} catch (Exception e) {
 			logger.error("error happen when loading properties file:", e);
 		}
 	}
 	
+	public static void convertProperties(Properties defaultProps) {
+		Enumeration<?> propertyNames = defaultProps.propertyNames();
+		while (propertyNames.hasMoreElements()) {
+			String propertyName = (String) propertyNames.nextElement();
+			String propertyValue = defaultProps.getProperty(propertyName);
+			if (ObjectUtils.isNotEmpty(propertyName)) {
+				prop.setProperty(propertyName, propertyValue);
+			}
+		}
+	}
 	
-	public static String getApplicationName(){
-		return getString(APPLICATION_NAME_KEY);
+	public static String getApplicationName() {
+		String name = getString(APPLE_APPLICATION_NAME_KEY);
+		if(null == name) {
+			getString(SPRING_APPLICATION_NAME_KEY);
+		}
+		return name;
+	}
+	
+	public static String getEnv() {
+		String env = getString(AppConfigurer.KEY_APPLE_NAME);
+		if(null == env) {
+			env = getString(AppConfigurer.KEY_SPRING_NAME);
+		}
+		return env;
 	}
 
 	public static Properties getProp() {

@@ -115,7 +115,7 @@ public class MonitorContainer implements Container {
 	private String getDeployEnv() {
 		String env = EnvConfigurer.getEnv();
 		if (null == env) {
-			env = SystemPropertiesUtils.getString(EnvConfigurer.KEY_DEPLOY_ENV);
+			env = SystemPropertiesUtils.getEnv();
 			if (null == env) {
 				env = "UNKNOWN";
 			}
