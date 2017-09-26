@@ -73,7 +73,7 @@ public class SystemPropertiesUtils {
 	public static String getApplicationName() {
 		String name = getString(APPLE_APPLICATION_NAME_KEY);
 		if(null == name) {
-			getString(SPRING_APPLICATION_NAME_KEY);
+			name = getString(SPRING_APPLICATION_NAME_KEY);
 		}
 		return name;
 	}

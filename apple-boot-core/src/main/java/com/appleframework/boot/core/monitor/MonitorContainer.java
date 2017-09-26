@@ -95,6 +95,7 @@ public class MonitorContainer implements Container {
 	private Properties getMonitorProperties() {
 		String hostName = NetUtils.getLocalHost();
 		List<String> runtimeParameters = this.getRuntimeParameters();
+		SystemPropertiesUtils.put("application.name", SystemPropertiesUtils.getApplicationName());
 		SystemPropertiesUtils.put("node.ip", NetUtils.getIpByHost(hostName));
 		SystemPropertiesUtils.put("node.host", hostName);
 		SystemPropertiesUtils.put("install.path", getInstallPath());
