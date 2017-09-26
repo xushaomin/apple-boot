@@ -52,6 +52,4 @@ public class MonitorConfig implements MonitorConfigMBean {
 		return SystemPropertiesUtils.getString(KEY_MEM_MIN);
 	}
 	
-	
-	
 }

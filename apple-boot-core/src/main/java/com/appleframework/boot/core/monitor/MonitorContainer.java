@@ -27,7 +27,9 @@ public class MonitorContainer implements Container {
 	
 	private static String CONTAINER_NAME = "MonitorContainer";
 	
-	private static String MONITOR_DOMAIN = "monitor.appleframework.com";
+	private static String DEF_MONITOR_DOMAIN = "monitor.appleframework.com";
+	
+	private static String KEY_MONITOR_DOMAIN  = "monitor.domain";
 	
 	private static String MONITOR_URL = "http://{0}/collect/application";
 
@@ -157,12 +159,17 @@ public class MonitorContainer implements Container {
 	}
 	
 	private String getMonitorUrl() {
-		String domain = System.getProperty("monitor.domain", MONITOR_DOMAIN);
-		return MessageFormat.format(MONITOR_URL, domain);  
+		return MessageFormat.format(MONITOR_URL, getMonitorDomain());  
 	}
 	
 	private String getMonitorDomain() {
-		return System.getProperty("monitor.domain", MONITOR_DOMAIN);
+		String domain = System.getProperty(KEY_MONITOR_DOMAIN);
+		if (null == domain) {
+			domain = SystemPropertiesUtils.getString(KEY_MONITOR_DOMAIN);
+			if (null == domain)
+				domain = DEF_MONITOR_DOMAIN;
+		}
+		return domain;
 	}
 	
 }
