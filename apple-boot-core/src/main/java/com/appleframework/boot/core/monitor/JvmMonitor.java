@@ -25,6 +25,8 @@ public class JvmMonitor {
 	
 	public static boolean isRecord = true;
 	
+	private static Map<String, String> MONITOR_PARAMS = new HashMap<String, String>();
+	
     private long lastProcessCpuTime = 0;
     private long lastUptime = 0;
 
@@ -54,6 +56,9 @@ public class JvmMonitor {
 					record();
 			}
 		}, periodSeconds, periodSeconds, TimeUnit.SECONDS);
+		addMonitorParams("application.name", SystemPropertiesUtils.getApplicationName());
+		addMonitorParams("node.ip", SystemPropertiesUtils.getString("node.ip"));
+		addMonitorParams("node.host", SystemPropertiesUtils.getString("node.host"));
 	}
 
     public void record() {
@@ -61,17 +66,13 @@ public class JvmMonitor {
 				"cpuUsed=" + getCpu() + " threadCount=" + getThreadCount();
 		logger.info(message);
 
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("jvm.memoryUsed", getMemoryUsed() + "k ");
-		params.put("jvm.cpuUsed", getCpu() + "");
-		params.put("jvm.threadCount", getThreadCount() + "");
-		
-		params.put("application.name", SystemPropertiesUtils.getApplicationName());
-		params.put("node.ip", SystemPropertiesUtils.getString("node.ip"));
-		params.put("node.host", SystemPropertiesUtils.getString("node.host"));
+		addMonitorParams("jvm.memoryUsed", getMemoryUsed() + "k ");
+		addMonitorParams("jvm.memoryTotal", getMemoryTotal() + "k ");
+		addMonitorParams("jvm.cpuUsed", getCpu() + "");
+		addMonitorParams("jvm.threadCount", getThreadCount() + "");
 		
 		try {
-			HttpUtils.post(Constants.getMonitorUrl(), params);
+			HttpUtils.post(Constants.getMonitorUrl(), MONITOR_PARAMS);
 		} catch (Exception e) {
 			logger.info("Post monitor info error : " + e.getMessage());
 		}
@@ -83,6 +84,10 @@ public class JvmMonitor {
 
     protected long getMemoryUsed() {
         return (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / (1024);
+    }
+    
+    protected long getMemoryTotal() {
+        return (Runtime.getRuntime().totalMemory()) / (1024);
     }
 
     protected double getCpu() {
@@ -97,6 +102,10 @@ public class JvmMonitor {
         lastProcessCpuTime = processCpuTime;
         lastUptime = uptime;
         return (int) cpu;  //
-    }   
+    }
+    
+    public void addMonitorParams(String key, String value) {
+    	MONITOR_PARAMS.put(key, value);
+    }
 
 }
