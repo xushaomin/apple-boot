@@ -60,7 +60,7 @@ public class HttpUtils {
 		String retVal = null;
 		try {
 			List<NameValuePair> formparams = new ArrayList<NameValuePair>();
-			logger.info(" post params is " + params);
+			logger.info("post params is " + params);
 			if (params != null) {
 				for (Map.Entry<String, String> param : params.entrySet()) {
 					String value = param.getValue();
@@ -84,10 +84,10 @@ public class HttpUtils {
 			logger.info("return result is " + retVal);
 		} catch (IOException e) {
 			logger.info("SocketTimeoutException request url is " + url);
-			logger.info(" IOException is "+e.toString());
+			logger.info("IOException is "+e.toString());
 			throw e;
 		} catch (Exception ex) {
-			logger.info(" Exception is "+ex.toString());
+			logger.info("Exception is "+ex.toString());
 			throw ex;
 		} finally {
 			httpclient.getConnectionManager().shutdown();
@@ -113,7 +113,7 @@ public class HttpUtils {
 		String retVal = "";
 		try {
 			List<NameValuePair> formparams = new ArrayList<NameValuePair>();
-			logger.info(" post params is " + params);
+			logger.info("post params is " + params);
 			if (params != null) {
 				for (Map.Entry<String, String> param : params.entrySet()) {
 					 //String value = param.getValue();
@@ -132,10 +132,10 @@ public class HttpUtils {
 			logger.info("return result is " + retVal);
 		} catch (IOException e) {
 			logger.info("SocketTimeoutException request url is " + url);
-			logger.info(" IOException is "+e.toString());
+			logger.info("IOException is "+e.toString());
 			throw e;
 		} catch (Exception ex) {
-			logger.info(" Exception is "+ex.toString());
+			logger.info("Exception is "+ex.toString());
 			throw ex;
 		} finally {
 			httpclient.getConnectionManager().shutdown();
@@ -159,7 +159,7 @@ public class HttpUtils {
 		String retVal = "";
 		try {
 			List<NameValuePair> qparams = new ArrayList<NameValuePair>();
-			logger.info(" get params is " + params);
+			logger.info("get params is " + params);
 			if (params != null) {
 				for (Map.Entry<String, String> param : params.entrySet()) {
 					 String value = param.getValue();
@@ -181,7 +181,7 @@ public class HttpUtils {
 			logger.info("return result is " + retVal);
 		} catch (IOException e) {
 			logger.info("SocketTimeoutException request url is " + url);
-			logger.info(" IOException is "+e.toString());
+			logger.info("IOException is "+e.toString());
 			throw e;
 		} finally {
 			httpclient.getConnectionManager().shutdown();
