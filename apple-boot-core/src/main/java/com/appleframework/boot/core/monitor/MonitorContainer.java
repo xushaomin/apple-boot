@@ -2,7 +2,6 @@ package com.appleframework.boot.core.monitor;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,17 +26,14 @@ public class MonitorContainer implements Container {
 	
 	private static String CONTAINER_NAME = "MonitorContainer";
 	
-	private static String DEF_MONITOR_DOMAIN = "monitor.appleframework.com";
-	
-	private static String KEY_MONITOR_DOMAIN  = "monitor.domain";
-	
-	private static String MONITOR_URL = "http://{0}/collect/application";
-
 	@Override
 	public void start() {
 		logger.warn(CONTAINER_NAME + " start");
 		startTime = System.currentTimeMillis();
 		this.send();
+		
+		if(Constants.isMonitorJvm())
+			JvmMonitor.getInstance().record();
 	}
 
 	@Override
@@ -66,27 +62,27 @@ public class MonitorContainer implements Container {
 	}
 	
 	private void send() {
-		String monitorUrl = getMonitorUrl();
+		String applicationUrl = Constants.getApplicationUrl();
 		Properties props = getMonitorProperties();
 		boolean success = false;
 		for (int i = 1; i <= 3; i++) {
-			if (postMessage(props, monitorUrl, i)) {
+			if (postMessage(props, applicationUrl, i)) {
 				success = true;
 				break;
 			}
 		}
 		if (!success) {
-			logger.error("通知监控中心失败，请检查域名" + getMonitorDomain() + "是否配置有效!");
+			logger.error("通知监控中心失败，请检查域名" + Constants.getMonitorDomain() + "是否配置有效!");
 		}
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private boolean postMessage(Properties props, String monitorUrl, int time) {
+	private boolean postMessage(Properties props, String applicationUrl, int time) {
 		try {
 			logger.info("第" + time + "次发送监控同步数据通知");
 			String result = null;
 			Map<String, String> params = new HashMap<String, String>((Map) props);
-			result = HttpUtils.post(monitorUrl, params);
+			result = HttpUtils.post(applicationUrl, params);
 			if (null != result)
 				return true;
 		} catch (Exception e) {
@@ -156,20 +152,5 @@ public class MonitorContainer implements Container {
 			}
 		}
 		return value;
-	}
-	
-	private String getMonitorUrl() {
-		return MessageFormat.format(MONITOR_URL, getMonitorDomain());  
-	}
-	
-	private String getMonitorDomain() {
-		String domain = System.getProperty(KEY_MONITOR_DOMAIN);
-		if (null == domain) {
-			domain = SystemPropertiesUtils.getString(KEY_MONITOR_DOMAIN);
-			if (null == domain)
-				domain = DEF_MONITOR_DOMAIN;
-		}
-		return domain;
-	}
-	
+	}	
 }
