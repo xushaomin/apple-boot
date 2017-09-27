@@ -48,14 +48,16 @@ public class JvmMonitor {
 
 	private JvmMonitor(int periodSeconds) {
 		logger.info("jvm monitor start  ...");
-		ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
-		executorService.scheduleAtFixedRate(new Runnable() {
-			@Override
-			public void run() {
-				if(isRecord)
-					record();
-			}
-		}, periodSeconds, periodSeconds, TimeUnit.SECONDS);
+		if(isRecord) {
+			ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
+			executorService.scheduleAtFixedRate(new Runnable() {
+				@Override
+				public void run() {
+					if(isRecord)
+						record();
+				}
+			}, periodSeconds, periodSeconds, TimeUnit.SECONDS);
+		}
 		addMonitorParams("application.name", SystemPropertiesUtils.getApplicationName());
 		addMonitorParams("node.ip", SystemPropertiesUtils.getString("node.ip"));
 		addMonitorParams("node.host", SystemPropertiesUtils.getString("node.host"));
