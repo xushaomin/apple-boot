@@ -51,5 +51,15 @@ public class MonitorConfig implements MonitorConfigMBean {
 	public String getMemMin() {
 		return SystemPropertiesUtils.getString(KEY_MEM_MIN);
 	}
+
+	@Override
+	public void setJvmRecord(boolean isRecord) {
+		JvmMonitor.isRecord = isRecord;
+	}
+
+	@Override
+	public boolean getJvmRecord() {
+		return JvmMonitor.isRecord;
+	}
 	
 }

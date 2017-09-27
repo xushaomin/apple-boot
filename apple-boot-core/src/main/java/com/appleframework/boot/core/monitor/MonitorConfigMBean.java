@@ -17,5 +17,9 @@ public interface MonitorConfigMBean {
 	public String getMemMax();
 	
 	public String getMemMin();
+	
+	public void setJvmRecord(boolean isRecord);
+	
+	public boolean getJvmRecord();
 		
 }

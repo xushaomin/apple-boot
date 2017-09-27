@@ -23,6 +23,8 @@ public class JvmMonitor {
 	
 	private static JvmMonitor instance = null;
 	
+	public static boolean isRecord = true;
+	
     private long lastProcessCpuTime = 0;
     private long lastUptime = 0;
 
@@ -48,7 +50,8 @@ public class JvmMonitor {
 		executorService.scheduleAtFixedRate(new Runnable() {
 			@Override
 			public void run() {
-				record();
+				if(isRecord)
+					record();
 			}
 		}, periodSeconds, periodSeconds, TimeUnit.SECONDS);
 	}
