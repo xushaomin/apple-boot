@@ -63,9 +63,10 @@ public class HttpUtils {
 			logger.info(" post params is " + params);
 			if (params != null) {
 				for (Map.Entry<String, String> param : params.entrySet()) {
-					 String value = param.getValue();
-					 if(value !=null && !"".equals(value))
-					    formparams.add(new BasicNameValuePair(param.getKey(), param.getValue()));
+					String value = param.getValue();
+					if (value != null && !"".equals(value)) {
+						formparams.add(new BasicNameValuePair(param.getKey(), param.getValue()));
+					}
 				}
 			}
 			logger.info("consume millis begin time is " + (System.currentTimeMillis() - begin));
