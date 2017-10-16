@@ -33,4 +33,25 @@
 		
 	</dependencies>
 	
+	<build>
+		<plugins>
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-jar-plugin</artifactId>
+			    <version>2.3.1</version>
+			    <configuration>
+			        <archive>
+			            <manifest>
+			                <addClasspath>false</addClasspath>
+			            </manifest>
+			            <manifestEntries>
+			                <Premain-Class>com.appleframework.boot.BootAgent</Premain-Class>
+			                <Can-Redefine-Classes>true</Can-Redefine-Classes>
+			            </manifestEntries>
+			        </archive>
+			    </configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
 </project>

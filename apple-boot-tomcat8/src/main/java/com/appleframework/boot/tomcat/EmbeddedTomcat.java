@@ -30,7 +30,9 @@ public class EmbeddedTomcat {
 			// 设置Tomcat的工作目录
 			//tomcat.setBaseDir(tomcatHome);
 			tomcat.setPort(tomcatPort);
-			tomcat.addWebapp(contextPath, getWebAppPath());
+			if(null != getWebAppPath()) {
+				tomcat.addWebapp(contextPath, getWebAppPath());
+			}
 			// tomcat.enableNaming();//执行这句才能支持JDNI查找
 			tomcat.getConnector().setURIEncoding(ENCODING);
 			
@@ -55,9 +57,11 @@ public class EmbeddedTomcat {
 		URL url = Thread.currentThread().getContextClassLoader().getResource("");
 		String path = url.getPath();
 		int indexConf = path.lastIndexOf("/conf");
-		String webapp = path.substring(0, indexConf) + "/webapp";
-		logger.error(webapp);
-		this.webAppPath = webapp;
+		if(indexConf > -1) {
+			String webapp = path.substring(0, indexConf) + "/webapp";
+			logger.error(webapp);
+			this.webAppPath = webapp;
+		}
 	}
 
 	public void setTomcatPort(int tomcatPort) {
