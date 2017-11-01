@@ -78,7 +78,6 @@ public class HttpUtils {
 			ResponseHandler<String> responseHandler = new BasicResponseHandler();
 			String temp = httpclient.execute(httppost, responseHandler);
 			retVal = temp;
-			//new String(temp.getBytes(HTTP.ISO_8859_1), HTTP.UTF_8);
 			long end = System.currentTimeMillis();
 			logger.info("consume millis end time is " + (end - begin));
 			logger.info("return result is " + retVal);
@@ -163,8 +162,9 @@ public class HttpUtils {
 			if (params != null) {
 				for (Map.Entry<String, String> param : params.entrySet()) {
 					 String value = param.getValue();
-					 if(value !=null && !"".equals(value))
+					 if(value !=null && !"".equals(value)) {
 						qparams.add(new BasicNameValuePair(param.getKey(), param.getValue()));
+					 }
 				}
 			}
 			String paramstr = URLEncodedUtils.format(qparams, HTTP.UTF_8);

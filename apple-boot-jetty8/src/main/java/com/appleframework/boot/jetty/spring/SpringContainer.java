@@ -53,7 +53,7 @@ public class SpringContainer implements Container {
 				webAppContext.setAttribute(key, value);
 				
 				try {
-					if(key.equals("org.eclipse.jetty.webapp.basetempdir")) {
+					if("org.eclipse.jetty.webapp.basetempdir".equals(key)) {
 						File dir = new File(value.toString());
 						if(!dir.exists() && dir.isDirectory()) {
 							dir.mkdirs();

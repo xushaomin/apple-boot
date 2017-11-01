@@ -28,8 +28,9 @@ public class Constants {
 		String domain = System.getProperty(Constants.KEY_MONITOR_DOMAIN);
 		if (null == domain) {
 			domain = SystemPropertiesUtils.getString(Constants.KEY_MONITOR_DOMAIN);
-			if (null == domain)
+			if (null == domain) {
 				domain = Constants.DEF_MONITOR_DOMAIN;
+			}
 		}
 		return domain;
 	}

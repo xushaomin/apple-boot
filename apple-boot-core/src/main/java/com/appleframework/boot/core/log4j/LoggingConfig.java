@@ -60,8 +60,8 @@ public class LoggingConfig implements LoggingConfigMBean {
 		assignLogLevel(target, Level.TRACE);
 	}
 	
-	public void assignLevel(String target, Level Level) {
-		assignLogLevel(target, Level);
+	public void assignLevel(String target, Level level) {
+		assignLogLevel(target, level);
 	}
 	
 	public void assignLevel(String logLevel) {

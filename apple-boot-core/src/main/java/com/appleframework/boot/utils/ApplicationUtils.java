@@ -14,8 +14,9 @@ public class ApplicationUtils {
 		if(null == name) {
 			try {
 				name = SystemPropertiesUtils.getApplicationName();
-				if(null != name)
+				if(null != name) {
 					AppConfigurer.setName(name);
+				}
 			} catch (Exception e) {
 				logger.error(e.getMessage(), e);
 			}
@@ -28,8 +29,9 @@ public class ApplicationUtils {
 		if(null == env) {
 			try {
 				env = SystemPropertiesUtils.getEnv();
-				if(null != env)
+				if(null != env) {
 					EnvConfigurer.setEnv(env);
+				}
 			} catch (Exception e) {
 				logger.error(e.getMessage(), e);
 			}

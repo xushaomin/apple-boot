@@ -4,9 +4,11 @@ public class ConnectorAttribute {
 
 	private Integer port;
 
-	private Integer acceptQueueSize; // 每个请求被accept前允许等待的连接数
+	// 每个请求被accept前允许等待的连接数
+	private Integer acceptQueueSize; 
 
-	private Integer acceptors; // 同事监听read事件的线程数
+	// 同事监听read事件的线程数
+	private Integer acceptors;
 
 	private Integer selectors;
 

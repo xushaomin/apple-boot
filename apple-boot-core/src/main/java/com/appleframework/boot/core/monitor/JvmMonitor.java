@@ -4,8 +4,8 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
@@ -31,14 +31,16 @@ public class JvmMonitor {
     private long lastUptime = 0;
 
 	public synchronized static JvmMonitor getInstance(int periodSeconds) {
-		if (instance == null)
+		if (instance == null) {
 			instance = new JvmMonitor(periodSeconds);
+		}
 		return instance;
 	}
 
 	public synchronized static JvmMonitor getInstance() {
-		if (instance == null)
+		if (instance == null) {
 			instance = new JvmMonitor();
+		}
 		return instance;
 	}
     
@@ -49,12 +51,13 @@ public class JvmMonitor {
 	private JvmMonitor(int periodSeconds) {
 		logger.info("jvm monitor start  ...");
 		if(isRecord) {
-			ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
+			ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(1);
 			executorService.scheduleAtFixedRate(new Runnable() {
 				@Override
 				public void run() {
-					if(isRecord)
+					if(isRecord) {
 						record();
+					}
 				}
 			}, periodSeconds, periodSeconds, TimeUnit.SECONDS);
 		}
@@ -103,7 +106,7 @@ public class JvmMonitor {
         double cpu = (processCpuTime - lastProcessCpuTime) / ((uptime - lastUptime) * 10000f * processors);
         lastProcessCpuTime = processCpuTime;
         lastUptime = uptime;
-        return (int) cpu;  //
+        return (int) cpu;
     }
     
     public void addMonitorParams(String key, String value) {

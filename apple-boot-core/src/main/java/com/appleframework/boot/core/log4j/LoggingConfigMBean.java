@@ -67,7 +67,7 @@ public interface LoggingConfigMBean {
 	/**
 	 * assigns the {@link Level#level} to the target
 	 */
-	public void assignLevel(String target, Level Level);
+	public void assignLevel(String target, Level level);
 	
 	/**
 	 * assigns the {@link Level#level} to the RootLogger

@@ -139,8 +139,9 @@ public class NetUtils {
     private static final Pattern IP_PATTERN = Pattern.compile("\\d{1,3}(\\.\\d{1,3}){3,5}$");
 
     private static boolean isValidAddress(InetAddress address) {
-        if (address == null || address.isLoopbackAddress())
+        if (address == null || address.isLoopbackAddress()) {
             return false;
+        }
         String name = address.getHostAddress();
         return (name != null 
                 && ! ANYHOST.equals(name)
@@ -161,8 +162,9 @@ public class NetUtils {
      * @return 本地网卡IP
      */
     public static InetAddress getLocalAddress() {
-        if (LOCAL_ADDRESS != null)
+        if (LOCAL_ADDRESS != null) {
             return LOCAL_ADDRESS;
+        }
         InetAddress localAddress = getLocalAddress0();
         LOCAL_ADDRESS = localAddress;
         return localAddress;
@@ -214,7 +216,7 @@ public class NetUtils {
         return localAddress;
     }
     
-    private static final Map<String, String> hostNameCache = new LRUCache<String, String>(1000);
+    private static final Map<String, String> HOST_NAME_CACHE = new LRUCache<String, String>(1000);
 
     public static String getHostName(String address) {
     	try {
@@ -222,14 +224,14 @@ public class NetUtils {
     		if (i > -1) {
     			address = address.substring(0, i);
     		}
-    		String hostname = hostNameCache.get(address);
+    		String hostname = HOST_NAME_CACHE.get(address);
     		if (hostname != null && hostname.length() > 0) {
     			return hostname;
     		}
     		InetAddress inetAddress = InetAddress.getByName(address);
     		if (inetAddress != null) {
     			hostname = inetAddress.getHostName();
-    			hostNameCache.put(address, hostname);
+    			HOST_NAME_CACHE.put(address, hostname);
     			return hostname;
     		}
 		} catch (Throwable e) {
@@ -272,8 +274,9 @@ public class NetUtils {
 		StringBuilder sb = new StringBuilder();
 		sb.append(protocol).append("://");
 		sb.append(host).append(':').append(port);
-		if( path.charAt(0) != '/' )
+		if( path.charAt(0) != '/' ) {
 			sb.append('/');
+		}
 		sb.append(path);
 		return sb.toString();
 	}

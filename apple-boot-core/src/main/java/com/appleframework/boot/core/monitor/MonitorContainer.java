@@ -32,8 +32,9 @@ public class MonitorContainer implements Container {
 		startTime = System.currentTimeMillis();
 		this.send();
 		
-		if(Constants.isMonitorJvm())
+		if(Constants.isMonitorJvm()) {
 			JvmMonitor.getInstance().record();
+		}
 	}
 
 	@Override
@@ -83,8 +84,9 @@ public class MonitorContainer implements Container {
 			String result = null;
 			Map<String, String> params = new HashMap<String, String>((Map) props);
 			result = HttpUtils.post(applicationUrl, params);
-			if (null != result)
+			if (null != result) {
 				return true;
+			}
 		} catch (Exception e) {
 			logger.info("通过httpclient发送监控同步数据通知失败");
 		}

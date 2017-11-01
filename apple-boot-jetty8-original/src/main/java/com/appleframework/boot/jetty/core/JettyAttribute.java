@@ -93,10 +93,12 @@ public class JettyAttribute implements Attributes {
 
 	@Override
 	public Object getAttribute(String name) {
-		if (null == prop)
+		if (null == prop) {
 			return null;
-		else
+		}
+		else {
 			return prop.get(name);
+		}
 	}
 
 	@SuppressWarnings("unchecked")

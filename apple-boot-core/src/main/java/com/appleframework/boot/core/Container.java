@@ -7,11 +7,8 @@ package com.appleframework.boot.core;
  */
 public interface Container {
 	
-	/* 默认的Type */
 	public static final String DEFAULT_TYPE = "container";
-	/* type的key */
 	public static final String TYPE_KEY = "type";
-	/* name的key */
 	public static final String ID_KEY = "id";
 		
 	/**

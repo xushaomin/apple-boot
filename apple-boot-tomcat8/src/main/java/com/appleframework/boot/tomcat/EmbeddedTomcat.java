@@ -16,7 +16,9 @@ public class EmbeddedTomcat {
 	private static Tomcat tomcat = null;
 	private static String ENCODING = "UTF-8";
 	private static String CONTEXT_PATH = "/";
-	private static int TOMCAT_PORT = 8080; // 启动嵌入式Tomcat服务器
+	
+	// 启动嵌入式Tomcat服务器
+	private static int TOMCAT_PORT = 8080;
 
 	private int tomcatPort = TOMCAT_PORT;
 	private String contextPath;
@@ -36,8 +38,9 @@ public class EmbeddedTomcat {
 			// tomcat.enableNaming();//执行这句才能支持JDNI查找
 			tomcat.getConnector().setURIEncoding(ENCODING);
 			
-			if(null != executor)
+			if(null != executor) {
 				tomcat.getService().addExecutor(executor);
+			}
 			
 			tomcat.start();
 			logger.warn("Tomcat started in " + (System.currentTimeMillis() - startTime) + " ms.");
@@ -78,8 +81,9 @@ public class EmbeddedTomcat {
 
 	public void stop() {
 		try {
-			if (null != tomcat)
+			if (null != tomcat) {
 				tomcat.stop();
+			}
 		} catch (Exception e) {
 			logger.error(e);
 		}
@@ -87,8 +91,9 @@ public class EmbeddedTomcat {
 
 	public void destroy() {
 		try {
-			if (null != tomcat)
+			if (null != tomcat) {
 				tomcat.destroy();
+			}
 		} catch (Exception e) {
 			logger.error(e);
 		}

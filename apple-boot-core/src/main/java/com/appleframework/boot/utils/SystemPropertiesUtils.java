@@ -91,10 +91,12 @@ public class SystemPropertiesUtils {
 	}
 	
 	public static Object getProperty(String key) {
-		if(null == prop)
+		if(null == prop) {
 			return null;
-		else
+		}
+		else {
 			return prop.get(key);
+		}
 	}
 	
 	public static String getValue(String key) {

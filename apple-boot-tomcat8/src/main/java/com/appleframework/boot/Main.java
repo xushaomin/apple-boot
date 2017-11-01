@@ -91,8 +91,9 @@ public class Main {
 						mbean = null;
 					}
 					
-					if(null == mbean)
+					if(null == mbean) {
 						continue;
+					}
 					
 					if (mbs.isRegistered(oname)) {
 						mbs.unregisterMBean(oname);
