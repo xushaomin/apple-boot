@@ -15,7 +15,7 @@ public class SpringContainer implements Container {
 
 	private static Logger logger = Logger.getLogger(SpringContainer.class);
     
-	private static String DEFAULT_SPRING_CONFIG = "classpath*:config/*.xml";
+	private static final String DEFAULT_SPRING_CONFIG = "classpath*:config/*.xml";
 
     static ClassPathXmlApplicationContext context;
     
@@ -30,12 +30,12 @@ public class SpringContainer implements Container {
         
         String springConfigFile = System.getProperty("spring.config.file");
         if(null != springConfigFile) {
-        	DEFAULT_SPRING_CONFIG = springConfigFile;
+        	configPath = springConfigFile;
         }
         
         String springConfigPath = System.getProperty("spring.config.path");
         if(null != springConfigPath) {
-        	DEFAULT_SPRING_CONFIG = springConfigPath + "/*.xml";
+        	configPath = springConfigPath + "/*.xml";
         }
         
         context = new ClassPathXmlApplicationContext(configPath.split("[,\\s]+"));
