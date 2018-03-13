@@ -8,7 +8,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.appleframework.boot.utils.HttpUtils;
 import com.appleframework.boot.utils.SystemPropertiesUtils;
@@ -17,7 +18,7 @@ import com.sun.management.OperatingSystemMXBean;
 @SuppressWarnings("restriction")
 public class JvmMonitor {
 	
-    private static Logger logger = Logger.getLogger(JvmMonitor.class);
+	private static Logger logger = LoggerFactory.getLogger(JvmMonitor.class);
     
     public static final int DEFAULT_REFRESH_SECONDS = 60;
 	

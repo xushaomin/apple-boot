@@ -8,10 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.appleframework.boot.core.Container;
-import com.appleframework.boot.core.log4j.Log4jUtils;
+import com.appleframework.boot.core.logging.log4j.Log4jUtils;
 import com.appleframework.boot.utils.ApplicationUtils;
 import com.appleframework.boot.utils.HttpUtils;
 import com.appleframework.boot.utils.NetUtils;
@@ -20,7 +21,7 @@ import com.appleframework.config.core.EnvConfigurer;
 
 public class MonitorContainer implements Container {
 
-	private static Logger logger = Logger.getLogger(MonitorContainer.class);
+	private static Logger logger = LoggerFactory.getLogger(MonitorContainer.class);
 	
 	private static long startTime = System.currentTimeMillis();
 	
