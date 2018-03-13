@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>apple-boot</artifactId>
 		<groupId>com.appleframework.boot</groupId>
-		<version>0.3.3.RELEASE</version>
+		<version>0.3.4.RELEASE</version>
 	</parent>
 	<artifactId>apple-boot-core</artifactId>
 	<name>apple-boot-core</name>
@@ -15,8 +15,18 @@
 	<dependencies>
 	    
 		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		
+		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
 		</dependency>
 		
 		<!-- 
