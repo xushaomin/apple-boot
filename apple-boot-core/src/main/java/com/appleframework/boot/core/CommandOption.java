@@ -1,13 +1,14 @@
 package com.appleframework.boot.core;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.appleframework.config.core.AppConfigurer;
 import com.appleframework.config.core.EnvConfigurer;
 
 public class CommandOption {
 
-	private static Logger logger = Logger.getLogger(CommandOption.class);
+	private static Logger logger = LoggerFactory.getLogger(CommandOption.class);
 
 	public static void parser(String[] args) {
 		for (int i = 0; i < args.length; i++) {

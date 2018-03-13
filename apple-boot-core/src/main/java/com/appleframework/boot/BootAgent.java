@@ -12,8 +12,9 @@ import javax.management.MBeanServer;
 import javax.management.ObjectName;
 
 import com.appleframework.boot.core.Container;
-import com.appleframework.boot.core.log4j.Log4jContainer;
-import com.appleframework.boot.core.log4j.LoggingConfig;
+import com.appleframework.boot.core.logging.LoggingContainer;
+import com.appleframework.boot.core.logging.log4j.Log4jConfig;
+import com.appleframework.boot.core.logging.log4j.Log4jContainer;
 import com.appleframework.boot.core.monitor.MonitorConfig;
 import com.appleframework.boot.core.monitor.MonitorContainer;
 
@@ -47,7 +48,9 @@ public class BootAgent {
 
 			final List<Container> containers = new ArrayList<Container>();
             containers.add(new MonitorContainer());
-            containers.add(new Log4jContainer());			
+            
+            String logContainer = System.getProperty("log-container");
+			containers.add(LoggingContainer.getLoggingContainer(logContainer));
 
 			for (Container container : containers) {
                 try {
@@ -60,7 +63,7 @@ public class BootAgent {
 					ObjectName oname = ObjectName.getInstance("com.appleframework", properties);
 					Object mbean = null;
 					if(container instanceof Log4jContainer) {
-						mbean = new LoggingConfig();
+						mbean = new Log4jConfig();
 					}
 					else if(container instanceof MonitorContainer) {
 						mbean = new MonitorConfig();
