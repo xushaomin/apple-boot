@@ -1,13 +1,14 @@
 package com.appleframework.boot.utils;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.appleframework.config.core.AppConfigurer;
 import com.appleframework.config.core.EnvConfigurer;
 
 public class ApplicationUtils {
 
-	private static Logger logger = Logger.getLogger(ApplicationUtils.class);
+	private static Logger logger = LoggerFactory.getLogger(ApplicationUtils.class);
 		
 	public static String getApplicationName() {
 		String name = AppConfigurer.getName();

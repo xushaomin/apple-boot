@@ -10,11 +10,13 @@ import java.util.List;
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.appleframework.boot.core.Container;
-import com.appleframework.boot.core.log4j.Log4jContainer;
-import com.appleframework.boot.core.log4j.LoggingConfig;
+import com.appleframework.boot.core.logging.LoggingContainer;
+import com.appleframework.boot.core.logging.log4j.Log4jConfig;
+import com.appleframework.boot.core.logging.log4j.Log4jContainer;
 import com.appleframework.boot.core.monitor.MonitorConfig;
 import com.appleframework.boot.core.monitor.MonitorContainer;
 import com.appleframework.boot.jetty.spring.SpringContainer;
@@ -27,10 +29,10 @@ import com.appleframework.boot.jetty.spring.SpringContainerManager;
  */
 public class Main {
 
+	private static Logger logger = LoggerFactory.getLogger(Main.class);
+
     public static final String SHUTDOWN_HOOK_KEY = "shutdown.hook";
         
-    private static Logger logger = Logger.getLogger(Main.class);
-    
     protected static volatile boolean running = true;
 
 	public static void main(String[] args) {
@@ -40,8 +42,10 @@ public class Main {
 			MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
 
 			final List<Container> containers = new ArrayList<Container>();
-            containers.add(new Log4jContainer());
             containers.add(new MonitorContainer());
+            
+            String logContainer = System.getProperty("log-container");
+			containers.add(LoggingContainer.getLoggingContainer(logContainer));
             
             SpringContainer springContainer = new SpringContainer();
             containers.add(springContainer);
@@ -81,7 +85,7 @@ public class Main {
 						mbean = manager;
 					}
 					else if(container instanceof Log4jContainer) {
-						mbean = new LoggingConfig();
+						mbean = new Log4jConfig();
 					}
 					else if(container instanceof MonitorContainer) {
 						mbean = new MonitorConfig();

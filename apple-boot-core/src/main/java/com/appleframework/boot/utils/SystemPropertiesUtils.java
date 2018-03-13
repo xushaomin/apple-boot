@@ -4,7 +4,8 @@ import java.text.MessageFormat;
 import java.util.Enumeration;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.appleframework.config.core.EnvConfigurer;
 
@@ -14,7 +15,7 @@ import com.appleframework.config.core.EnvConfigurer;
  */
 public class SystemPropertiesUtils {
 	
-	private static Logger logger = Logger.getLogger(SystemPropertiesUtils.class);
+	private static Logger logger = LoggerFactory.getLogger(SystemPropertiesUtils.class);
 	
 	private static final String SYSTEM_PROPERTIES = "system.properties";
 	private static final String SPRING_PROPERTIES = "application.properties";
@@ -58,7 +59,7 @@ public class SystemPropertiesUtils {
 		try {
 			prop.setProperty(key, value);
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error(e.getMessage());
 		}
 	}
 
@@ -66,7 +67,7 @@ public class SystemPropertiesUtils {
 		try {
 			prop.put(key, value);
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error(e.getMessage());
 		}
 	}
 	

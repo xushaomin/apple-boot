@@ -26,7 +26,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * IP and Port Helper for RPC, 
@@ -36,7 +37,7 @@ import org.apache.log4j.Logger;
 
 public class NetUtils {
     
-    private static final Logger logger = Logger.getLogger(NetUtils.class);
+	private static Logger logger = LoggerFactory.getLogger(NetUtils.class);
 
     public static final String LOCALHOST = "127.0.0.1";
 

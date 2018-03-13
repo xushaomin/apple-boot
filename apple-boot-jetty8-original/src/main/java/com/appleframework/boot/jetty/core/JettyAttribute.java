@@ -7,8 +7,9 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
 import org.eclipse.jetty.util.Attributes;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.appleframework.boot.utils.ResourceUtils;
 
@@ -18,7 +19,7 @@ import com.appleframework.boot.utils.ResourceUtils;
  */
 public class JettyAttribute implements Attributes {
 
-	private static Logger logger = Logger.getLogger(JettyAttribute.class);
+	private static Logger logger = LoggerFactory.getLogger(JettyAttribute.class);
 
 	private static final String PROPERTIES_JETTY       = "jetty.properties";
 	private static final String PROPERTIES_SYSTEM      = "system.properties";

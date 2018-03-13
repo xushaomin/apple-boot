@@ -5,10 +5,11 @@ import java.lang.management.ManagementFactory;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
 import org.eclipse.jetty.jmx.MBeanContainer;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.appleframework.boot.core.Container;
@@ -22,7 +23,7 @@ import com.appleframework.boot.utils.ApplicationUtils;
  */
 public class SpringContainer implements Container {
 
-	private static Logger logger = Logger.getLogger(SpringContainer.class);
+	private static Logger logger = LoggerFactory.getLogger(SpringContainer.class);
     
     public static final String DEFAULT_SPRING_CONFIG = "classpath*:META-INF/apple/apple-boot-jetty-spring.xml";
 

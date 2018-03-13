@@ -4,14 +4,17 @@ import java.net.URL;
 
 import org.apache.catalina.Executor;
 import org.apache.catalina.startup.Tomcat;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.appleframework.boot.Main;
 
 /**
  * @author cruise.xu
  * */
 public class EmbeddedTomcat {
 
-	private static Logger logger = Logger.getLogger(EmbeddedTomcat.class);
+	private static Logger logger = LoggerFactory.getLogger(Main.class);
 
 	private static Tomcat tomcat = null;
 	private static String ENCODING = "UTF-8";
@@ -85,7 +88,7 @@ public class EmbeddedTomcat {
 				tomcat.stop();
 			}
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error(e.getMessage());
 		}
 	}
 
@@ -95,7 +98,7 @@ public class EmbeddedTomcat {
 				tomcat.destroy();
 			}
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error(e.getMessage());
 		}
 	}
 

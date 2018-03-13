@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>apple-boot</artifactId>
 		<groupId>com.appleframework.boot</groupId>
-		<version>0.3.3.RELEASE</version>
+		<version>0.3.4.RELEASE</version>
 	</parent>
 	<artifactId>apple-boot-java</artifactId>
 	<name>apple-boot-java</name>
@@ -24,6 +24,11 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>apple-boot-config</artifactId>
 			<version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
 		</dependency>
 
 	</dependencies>

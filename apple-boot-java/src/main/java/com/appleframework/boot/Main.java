@@ -11,13 +11,15 @@ import java.util.List;
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.appleframework.boot.config.ConfigContainer;
 import com.appleframework.boot.config.jmx.ConfigContainerManager;
 import com.appleframework.boot.core.Container;
-import com.appleframework.boot.core.log4j.Log4jContainer;
-import com.appleframework.boot.core.log4j.LoggingConfig;
+import com.appleframework.boot.core.logging.LoggingContainer;
+import com.appleframework.boot.core.logging.log4j.Log4jConfig;
+import com.appleframework.boot.core.logging.log4j.Log4jContainer;
 import com.appleframework.boot.core.monitor.MonitorConfig;
 import com.appleframework.boot.core.monitor.MonitorContainer;
 import com.appleframework.boot.jmx.JavaContainerManager;
@@ -28,10 +30,10 @@ import com.appleframework.boot.jmx.JavaContainerManager;
  * @author cruise.xu
  */
 public class Main {
+	
+	private static Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static final String SHUTDOWN_HOOK_KEY = "shutdown.hook";
-            
-    private static Logger logger = Logger.getLogger(Main.class);
     
     private static volatile boolean running = true;
 
@@ -43,9 +45,11 @@ public class Main {
 			MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
 
 			final List<Container> containers = new ArrayList<Container>();
-			containers.add(new Log4jContainer());
 			containers.add(new MonitorContainer());
-
+			
+			String logContainer = System.getProperty("log-container");
+			containers.add(LoggingContainer.getLoggingContainer(logContainer));
+			
 			String configContainer = System.getProperty("config-factory");
 			if (null != configContainer) {
 				containers.add(new ConfigContainer(configContainer));
@@ -97,7 +101,7 @@ public class Main {
 					ObjectName oname = ObjectName.getInstance("com.appleframework", properties);
 					Object mbean = null;
 					if (container instanceof Log4jContainer) {
-						mbean = new LoggingConfig();
+						mbean = new Log4jConfig();
 					} else if (container instanceof MonitorContainer) {
 						mbean = new MonitorConfig();
 					} else if (container instanceof ConfigContainer) {

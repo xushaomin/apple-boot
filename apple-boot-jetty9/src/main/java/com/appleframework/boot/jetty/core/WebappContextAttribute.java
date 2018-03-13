@@ -6,8 +6,9 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
 import org.eclipse.jetty.util.Attributes;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.appleframework.boot.utils.ResourceUtils;
 
@@ -17,7 +18,7 @@ import com.appleframework.boot.utils.ResourceUtils;
  */
 public class WebappContextAttribute implements Attributes {
 
-	private static Logger logger = Logger.getLogger(WebappContextAttribute.class);
+	private static Logger logger = LoggerFactory.getLogger(WebappContextAttribute.class);
 
 	private static final String PROPERTIES_FILE_NAME = "jetty.properties";
 

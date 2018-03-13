@@ -1,6 +1,7 @@
 package com.appleframework.boot;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.appleframework.boot.core.Container;
 import com.appleframework.boot.utils.ApplicationUtils;
@@ -12,7 +13,7 @@ import com.appleframework.boot.utils.ApplicationUtils;
  */
 public abstract class AbstractThreadContainer implements Container {
 
-	private static Logger logger = Logger.getLogger(AbstractThreadContainer.class);
+	private static Logger logger = LoggerFactory.getLogger(AbstractThreadContainer.class);
         
 	private static long startTime = System.currentTimeMillis();
 	

@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>apple-boot</artifactId>
 		<groupId>com.appleframework.boot</groupId>
-		<version>0.3.3.RELEASE</version>
+		<version>0.3.4.RELEASE</version>
 	</parent>
 	<artifactId>apple-boot-spring</artifactId>
 	<name>apple-boot-spring</name>
@@ -28,6 +28,11 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
 		</dependency>
 
 	</dependencies>

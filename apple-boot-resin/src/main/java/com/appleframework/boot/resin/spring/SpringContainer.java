@@ -1,6 +1,7 @@
 package com.appleframework.boot.resin.spring;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.appleframework.boot.core.Container;
@@ -17,7 +18,7 @@ import com.caucho.resin.WebAppEmbed;
  */
 public class SpringContainer implements Container {
 
-	private static Logger logger = Logger.getLogger(SpringContainer.class);
+	private static Logger logger = LoggerFactory.getLogger(SpringContainer.class);
     
     public static final String DEFAULT_SPRING_CONFIG = "classpath*:META-INF/apple/apple-boot-resin-spring.xml";
 

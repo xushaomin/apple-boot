@@ -5,12 +5,13 @@ import java.lang.management.ManagementFactory;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
 import org.eclipse.jetty.jmx.MBeanContainer;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.nio.SelectChannelConnector;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
 import org.eclipse.jetty.webapp.WebAppContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.appleframework.boot.core.Container;
 import com.appleframework.boot.jetty.core.JettyAttribute;
@@ -23,7 +24,7 @@ import com.appleframework.boot.utils.ApplicationUtils;
  */
 public class JettyContainer implements Container {
 
-	private static Logger logger = Logger.getLogger(JettyContainer.class);
+	private static Logger logger = LoggerFactory.getLogger(JettyContainer.class);
         
 	private static long startTime = System.currentTimeMillis();	
 	
