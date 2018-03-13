@@ -15,13 +15,13 @@ public class LogbackContainer implements Container {
 
 	@Override
 	public void start() {
-		logger.warn("Log4jContainer start");
+		logger.warn("LogbackContainer start");
 		startTime = System.currentTimeMillis();
 	}
 
 	@Override
 	public void stop() {
-		logger.warn("Log4jContainer stop");
+		logger.warn("LogbackContainer stop");
 	}
 
 	@Override
