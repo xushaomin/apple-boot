@@ -139,7 +139,7 @@ public class JettyContainer implements Container {
     
 	@Override
 	public String getType() {
-		return "JettyContainer";
+		return "JavaContainer";
 	}
 
 	@Override
