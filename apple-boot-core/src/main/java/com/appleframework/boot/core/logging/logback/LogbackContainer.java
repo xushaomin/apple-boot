@@ -38,12 +38,12 @@ public class LogbackContainer implements Container {
 
 	@Override
 	public String getName() {
-		return "LogContainer";
+		return "LogbackContainer";
 	}
 
 	@Override
 	public String getType() {
-		return "LogContainer";
+		return "LoggingContainer";
 	}
 
 	public long getStartTime() {

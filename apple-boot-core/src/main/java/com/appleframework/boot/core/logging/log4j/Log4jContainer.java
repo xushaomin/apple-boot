@@ -48,12 +48,12 @@ public class Log4jContainer implements Container {
 
 	@Override
 	public String getName() {
-		return "LogContainer";
+		return "Log4jContainer";
 	}
 
 	@Override
 	public String getType() {
-		return "LogContainer";
+		return "LoggingContainer";
 	}
 
 	public long getStartTime() {

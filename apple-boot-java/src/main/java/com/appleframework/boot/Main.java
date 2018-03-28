@@ -19,7 +19,7 @@ import com.appleframework.boot.config.jmx.ConfigContainerManager;
 import com.appleframework.boot.core.Container;
 import com.appleframework.boot.core.logging.LoggingContainer;
 import com.appleframework.boot.core.logging.log4j.Log4jConfig;
-import com.appleframework.boot.core.logging.log4j.Log4jContainer;
+import com.appleframework.boot.core.logging.logback.LogbackConfig;
 import com.appleframework.boot.core.monitor.MonitorConfig;
 import com.appleframework.boot.core.monitor.MonitorContainer;
 import com.appleframework.boot.jmx.JavaContainerManager;
@@ -100,18 +100,30 @@ public class Main {
 
 					ObjectName oname = ObjectName.getInstance("com.appleframework", properties);
 					Object mbean = null;
-					if (container instanceof Log4jContainer) {
-						mbean = new Log4jConfig();
-					} else if (container instanceof MonitorContainer) {
-						mbean = new MonitorConfig();
-					} else if (container instanceof ConfigContainer) {
+					
+					if(container.getType().equals("ConfigContainer")) {
 						ConfigContainerManager containerManager = new ConfigContainerManager();
 						containerManager.setContainer(container);
 						mbean = containerManager;
-					} else {
+					}
+					else if(container.getType().equals("MonitorContainer")) {
+						mbean = new MonitorConfig();
+					}
+					else if(container.getType().equals("JavaContainer")) {
 						JavaContainerManager containerManager = new JavaContainerManager();
 						containerManager.setContainer(container);
 						mbean = containerManager;
+					}
+					else if(container.getType().equals("LoggingContainer")) {
+						if(container.getName().equals("LogbackContainer")) {
+							mbean = new LogbackConfig();
+						}
+						else {
+							mbean = new Log4jConfig();
+						}						
+					}
+					else {
+						mbean = null;
 					}
 
 					if (mbs.isRegistered(oname)) {
