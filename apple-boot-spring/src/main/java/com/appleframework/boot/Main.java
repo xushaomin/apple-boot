@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import com.appleframework.boot.core.Container;
 import com.appleframework.boot.core.logging.LoggingContainer;
 import com.appleframework.boot.core.logging.log4j.Log4jConfig;
-import com.appleframework.boot.core.logging.log4j.Log4jContainer;
+import com.appleframework.boot.core.logging.logback.LogbackConfig;
 import com.appleframework.boot.core.monitor.MonitorConfig;
 import com.appleframework.boot.core.monitor.MonitorContainer;
 import com.appleframework.boot.spring.SpringContainer;
@@ -84,16 +84,22 @@ public class Main {
 					
 					ObjectName oname = ObjectName.getInstance("com.appleframework", properties);
 					Object mbean = null;
-					if(container instanceof SpringContainer) {
+					
+					if(container.getType().equals("SpringContainer")) {
 						SpringContainerManager manager = new SpringContainerManager();
 						manager.setSpringContainer(container);
 						mbean = manager;
 					}
-					else if(container instanceof Log4jContainer) {
-						mbean = new Log4jConfig();
-					}
-					else if(container instanceof MonitorContainer) {
+					else if(container.getType().equals("MonitorContainer")) {
 						mbean = new MonitorConfig();
+					}
+					else if(container.getType().equals("LoggingContainer")) {
+						if(container.getName().equals("LogbackContainer")) {
+							mbean = new LogbackConfig();
+						}
+						else {
+							mbean = new Log4jConfig();
+						}						
 					}
 					else {
 						mbean = null;
