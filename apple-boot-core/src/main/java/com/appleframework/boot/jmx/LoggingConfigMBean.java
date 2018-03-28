@@ -1,7 +1,5 @@
 package com.appleframework.boot.jmx;
 
-import org.apache.log4j.Level;
-
 public interface LoggingConfigMBean {
 
 	/**
