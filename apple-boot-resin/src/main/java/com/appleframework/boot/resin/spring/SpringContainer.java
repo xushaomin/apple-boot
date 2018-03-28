@@ -130,7 +130,7 @@ public class SpringContainer implements Container {
     
 	@Override
 	public String getType() {
-		return "ResinContainer";
+		return "SpringContainer";
 	}
 
 	@Override
