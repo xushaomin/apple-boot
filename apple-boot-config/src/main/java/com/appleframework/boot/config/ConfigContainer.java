@@ -53,7 +53,7 @@ public class ConfigContainer implements Container {
     
 	@Override
 	public String getType() {
-		return "ConfigContainer";
+		return CONTAINER_NAME;
 	}
 
 	@Override
