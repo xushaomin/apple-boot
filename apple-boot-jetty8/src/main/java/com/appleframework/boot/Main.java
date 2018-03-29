@@ -28,12 +28,12 @@ import com.appleframework.boot.jmx.ContainerManagerUtils;
  * @author Cruise.Xu
  */
 public class Main {
-	
+
 	private static Logger logger = LoggerFactory.getLogger(Main.class);
 
-    public static final String SHUTDOWN_HOOK_KEY = "shutdown.hook";
-        
-    protected static volatile boolean running = true;
+	public static final String SHUTDOWN_HOOK_KEY = "shutdown.hook";
+
+	protected static volatile boolean running = true;
 
 	public static void main(String[] args) {
 		try {
@@ -42,13 +42,13 @@ public class Main {
 			MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
 
 			final List<Container> containers = new ArrayList<Container>();
-            containers.add(new MonitorContainer());
-            
-            String logContainer = System.getProperty("log-container");
+			containers.add(new MonitorContainer());
+
+			String logContainer = System.getProperty("log-container");
 			containers.add(LoggingContainer.getLoggingContainer(logContainer));
-            
-            SpringContainer springContainer = new SpringContainer();
-            containers.add(springContainer);
+
+			SpringContainer springContainer = new SpringContainer();
+			containers.add(springContainer);
 
 			if ("true".equals(System.getProperty(SHUTDOWN_HOOK_KEY))) {
 				Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -70,37 +70,33 @@ public class Main {
 			}
 
 			for (Container container : containers) {
-                try {
-					
+				try {
+
 					Hashtable<String, String> properties = new Hashtable<String, String>();
 
 					properties.put(Container.TYPE_KEY, Container.DEFAULT_TYPE);
 					properties.put(Container.ID_KEY, container.getType());
-					
+
 					ObjectName oname = ObjectName.getInstance("com.appleframework", properties);
 					Object mbean = null;
-					if(container.getType().equals("SpringContainer")) {
+					if (container.getType().equals("SpringContainer")) {
 						mbean = ContainerManagerUtils.instance(container);
-					}
-					else if(container.getType().equals("MonitorContainer")) {
+					} else if (container.getType().equals("MonitorContainer")) {
 						mbean = new MonitorConfig();
-					}
-					else if(container.getType().equals("LoggingContainer")) {
-						if(container.getName().equals("LogbackContainer")) {
+					} else if (container.getType().equals("LoggingContainer")) {
+						if (container.getName().equals("LogbackContainer")) {
 							mbean = new LogbackConfig();
-						}
-						else {
+						} else {
 							mbean = new Log4jConfig();
-						}						
-					}
-					else {
+						}
+					} else {
 						mbean = null;
 					}
-					
-					if(null == mbean) {
+
+					if (null == mbean) {
 						continue;
 					}
-					
+
 					if (mbs.isRegistered(oname)) {
 						mbs.unregisterMBean(oname);
 					}
@@ -109,10 +105,10 @@ public class Main {
 				} catch (Exception e) {
 					logger.error("注册JMX服务出错：" + e.getMessage(), e);
 				}
-                logger.warn("服务 " + container.getType() + " 启动中!");
-                container.start();
-                
-            }
+				logger.warn("服务 " + container.getType() + " 启动中!");
+				container.start();
+
+			}
 			logger.warn(new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss]").format(new Date()) + " 所有服务启动成功!");
 		} catch (RuntimeException e) {
 			logger.error(e.getMessage(), e);
@@ -127,5 +123,5 @@ public class Main {
 			}
 		}
 	}
-    
+
 }
