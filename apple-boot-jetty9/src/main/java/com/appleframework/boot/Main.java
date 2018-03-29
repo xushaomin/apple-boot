@@ -20,7 +20,7 @@ import com.appleframework.boot.core.logging.logback.LogbackConfig;
 import com.appleframework.boot.core.monitor.MonitorConfig;
 import com.appleframework.boot.core.monitor.MonitorContainer;
 import com.appleframework.boot.jetty.spring.SpringContainer;
-import com.appleframework.boot.jetty.spring.SpringContainerManager;
+import com.appleframework.boot.jmx.ContainerManager;
 
 /**
  * spring+Jetty的容器
@@ -80,8 +80,8 @@ public class Main {
 					ObjectName oname = ObjectName.getInstance("com.appleframework", properties);
 					Object mbean = null;
 					if(container.getType().equals("SpringContainer")) {
-						SpringContainerManager manager = new SpringContainerManager();
-						manager.setSpringContainer(container);
+						ContainerManager manager = new ContainerManager();
+						manager.setContainer(container);
 						mbean = manager;
 					}
 					else if(container.getType().equals("MonitorContainer")) {
