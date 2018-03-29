@@ -1,26 +1,19 @@
 package com.appleframework.boot;
 
-import java.lang.management.ManagementFactory;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Hashtable;
 import java.util.List;
-
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.appleframework.boot.core.Container;
-import com.appleframework.boot.core.logging.LoggingContainer;
-import com.appleframework.boot.core.logging.log4j.Log4jConfig;
-import com.appleframework.boot.core.logging.logback.LogbackConfig;
-import com.appleframework.boot.core.monitor.MonitorConfig;
-import com.appleframework.boot.core.monitor.MonitorContainer;
+import com.appleframework.boot.core.ContainerFactory;
+import com.appleframework.boot.core.ContainerHandle;
+import com.appleframework.boot.core.logging.LoggingContainerFactory;
+import com.appleframework.boot.core.monitor.MonitorContainerFactory;
 import com.appleframework.boot.jetty.spring.SpringContainer;
-import com.appleframework.boot.jmx.ContainerManagerUtils;
 
 /**
  * spring+Jetty的容器
@@ -39,16 +32,10 @@ public class Main {
 		try {
 			StartUpInit.init(args);
 
-			MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-
 			final List<Container> containers = new ArrayList<Container>();
-			containers.add(new MonitorContainer());
-
-			String logContainer = System.getProperty("log-container");
-			containers.add(LoggingContainer.getLoggingContainer(logContainer));
-
-			SpringContainer springContainer = new SpringContainer();
-			containers.add(springContainer);
+			containers.add(MonitorContainerFactory.getContainer());
+			containers.add(LoggingContainerFactory.getContainer());
+			containers.add(ContainerFactory.create(SpringContainer.class));
 
 			if ("true".equals(System.getProperty(SHUTDOWN_HOOK_KEY))) {
 				Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -69,46 +56,10 @@ public class Main {
 				});
 			}
 
-			for (Container container : containers) {
-				try {
+			ContainerHandle.jmx(containers);
 
-					Hashtable<String, String> properties = new Hashtable<String, String>();
-
-					properties.put(Container.TYPE_KEY, Container.DEFAULT_TYPE);
-					properties.put(Container.ID_KEY, container.getType());
-
-					ObjectName oname = ObjectName.getInstance("com.appleframework", properties);
-					Object mbean = null;
-					if (container.getType().equals("SpringContainer")) {
-						mbean = ContainerManagerUtils.instance(container);
-					} else if (container.getType().equals("MonitorContainer")) {
-						mbean = new MonitorConfig();
-					} else if (container.getType().equals("LoggingContainer")) {
-						if (container.getName().equals("LogbackContainer")) {
-							mbean = new LogbackConfig();
-						} else {
-							mbean = new Log4jConfig();
-						}
-					} else {
-						mbean = null;
-					}
-
-					if (null == mbean) {
-						continue;
-					}
-
-					if (mbs.isRegistered(oname)) {
-						mbs.unregisterMBean(oname);
-					}
-					mbs.registerMBean(mbean, oname);
-
-				} catch (Exception e) {
-					logger.error("注册JMX服务出错：" + e.getMessage(), e);
-				}
-				logger.warn("服务 " + container.getType() + " 启动中!");
-				container.start();
-
-			}
+			ContainerHandle.start(containers);
+			
 			logger.warn(new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss]").format(new Date()) + " 所有服务启动成功!");
 		} catch (RuntimeException e) {
 			logger.error(e.getMessage(), e);
