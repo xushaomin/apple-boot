@@ -62,8 +62,8 @@ public class Log4jConfig implements LoggingConfigMBean {
 		assignLogLevel(target, Level.TRACE);
 	}
 	
-	public void assignLevel(String target, Level level) {
-		assignLogLevel(target, level);
+	public void assignLevel(String target, String level) {
+		assignLogLevel(target, Level.toLevel(level));
 	}
 	
 	public void assignLevel(String logLevel) {
