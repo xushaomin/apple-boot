@@ -12,6 +12,8 @@ public class Constants {
 	
 	public static String KEY_MONITOR_JVM    = "monitor.jvm";
 	
+	public static String KEY_MONITOR_ON     = "monitor.on";
+	
 	public static String APPLICATION_URL    = "http://{0}/collect/application";
 	
 	public static String MONITOR_URL        = "http://{0}/collect/monitor";
@@ -42,6 +44,17 @@ public class Constants {
 		}
 		if(null != mJvm) {
 			return Boolean.parseBoolean(mJvm);
+		}
+		return false;
+	}
+	
+	public static boolean isMonitorOn() {
+		String mOn = System.getProperty(Constants.KEY_MONITOR_ON);
+		if (null == mOn) {
+			mOn = SystemPropertiesUtils.getString(Constants.KEY_MONITOR_ON);
+		}
+		if(null != mOn) {
+			return Boolean.parseBoolean(mOn);
 		}
 		return false;
 	}

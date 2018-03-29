@@ -26,18 +26,21 @@ public class MonitorContainer implements Container {
 	private static long startTime = System.currentTimeMillis();
 	
 	private static String CONTAINER_NAME = "MonitorContainer";
-	
+		
 	@Override
 	public void start() {
 		logger.warn(CONTAINER_NAME + " start");
 		startTime = System.currentTimeMillis();
-		this.send();
+		
+		if(Constants.isMonitorOn()) {
+			this.send();
+		}
 		
 		if(Constants.isMonitorJvm()) {
 			JvmMonitor.getInstance().record();
 		}
 	}
-
+	
 	@Override
 	public void stop() {
 		logger.warn(CONTAINER_NAME + " stop");
