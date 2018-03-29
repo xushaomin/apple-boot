@@ -22,7 +22,7 @@ import com.appleframework.boot.core.logging.log4j.Log4jConfig;
 import com.appleframework.boot.core.logging.logback.LogbackConfig;
 import com.appleframework.boot.core.monitor.MonitorConfig;
 import com.appleframework.boot.core.monitor.MonitorContainer;
-import com.appleframework.boot.jmx.JavaContainerManager;
+import com.appleframework.boot.jmx.ContainerManagerUtils;
 
 /**
  * Main. (API, Static, ThreadSafe)
@@ -110,9 +110,7 @@ public class Main {
 						mbean = new MonitorConfig();
 					}
 					else if(container.getType().equals("JavaContainer")) {
-						JavaContainerManager containerManager = new JavaContainerManager();
-						containerManager.setContainer(container);
-						mbean = containerManager;
+						mbean = ContainerManagerUtils.instance(container);
 					}
 					else if(container.getType().equals("LoggingContainer")) {
 						if(container.getName().equals("LogbackContainer")) {

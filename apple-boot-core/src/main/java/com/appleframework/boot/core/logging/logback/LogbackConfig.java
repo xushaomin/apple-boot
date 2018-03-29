@@ -3,13 +3,13 @@ package com.appleframework.boot.core.logging.logback;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.appleframework.boot.jmx.LoggingConfigMBean;
+import com.appleframework.boot.jmx.LoggingConfigMXBean;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
 
-public class LogbackConfig implements LoggingConfigMBean {
+public class LogbackConfig implements LoggingConfigMXBean {
 
 	public String[] getLoggers(String filter) {
 		LoggerContext loggerContext = LogbackUtils.getLoggerContext();
@@ -81,7 +81,7 @@ public class LogbackConfig implements LoggingConfigMBean {
 		LogbackUtils.getLoggerContext().reset();
 	}
 
-	public String printLogConfig() {
+	public String printLoggingConfig() {
 		LoggerContext loggerContext = LogbackUtils.getLoggerContext();
 		List<Logger> loggerList = loggerContext.getLoggerList();
 		StringBuffer buffer = new StringBuffer();

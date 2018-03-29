@@ -1,8 +1,6 @@
 package com.appleframework.boot.jmx;
 
-public interface LoggingConfigMBean {
-
-	/**
+public interface LoggingConfigMXBean {/**
 	 * 
 	 * @param filter returns only loggers, which contain the filter string
 	 * @return all available loggers
@@ -58,14 +56,14 @@ public interface LoggingConfigMBean {
 
 	/**
 	 * 
-	 * @return the log4j configuration from the <code>log4j.properties</code> file in the classpath 
+	 * @return the log configuration from the <code>log4j.properties</code> file in the classpath 
 	 */
-	public String printLogConfig();
+	public String printLoggingConfig();
 	
 	/**
 	 * assigns the {@link Level#level} to the target
 	 */
-	public void assignLevel(String target, String level);
+	public void assignLevel(String target, String Level);
 	
 	/**
 	 * assigns the {@link Level#level} to the RootLogger
@@ -111,4 +109,5 @@ public interface LoggingConfigMBean {
 	 * get the level of the RootLogger
 	 */
 	public String getRootLoggerLevel();
+
 }

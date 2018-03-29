@@ -1,14 +1,15 @@
 package com.appleframework.boot.jmx;
 
 import com.appleframework.boot.core.Container;
+import com.appleframework.boot.jmx.ContainerManagerMXBean;
 
 /**
  * Main. (API, Static, ThreadSafe)
  * 
  * @author Cruise.Xu
  */
-public class JavaContainerManager implements JavaContainerManagerMBean {
-	
+public class ContainerManager implements ContainerManagerMXBean {
+
 	Container container;
 
 	@Override
@@ -20,7 +21,7 @@ public class JavaContainerManager implements JavaContainerManagerMBean {
 	public void restart() {
 		container.restart();
 	}
-	
+
 	@Override
 	public void start() {
 		container.start();
@@ -29,7 +30,7 @@ public class JavaContainerManager implements JavaContainerManagerMBean {
 	@Override
 	public void stop() {
 		container.stop();
-		
+
 	}
 
 	@Override
@@ -40,5 +41,5 @@ public class JavaContainerManager implements JavaContainerManagerMBean {
 	public void setContainer(Container container) {
 		this.container = container;
 	}
-   
+
 }

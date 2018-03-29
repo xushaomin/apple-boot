@@ -1,6 +1,8 @@
 package com.appleframework.boot.jmx;
 
-public interface JavaContainerManagerMBean {
+import com.appleframework.boot.core.Container;
+
+public interface ContainerManagerMXBean {
 
 	public String getName();
 
@@ -11,4 +13,6 @@ public interface JavaContainerManagerMBean {
 	public void stop();
 
 	public boolean isRunning();
+	
+	public void setContainer(Container container);
 }

@@ -15,9 +15,9 @@ import org.apache.log4j.config.PropertyPrinter;
 import org.apache.log4j.spi.LoggerRepository;
 import org.apache.log4j.xml.DOMConfigurator;
 
-import com.appleframework.boot.jmx.LoggingConfigMBean;
+import com.appleframework.boot.jmx.LoggingConfigMXBean;
 
-public class Log4jConfig implements LoggingConfigMBean {
+public class Log4jConfig implements LoggingConfigMXBean {
 	
 	@SuppressWarnings("unchecked")
 	public String[] getLoggers(String filter) {
@@ -104,7 +104,7 @@ public class Log4jConfig implements LoggingConfigMBean {
 		}
 	}
 
-	public String printLogConfig() {
+	public String printLoggingConfig() {
 		StringWriter sw = new StringWriter();
 		PrintWriter pw = new PrintWriter(sw);
 		PropertyPrinter pp = new PropertyPrinter(pw);
