@@ -1,6 +1,7 @@
 package com.appleframework.boot.core.logging;
 
 import com.appleframework.boot.core.Container;
+import com.appleframework.boot.core.ContainerFactory;
 import com.appleframework.boot.core.logging.log4j.Log4jContainer;
 import com.appleframework.boot.core.logging.log4j.Log4jUtils;
 import com.appleframework.boot.core.logging.logback.LogbackContainer;
@@ -11,22 +12,22 @@ import com.appleframework.boot.core.logging.logback.LogbackUtils;
  * 
  * @author cruise.xu
  */
-public class LoggingContainer {
+public class LoggingContainerFactory extends ContainerFactory {
 	
 	private static String LOG_CONTAINER = "log4j";
-
-	public static Container getLoggingContainer(String logContainer) {
-		LOG_CONTAINER = logContainer;
+	
+	public static Container getContainer() {
+		String logContainer = System.getProperty("log-container");
 		if (null == logContainer) {
-			return new Log4jContainer();
+			return create(Log4jContainer.class);
 		} else if (logContainer.equals("log4j")) {
-			return new Log4jContainer();
+			return create(Log4jContainer.class);
 		} else if (logContainer.equals("slf4j")) {
-			return new LogbackContainer();
+			return create(LogbackContainer.class);
 		} else if (logContainer.equals("logback")) {
-			return new LogbackContainer();
+			return create(LogbackContainer.class);
 		} else {
-			return new Log4jContainer();
+			return create(Log4jContainer.class);
 		}
 	}
 	

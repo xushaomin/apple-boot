@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.appleframework.boot.core.Container;
-import com.appleframework.boot.core.logging.LoggingContainer;
+import com.appleframework.boot.core.logging.LoggingContainerFactory;
 import com.appleframework.boot.utils.ApplicationUtils;
 import com.appleframework.boot.utils.HttpUtils;
 import com.appleframework.boot.utils.NetUtils;
@@ -105,7 +105,7 @@ public class MonitorContainer implements Container {
 		SystemPropertiesUtils.put("node.host", hostName);
 		SystemPropertiesUtils.put("install.path", getInstallPath());
 		SystemPropertiesUtils.put("deploy.env", getDeployEnv());
-		SystemPropertiesUtils.put("log.level", LoggingContainer.getRootLoggerLevelString());
+		SystemPropertiesUtils.put("log.level", LoggingContainerFactory.getRootLoggerLevelString());
 		SystemPropertiesUtils.put("java.version", System.getProperty("java.version"));
 		SystemPropertiesUtils.put("start.param", runtimeParameters.toString());
 		SystemPropertiesUtils.put("mem.max", this.getRuntimeParameter(runtimeParameters, "-Xmx"));

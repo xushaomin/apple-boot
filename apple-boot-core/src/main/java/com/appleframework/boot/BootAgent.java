@@ -12,11 +12,12 @@ import javax.management.MBeanServer;
 import javax.management.ObjectName;
 
 import com.appleframework.boot.core.Container;
-import com.appleframework.boot.core.logging.LoggingContainer;
+import com.appleframework.boot.core.logging.LoggingContainerFactory;
 import com.appleframework.boot.core.logging.log4j.Log4jConfig;
 import com.appleframework.boot.core.logging.log4j.Log4jContainer;
 import com.appleframework.boot.core.monitor.MonitorConfig;
 import com.appleframework.boot.core.monitor.MonitorContainer;
+import com.appleframework.boot.core.monitor.MonitorContainerFactory;
 
 public class BootAgent {
 	
@@ -47,10 +48,8 @@ public class BootAgent {
 			MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
 
 			final List<Container> containers = new ArrayList<Container>();
-            containers.add(new MonitorContainer());
-            
-            String logContainer = System.getProperty("log-container");
-			containers.add(LoggingContainer.getLoggingContainer(logContainer));
+            containers.add(MonitorContainerFactory.getContainer());
+			containers.add(LoggingContainerFactory.getContainer());
 
 			for (Container container : containers) {
                 try {
