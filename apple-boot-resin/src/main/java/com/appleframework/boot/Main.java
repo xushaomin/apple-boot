@@ -19,8 +19,8 @@ import com.appleframework.boot.core.logging.log4j.Log4jConfig;
 import com.appleframework.boot.core.logging.logback.LogbackConfig;
 import com.appleframework.boot.core.monitor.MonitorConfig;
 import com.appleframework.boot.core.monitor.MonitorContainer;
+import com.appleframework.boot.jmx.ContainerManagerUtils;
 import com.appleframework.boot.resin.spring.SpringContainer;
-import com.appleframework.boot.resin.spring.SpringContainerManager;
 
 /**
  * spring+Jetty的容器
@@ -81,9 +81,7 @@ public class Main {
 					Object mbean = null;
 					
 					if(container.getType().equals("SpringContainer")) {
-						SpringContainerManager manager = new SpringContainerManager();
-						manager.setSpringContainer(container);
-						mbean = manager;
+						mbean = ContainerManagerUtils.instance(container);
 					}
 					else if(container.getType().equals("MonitorContainer")) {
 						mbean = new MonitorConfig();
