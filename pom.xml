@@ -17,8 +17,8 @@
 		<spring.version>4.2.0.RELEASE</spring.version>
 		<jetty8.version>8.1.22.v20160922</jetty8.version>
 		<jetty9.version>9.2.24.v20180105</jetty9.version>
-		<tomcat8.version>8.0.39</tomcat8.version>
-		<tomcat9.version>9.0.0.M15</tomcat9.version>
+		<tomcat8.version>8.0.50</tomcat8.version>
+		<tomcat9.version>9.0.6</tomcat9.version>
 	</properties>
 
 	<dependencyManagement>
