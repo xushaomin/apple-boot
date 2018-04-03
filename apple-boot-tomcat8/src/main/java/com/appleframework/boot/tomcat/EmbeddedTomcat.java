@@ -62,11 +62,19 @@ public class EmbeddedTomcat {
 	public void init() {
 		URL url = Thread.currentThread().getContextClassLoader().getResource("");
 		String path = url.getPath();
-		int indexConf = path.lastIndexOf("/conf");
-		if(indexConf > -1) {
-			String webapp = path.substring(0, indexConf) + "/webapp";
+		if(path.indexOf("target") > -1 && path.indexOf("classes") > -1) {
+			path = path.replaceAll("target", "src").replaceAll("classes", "main");
+			String webapp = path + "webapp";
 			logger.error(webapp);
 			this.webAppPath = webapp;
+		}
+		else {
+			int indexConf = path.lastIndexOf("/conf");
+			if(indexConf > -1) {
+				String webapp = path.substring(0, indexConf) + "/webapp";
+				logger.error(webapp);
+				this.webAppPath = webapp;
+			}
 		}
 	}
 
