@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.appleframework.boot.core.Container;
 import com.appleframework.boot.core.ContainerFactory;
@@ -21,7 +20,6 @@ import com.appleframework.boot.springboot.SpringContainer;
  *
  * @author Cruise.Xu
  */
-@SpringBootApplication
 public class Main {
 	
 	private static Logger logger = LoggerFactory.getLogger(Main.class);
