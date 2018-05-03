@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.appleframework.boot</groupId>
+		<artifactId>apple-boot</artifactId>
+		<version>0.3.5.RELEASE</version>
+	</parent>
+	<artifactId>apple-boot-springboot</artifactId>
+	<name>apple-boot-springboot</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<springboot.version>1.5.12.RELEASE</springboot.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>apple-boot-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<version>${springboot.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+</project>
