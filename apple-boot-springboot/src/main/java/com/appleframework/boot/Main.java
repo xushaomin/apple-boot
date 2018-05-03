@@ -17,7 +17,7 @@ import com.appleframework.boot.core.monitor.MonitorContainerFactory;
 import com.appleframework.boot.springboot.SpringContainer;
 
 /**
- * spring+Jetty的容器
+ * spring的容器
  *
  * @author Cruise.Xu
  */
@@ -61,7 +61,7 @@ public class Main {
 			ContainerHandle.jmx(containers);
 
 			ContainerHandle.start(containers);
-			
+
 			logger.warn(new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss]").format(new Date()) + " 所有服务启动成功!");
 		} catch (RuntimeException e) {
 			logger.error(e.getMessage(), e);
