@@ -11,9 +11,11 @@
 	<artifactId>apple-boot-springboot</artifactId>
 	<name>apple-boot-springboot</name>
 	<url>http://maven.apache.org</url>
+	
 	<properties>
 		<springboot.version>1.5.12.RELEASE</springboot.version>
 	</properties>
+	
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
@@ -35,13 +37,10 @@
 			<version>${springboot.version}</version>
 			<scope>provided</scope>
 		</dependency>
-				<dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
-			<version>4.2.0.RELEASE</version>
 			<scope>provided</scope>
 		</dependency>
-		
-
 	</dependencies>
 </project>
