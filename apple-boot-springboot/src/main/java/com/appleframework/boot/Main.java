@@ -7,20 +7,19 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.appleframework.boot.core.Container;
+import com.appleframework.boot.core.ContainerFactory;
 import com.appleframework.boot.core.ContainerHandle;
 import com.appleframework.boot.core.logging.LoggingContainerFactory;
 import com.appleframework.boot.core.monitor.MonitorContainerFactory;
+import com.appleframework.boot.spring.SpringContainer;
 
 /**
  * spring的容器
  *
  * @author Cruise.Xu
  */
-@SpringBootApplication
 public class Main {
 	
 	private static Logger logger = LoggerFactory.getLogger(Main.class);
@@ -36,7 +35,7 @@ public class Main {
 			final List<Container> containers = new ArrayList<Container>();
             containers.add(MonitorContainerFactory.getContainer());
 			containers.add(LoggingContainerFactory.getContainer());
-            //containers.add(ContainerFactory.create(SpringContainer.class));
+            containers.add(ContainerFactory.create(SpringContainer.class));
 
 			if ("true".equals(System.getProperty(SHUTDOWN_HOOK_KEY))) {
 				Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -60,8 +59,6 @@ public class Main {
 			ContainerHandle.jmx(containers);
 
 			ContainerHandle.start(containers);
-
-			SpringApplication.run(Main.class, args);
 
 			logger.warn(new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss]").format(new Date()) + " 所有服务启动成功!");
 		} catch (RuntimeException e) {
