@@ -36,13 +36,13 @@ public class SpringContainer implements Container {
     }
 
 	@Override
-	public void restart() {}
+	public void restart() {
+		
+	}
 
 	@Override
 	public boolean isRunning() {
-		
-    		return true;
-    	
+    	return true;    	
 	}
 	
 	@Override
