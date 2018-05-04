@@ -3,7 +3,6 @@ package com.appleframework.boot.springboot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.appleframework.boot.Main;
 import com.appleframework.boot.core.Container;
@@ -13,7 +12,7 @@ import com.appleframework.boot.core.Container;
  * 
  * @author Cruise.Xu
  */
-@SpringBootApplication
+//@SpringBootApplication
 public class SpringContainer implements Container {
 
 	private static Logger logger = LoggerFactory.getLogger(SpringContainer.class);
