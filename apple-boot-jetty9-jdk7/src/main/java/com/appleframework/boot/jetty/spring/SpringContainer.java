@@ -2,15 +2,10 @@ package com.appleframework.boot.jetty.spring;
 
 import java.io.File;
 import java.lang.management.ManagementFactory;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.apache.tomcat.InstanceManager;
-import org.apache.tomcat.SimpleInstanceManager;
-import org.eclipse.jetty.apache.jsp.JettyJasperInitializer;
 import org.eclipse.jetty.jmx.MBeanContainer;
-import org.eclipse.jetty.plus.annotation.ContainerInitializer;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
@@ -58,11 +53,7 @@ public class SpringContainer implements Container {
         	resourceBase = resourceBase.replaceAll("webapp", "src/main/webapp");
         	webAppContext.setResourceBase(resourceBase);
         }
-                
-		webAppContext.setAttribute("org.eclipse.jetty.containerInitializers",
-				Arrays.asList(new ContainerInitializer(new JettyJasperInitializer(), null)));
-		webAppContext.setAttribute(InstanceManager.class.getName(), new SimpleInstanceManager());
-
+        
         Iterator it = WebappContextAttribute.getIterator();
 		while (it.hasNext()) {
 			Map.Entry entry = (Map.Entry) it.next();
@@ -173,6 +164,6 @@ public class SpringContainer implements Container {
 	@Override
 	public long getStartTime() {
 		return startTime;
-	}
-	
+	}	
+
 }

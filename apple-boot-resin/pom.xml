@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.appleframework.boot</groupId>
 		<artifactId>apple-boot</artifactId>
-		<version>0.3.5.RELEASE</version>
+		<version>0.3.6.RELEASE</version>
 	</parent>
 	<artifactId>apple-boot-resin</artifactId>
 	<name>apple-boot-resin</name>
