@@ -39,8 +39,14 @@ public class SpringContainer implements Container {
 	public void start() {
         String configPath = DEFAULT_SPRING_CONFIG;
         context = new ClassPathXmlApplicationContext(configPath.split("[,\\s]+"));
-        
         WebAppContext webAppContext = context.getBean("webAppContext", WebAppContext.class);
+        String resourceBase = webAppContext.getResourceBase();
+        String devFlag = System.getProperty("jetty.dev");
+        File resouceBasePath = new File(resourceBase);
+        if(!resouceBasePath.exists() || "true".equalsIgnoreCase(devFlag)) {
+        	resourceBase = resourceBase.replaceAll("webapp", "src/main/webapp");
+        	webAppContext.setResourceBase(resourceBase);
+        }
         //webAppContext.setMaxFormContentSize(-1);
         int size  = webAppContext.getMaxFormContentSize();
         
