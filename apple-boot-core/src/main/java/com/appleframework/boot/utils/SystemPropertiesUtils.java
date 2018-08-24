@@ -106,7 +106,7 @@ public class SystemPropertiesUtils {
 			return (String)object;
 		}
 		else {
-			logger.warn("配置项为" + key + "的配置未在properties文件中添加或设置的内容为空");
+			logger.warn("The configuration is " + key + " does not add in the properties file!");
 			return null;
 		}
 	}
@@ -117,7 +117,7 @@ public class SystemPropertiesUtils {
 			return (String)object;
 		}
 		else {
-			logger.warn("配置项为" + key + "的配置未在properties文件中添加或设置的内容为空");
+			logger.warn("The configuration is " + key + " does not add in the properties file!");
 			return defaultValue;
 		}
 	}
@@ -128,7 +128,7 @@ public class SystemPropertiesUtils {
 			return (String)object;
 		}
 		else {
-			logger.warn("配置项为" + key + "的配置未在properties文件中添加或设置的内容为空");
+			logger.warn("The configuration is " + key + " does not add in the properties file!");
 			return null;
 		}
 	}
@@ -139,7 +139,7 @@ public class SystemPropertiesUtils {
 			return (String)object;
 		}
 		else {
-			logger.warn("配置项为" + key + "的配置未在properties文件中添加或设置的内容为空");
+			logger.warn("The configuration is " + key + " does not add in the properties file!");
 			return defaultString;
 		}
 	}
@@ -149,7 +149,7 @@ public class SystemPropertiesUtils {
 		if(null != object)
 			return Long.parseLong(object.toString());
 		else {
-			logger.warn("配置项为" + key + "的配置未在properties文件中添加或设置的内容为空");
+			logger.warn("The configuration is " + key + " does not add in the properties file!");
 			return null;
 		}
 	}
@@ -159,7 +159,7 @@ public class SystemPropertiesUtils {
 		if(null != object)
 			return Long.parseLong(object.toString());
 		else {
-			logger.warn("配置项为" + key + "的配置未在properties文件中添加或设置的内容为空");
+			logger.warn("The configuration is " + key + " does not add in the properties file!");
 			return defaultLong;
 		}
 	}
@@ -170,7 +170,7 @@ public class SystemPropertiesUtils {
 			return Integer.parseInt(object.toString());
 		}
 		else {
-			logger.warn("配置项为" + key + "的配置未在properties文件中添加或设置的内容为空");
+			logger.warn("The configuration is " + key + " does not add in the properties file!");
 			return null;
 		}
 	}
@@ -181,7 +181,7 @@ public class SystemPropertiesUtils {
 			return Integer.parseInt(object.toString());
 		}
 		else {
-			logger.warn("配置项为" + key + "的配置未在properties文件中添加或设置的内容为空");
+			logger.warn("The configuration is " + key + " does not add in the properties file!");
 			return defaultInt;
 		}
 	}
