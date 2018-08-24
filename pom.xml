@@ -109,13 +109,13 @@
     	<module>apple-boot-config</module>
 		<module>apple-boot-spring</module>
 		<module>apple-boot-jetty8</module>
-		<module>apple-boot-jetty9</module>
+		<module>apple-boot-jetty8-original</module>
+		<module>apple-boot-jetty9-jdk7</module>
     	<module>apple-boot-tomcat8</module>
     	<module>apple-boot-tomcat9</module>
     	<module>apple-boot-resin</module>
-    	<module>apple-boot-jetty8-original</module>
     	<module>apple-boot-springboot</module>
-    	<module>apple-boot-jetty9-jdk7</module>
+    	<module>apple-boot-jetty9</module>
   	</modules>
 
 	<build>
