@@ -27,7 +27,8 @@ public class JettyAttribute implements Attributes {
 
 	public static final String WEB_CONTEXT = "web.context";
 	public static final String WEB_PORT    = "web.port";
-	
+	public static final String WEB_WEBAPP  = "web.webapp";
+		
 	public static final String MIN_THREADS  = "web.min.threads";
 	public static final String MAX_THREADS  = "web.max.threads";
 	public static final String MAX_QUEUED   = "web.max.queued";
@@ -119,7 +120,7 @@ public class JettyAttribute implements Attributes {
 			return (String)object;
 		}
 		else {
-			logger.warn("配置项为" + key + "的配置未在配置中心或项目中添加或设置的内容为空");
+			logger.warn("The configuration is " + key + " does not add in the configuration file!");
 			return defaultValue;
 		}
 	}
@@ -129,7 +130,7 @@ public class JettyAttribute implements Attributes {
 			return Integer.parseInt(object.toString());
 		}
 		else {
-			logger.warn("配置项为" + key + "的配置未在配置中心或项目中添加或设置的内容为空");
+			logger.warn("The configuration is " + key + " does not add in the configuration file!");
 			return defaultInt;
 		}
 	}

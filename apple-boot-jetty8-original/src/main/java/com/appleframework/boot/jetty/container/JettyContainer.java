@@ -35,12 +35,19 @@ public class JettyContainer implements Container {
         
         WebAppContext webAppContext = new WebAppContext();
         webAppContext.setContextPath(JettyAttribute.getValue(JettyAttribute.WEB_CONTEXT, "/"));
-        webAppContext.setResourceBase("./webapp");
+        webAppContext.setResourceBase(JettyAttribute.getValue(JettyAttribute.WEB_WEBAPP, "./webapp"));
         webAppContext.setParentLoaderPriority(true);
         webAppContext.setDescriptor("webapp\\WEB-INF\\web.xml");
         webAppContext.setMaxFormContentSize(-1);
-        
         int size  = webAppContext.getMaxFormContentSize();
+        
+        String resourceBase = webAppContext.getResourceBase();
+        String devFlag = System.getProperty("jetty.dev");
+        File resouceBasePath = new File(resourceBase);
+        if(!resouceBasePath.exists() || "true".equalsIgnoreCase(devFlag)) {
+        	resourceBase = resourceBase.replaceAll("webapp", "src/main/webapp");
+        	webAppContext.setResourceBase(resourceBase);
+        }
         
         Iterator<?> it = JettyAttribute.getIterator();
 		while (it.hasNext()) {
