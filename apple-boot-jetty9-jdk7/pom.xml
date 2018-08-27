@@ -72,7 +72,6 @@
 			<artifactId>jetty-monitor</artifactId>
 			<version>${jetty92.version}</version>
 		</dependency>
-		 
 		
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -123,4 +122,5 @@
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
 	</dependencies>
+		
 </project>
