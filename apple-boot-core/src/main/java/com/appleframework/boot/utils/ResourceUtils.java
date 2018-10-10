@@ -75,4 +75,10 @@ public class ResourceUtils {
 	public static InputStream getAsStream(String name){
 		return getClassLoader().getResourceAsStream(name);
 	}
+	
+	public static boolean isExistResourceBase(String resourceBase) {
+    	String resourcePath = resourceBase.replaceAll("file:", "");
+    	File resouceBasePath = new File(resourcePath);
+    	return resouceBasePath.exists();
+    }
 }

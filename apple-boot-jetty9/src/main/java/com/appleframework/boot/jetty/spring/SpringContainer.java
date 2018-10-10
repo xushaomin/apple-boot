@@ -22,6 +22,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.appleframework.boot.core.Container;
 import com.appleframework.boot.jetty.core.WebappContextAttribute;
 import com.appleframework.boot.utils.ApplicationUtils;
+import com.appleframework.boot.utils.ResourceUtils;
 
 /**
  * SpringContainer. (SPI, Singleton, ThreadSafe)
@@ -53,8 +54,7 @@ public class SpringContainer implements Container {
         
         String resourceBase = webAppContext.getResourceBase();
         String devFlag = System.getProperty("jetty.dev");
-        File resouceBasePath = new File(resourceBase);
-        if(!resouceBasePath.exists() || "true".equalsIgnoreCase(devFlag)) {
+        if(!ResourceUtils.isExistResourceBase(resourceBase) || "true".equalsIgnoreCase(devFlag)) {
         	resourceBase = resourceBase.replaceAll("webapp", "src/main/webapp");
         	webAppContext.setResourceBase(resourceBase);
         }
