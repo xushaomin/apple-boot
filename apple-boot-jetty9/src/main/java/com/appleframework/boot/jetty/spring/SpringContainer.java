@@ -75,7 +75,7 @@ public class SpringContainer implements Container {
 				try {
 					if("org.eclipse.jetty.webapp.basetempdir".equals(key)) {
 						File dir = new File(value.toString());
-						if(!dir.exists() && dir.isDirectory()) {
+						if(!dir.exists()) {
 							dir.mkdirs();
 						}
 					}
