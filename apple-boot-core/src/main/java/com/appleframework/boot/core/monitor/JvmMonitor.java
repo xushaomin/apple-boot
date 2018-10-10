@@ -15,6 +15,7 @@ import com.appleframework.boot.utils.HttpUtils;
 import com.appleframework.boot.utils.SystemPropertiesUtils;
 import com.sun.management.OperatingSystemMXBean;
 
+@SuppressWarnings("restriction")
 public class JvmMonitor {
 	
 	private static Logger logger = LoggerFactory.getLogger(JvmMonitor.class);
