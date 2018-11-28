@@ -1,6 +1,8 @@
 package com.appleframework.boot.config;
 
-import org.apache.log4j.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.appleframework.boot.core.Container;
 import com.appleframework.config.core.factory.ConfigurerFactory;
@@ -12,7 +14,7 @@ import com.appleframework.config.core.factory.ConfigurerFactory;
  */
 public class ConfigContainer implements Container {
 	
-	private static Logger logger = Logger.getLogger(ConfigContainer.class);
+	private static Logger logger = LoggerFactory.getLogger(ConfigContainer.class);
 		
 	private static String CONTAINER_NAME = "ConfigContainer";
 

@@ -13,7 +13,7 @@
 	<url>http://maven.apache.org</url>
 	
 	<properties>
-		<config.version>0.2.7.RELEASE</config.version>
+		<config.version>0.3.4.RELEASE</config.version>
 	</properties>
 	
 	<dependencies>
@@ -29,6 +29,11 @@
 			<artifactId>apple-config-core</artifactId>
 			<version>${config.version}</version>
 			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
 		</dependency>
 		
 		<dependency>
