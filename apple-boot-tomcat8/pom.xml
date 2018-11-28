@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>apple-boot</artifactId>
 		<groupId>com.appleframework.boot</groupId>
-		<version>0.3.6.RELEASE</version>
+		<version>0.3.7-SNAPSHOT</version>
 	</parent>
 	<artifactId>apple-boot-tomcat8</artifactId>
 	<name>apple-boot-tomcat8</name>

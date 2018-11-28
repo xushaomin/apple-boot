@@ -1,193 +1,118 @@
 package com.appleframework.boot.utils;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.CoreProtocolPNames;
-import org.apache.http.protocol.HTTP;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * http请求
+ * 
  * @author cruise.xu
  *
  */
-@SuppressWarnings("deprecation")
 public class HttpUtils {
 
-	private static final Log logger = LogFactory.getLog(HttpUtils.class);
-
+	private static final Logger logger = LoggerFactory.getLogger(HttpUtils.class);
+	
 	/**
 	 * post请求 ，超时默认20秒
+	 * 
 	 * @param url
 	 * @param params
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 
-	public static String post(String url, Map<String, String> params) throws Exception {
+	public static String post(String url, Map<String, String> params) {
 		return post(url, params, 20);
 	}
 
 	/**
 	 * post请求
+	 * 
 	 * @param url
 	 * @param params
 	 * @param timeout 超时时间，秒
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
-	@SuppressWarnings("resource")
-	public static String post(String url, Map<String, String> params, int timeout) throws Exception {
+	public static String post(String url, Map<String, String> params, int timeout) {
 		logger.info("request url is " + url);
 		long begin = System.currentTimeMillis();
-		HttpClient httpclient = new DefaultHttpClient();
-		httpclient.getParams().setIntParameter("http.socket.timeout", timeout * 1000);
-		httpclient.getParams().setBooleanParameter("http.protocol.expect-continue", false);
 		String retVal = null;
-		try {
-			List<NameValuePair> formparams = new ArrayList<NameValuePair>();
-			logger.info("post params is " + params);
-			if (params != null) {
-				for (Map.Entry<String, String> param : params.entrySet()) {
-					String value = param.getValue();
-					if (value != null && !"".equals(value)) {
-						formparams.add(new BasicNameValuePair(param.getKey(), param.getValue()));
-					}
-				}
-			}
-			logger.info("consume millis begin time is " + (System.currentTimeMillis() - begin));
-			UrlEncodedFormEntity entity = new UrlEncodedFormEntity(formparams, HTTP.UTF_8);
-			HttpPost httppost = new HttpPost(url);
-			//add acording to http://www.khotyn.com/2011/10/20/httpclient_4_0_1-extremely-slow/
-			httppost.getParams().setBooleanParameter(CoreProtocolPNames.USE_EXPECT_CONTINUE, false);
-			httppost.setEntity(entity);
-			ResponseHandler<String> responseHandler = new BasicResponseHandler();
-			String temp = httpclient.execute(httppost, responseHandler);
-			retVal = temp;
-			long end = System.currentTimeMillis();
-			logger.info("consume millis end time is " + (end - begin));
-			logger.info("return result is " + retVal);
-		} catch (IOException e) {
-			logger.info("SocketTimeoutException request url is " + url);
-			logger.info("IOException is "+e.toString());
-			throw e;
-		} catch (Exception ex) {
-			logger.info("Exception is "+ex.toString());
-			throw ex;
-		} finally {
-			httpclient.getConnectionManager().shutdown();
+		if (null != params && params.size() > 0) {
+			String param = UrlEncodeUtils.getUrlParamsByMap(params, false, false);
+			retVal = sendPost(url, param);
+        }
+		else {
+			retVal = sendPost(url, null);
 		}
+		long end = System.currentTimeMillis();
+		logger.info("consume millis end time is " + (end - begin));
+		logger.info("return result is " + retVal);
 		return retVal;
 	}
-
-	/**
-	 * post请求
-	 * @param url
-	 * @param params
-	 * @param timeout 超时时间，秒
-	 * @return
-	 * @throws Exception 
-	 */
-	@SuppressWarnings("resource")
-	public static String post(String url, Map<String, String> params, int timeout, String charset) throws Exception {
-		logger.info("request url is " + url);
-		long begin = System.currentTimeMillis();
-		HttpClient httpclient = new DefaultHttpClient();
-		httpclient.getParams().setIntParameter("http.socket.timeout", timeout * 1000);
-		httpclient.getParams().setBooleanParameter("http.protocol.expect-continue", false);
-		String retVal = "";
-		try {
-			List<NameValuePair> formparams = new ArrayList<NameValuePair>();
-			logger.info("post params is " + params);
-			if (params != null) {
-				for (Map.Entry<String, String> param : params.entrySet()) {
-					 //String value = param.getValue();
-					 //if(value !=null && !"".equals(value))
-					     formparams.add(new BasicNameValuePair(param.getKey(), param.getValue()));
-				}
-			}
-			logger.info("consume millis begin time is " + (System.currentTimeMillis() - begin));
-			UrlEncodedFormEntity entity = new UrlEncodedFormEntity(formparams, charset);
-			HttpPost httppost = new HttpPost(url);
-			httppost.setEntity(entity);
-			ResponseHandler<String> responseHandler = new BasicResponseHandler();
-			retVal = new String(httpclient.execute(httppost, responseHandler).getBytes(HTTP.UTF_8), charset);
-			long end = System.currentTimeMillis();
-			logger.info("consume millis end time is " + (end - begin));
-			logger.info("return result is " + retVal);
-		} catch (IOException e) {
-			logger.info("SocketTimeoutException request url is " + url);
-			logger.info("IOException is "+e.toString());
-			throw e;
-		} catch (Exception ex) {
-			logger.info("Exception is "+ex.toString());
-			throw ex;
-		} finally {
-			httpclient.getConnectionManager().shutdown();
-		}
-		return retVal;
-	}
-
-	/**
-	 * get请求
-	 * @param url
-	 * @param params
-	 * @return
-	 * @throws IOException
-	 */
-	@SuppressWarnings("resource")
-	public static String get(String url, Map<String, String> params) throws IOException {
-		logger.info("request url is " + url);
-		long begin = System.currentTimeMillis();
-		HttpClient httpclient = new DefaultHttpClient();
-		httpclient.getParams().setIntParameter("http.socket.timeout", 20000);
-		String retVal = "";
-		try {
-			List<NameValuePair> qparams = new ArrayList<NameValuePair>();
-			logger.info("get params is " + params);
-			if (params != null) {
-				for (Map.Entry<String, String> param : params.entrySet()) {
-					 String value = param.getValue();
-					 if(value !=null && !"".equals(value)) {
-						qparams.add(new BasicNameValuePair(param.getKey(), param.getValue()));
-					 }
-				}
-			}
-			String paramstr = URLEncodedUtils.format(qparams, HTTP.UTF_8);
-			if (null == paramstr) {
-				url = url + "&" + paramstr;
-				logger.info("get url is "+url);
-			}
-			logger.info("consume millis begin time is " + (System.currentTimeMillis() - begin));
-			HttpGet httpget = new HttpGet(url);
-			ResponseHandler<String> responseHandler = new BasicResponseHandler();
-			retVal = httpclient.execute(httpget, responseHandler);
-			long end = System.currentTimeMillis();
-			logger.info("consume millis end time is " + (end - begin));
-			logger.info("return result is " + retVal);
-		} catch (IOException e) {
-			logger.info("SocketTimeoutException request url is " + url);
-			logger.info("IOException is "+e.toString());
-			throw e;
-		} finally {
-			httpclient.getConnectionManager().shutdown();
-		}
-		return retVal;
-	}
-
 	
+	/**
+     * 向指定 URL 发送POST方法的请求
+     * 
+     * @param url
+     *            发送请求的 URL
+     * @param param
+     *            请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
+     * @return 所代表远程资源的响应结果
+     */
+    public static String sendPost(String url, String param) {
+        PrintWriter out = null;
+        BufferedReader in = null;
+        String result = "";
+        try {
+            URL realUrl = new URL(url);
+            // 打开和URL之间的连接
+            URLConnection conn = realUrl.openConnection();
+            // 设置通用的请求属性
+            conn.setRequestProperty("accept", "*/*");
+            conn.setRequestProperty("connection", "Keep-Alive");
+            conn.setRequestProperty("user-agent","Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            // 发送POST请求必须设置如下两行
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            // 获取URLConnection对象对应的输出流
+            out = new PrintWriter(conn.getOutputStream());
+            // 发送请求参数
+            if(null != param) {
+            	out.print(param);
+            }
+            // flush输出流的缓冲
+            out.flush();
+            // 定义BufferedReader输入流来读取URL的响应
+            in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line;
+            while ((line = in.readLine()) != null) {
+                result += line;
+            }
+		} catch (Exception e) {
+			logger.error("发送 POST 请求出现异常！" + e);
+		} finally {// 使用finally块来关闭输出流、输入流
+			try {
+				if (out != null) {
+					out.close();
+				}
+				if (in != null) {
+					in.close();
+				}
+			} catch (IOException ex) {
+				logger.error("发送 POST 请求出现异常！" + ex.getMessage());
+			}
+		}
+		return result;
+    }
+    	
 }
