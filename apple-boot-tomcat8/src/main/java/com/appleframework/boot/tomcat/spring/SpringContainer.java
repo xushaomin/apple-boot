@@ -33,7 +33,7 @@ public class SpringContainer implements Container {
         context = new ClassPathXmlApplicationContext(configPath.split("[,\\s]+"));
         try {
         	EmbeddedTomcat server = context.getBean("tomcatServer", EmbeddedTomcat.class);
-        	logger.warn("Start tomcat web context context= " + server.getContextPath() 
+        	logger.warn("Start tomcat web context context=" + server.getContextPath() 
               		+ ";webapp path=" + server.getWebAppPath());        	
             server.startTomcat();
             logger.warn("启动成功");
