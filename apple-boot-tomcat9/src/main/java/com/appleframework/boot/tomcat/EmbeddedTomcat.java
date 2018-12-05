@@ -1,11 +1,15 @@
 package com.appleframework.boot.tomcat;
 
 import java.net.URL;
+import java.util.Iterator;
+import java.util.Map;
 
 import org.apache.catalina.Executor;
 import org.apache.catalina.startup.Tomcat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.appleframework.boot.tomcat.core.TomcatAttribute;
 
 /**
  * @author cruise.xu
@@ -26,6 +30,7 @@ public class EmbeddedTomcat {
 	private String webAppPath;
 	private Executor executor;
 
+	@SuppressWarnings("rawtypes")
 	public void startTomcat() throws Exception {
 		try {
 			long startTime = System.currentTimeMillis();
@@ -41,6 +46,16 @@ public class EmbeddedTomcat {
 				tomcat.getService().addExecutor(executor);
 			}
 			
+			Iterator<?> it = TomcatAttribute.getIterator();
+			while (it.hasNext()) {
+				Map.Entry entry = (Map.Entry) it.next();
+				String key = (String) entry.getKey();
+				Object value = entry.getValue();
+				if("tomcat.util.http.parser.HttpParser.requestTargetAllow".equals(key)) {
+					tomcat.getConnector().setAttribute("relaxedQueryChars", value);
+					tomcat.getConnector().setAttribute("relaxedPathChars", value);
+				}
+			}
 			tomcat.start();
 			logger.warn("Tomcat started in " + (System.currentTimeMillis() - startTime) + " ms.");
 			tomcat.getServer().await();// 让服务器一直跑

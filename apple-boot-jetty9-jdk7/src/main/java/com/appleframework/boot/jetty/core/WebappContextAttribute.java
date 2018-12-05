@@ -6,10 +6,10 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Properties;
 
-import org.eclipse.jetty.util.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.appleframework.boot.core.Attributes;
 import com.appleframework.boot.utils.ResourceUtils;
 
 /**
