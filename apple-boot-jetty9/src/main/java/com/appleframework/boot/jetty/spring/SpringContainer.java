@@ -67,9 +67,10 @@ public class SpringContainer implements Container {
 		while (it.hasNext()) {
 			Map.Entry entry = (Map.Entry) it.next();
 			String key = (String) entry.getKey();
+			Object value = entry.getValue();
+			logger.warn("The jetty attrbiute {}={}", key, value);
 			if(key.startsWith("org.eclipse.jetty.webapp")
 					|| key.startsWith("javax.servlet.context")) {
-				Object value = entry.getValue();
 				webAppContext.setAttribute(key, value);
 				
 				try {

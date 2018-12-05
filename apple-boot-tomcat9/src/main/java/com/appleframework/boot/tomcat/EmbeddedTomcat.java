@@ -51,6 +51,7 @@ public class EmbeddedTomcat {
 				Map.Entry entry = (Map.Entry) it.next();
 				String key = (String) entry.getKey();
 				Object value = entry.getValue();
+				logger.warn("The tomcat attrbiute {}={}", key, value);
 				if(key.startsWith("connector.")) {
 					String name = key.substring(key.indexOf(".") + 1);
 					tomcat.getConnector().setAttribute(name, value);
