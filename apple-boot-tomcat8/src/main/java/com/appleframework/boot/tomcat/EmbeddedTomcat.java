@@ -54,11 +54,19 @@ public class EmbeddedTomcat {
 				Map.Entry entry = (Map.Entry) it.next();
 				String key = (String) entry.getKey();
 				Object value = entry.getValue();
-				if("tomcat.util.http.parser.HttpParser.requestTargetAllow".equals(key)) {
+				if(key.startsWith("connector.")) {
+					String name = key.substring(key.indexOf(".") + 1);
+					tomcat.getConnector().setAttribute(name, value);
+				}
+				else if("tomcat.util.http.parser.HttpParser.requestTargetAllow".equals(key)) {
 					tomcat.getConnector().setAttribute("relaxedQueryChars", value);
 					tomcat.getConnector().setAttribute("relaxedPathChars", value);
 				}
+				else {
+					logger.error("the error tomcat attribute {}={}", key, value);
+				}
 			}
+			
 			tomcat.start();
 			logger.warn("Tomcat started in " + (System.currentTimeMillis() - startTime) + " ms.");
 			tomcat.getServer().await();// 让服务器一直跑
