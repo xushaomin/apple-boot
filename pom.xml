@@ -17,7 +17,7 @@
 		<jetty9.version>9.4.14.v20181114</jetty9.version>
 		<jetty92.version>9.2.24.v20180105</jetty92.version>
 		<tomcat8.version>8.0.53</tomcat8.version>
-		<tomcat9.version>9.0.13</tomcat9.version>
+		<tomcat9.version>9.0.14</tomcat9.version>
 	</properties>
 
 	<dependencyManagement>
