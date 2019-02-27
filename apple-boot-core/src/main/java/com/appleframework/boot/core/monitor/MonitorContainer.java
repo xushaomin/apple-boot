@@ -110,9 +110,13 @@ public class MonitorContainer implements Container {
 		SystemPropertiesUtils.put("start.param", runtimeParameters.toString());
 		SystemPropertiesUtils.put("mem.max", this.getRuntimeParameter(runtimeParameters, "-Xmx"));
 		SystemPropertiesUtils.put("mem.min", this.getRuntimeParameter(runtimeParameters, "-Xms"));
-		Integer webPort = SystemPropertiesUtils.getInteger("server.port");
+		Integer webPort = SystemPropertiesUtils.getInteger("web.port");
 		if(null != webPort) {
 			SystemPropertiesUtils.put("web.port", webPort.toString());
+		}
+		Integer servicePort = SystemPropertiesUtils.getInteger("service.port");
+		if(null != servicePort) {
+			SystemPropertiesUtils.put("service.port", servicePort.toString());
 		}
 		return SystemPropertiesUtils.getProp();
 	}
