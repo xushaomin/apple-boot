@@ -90,11 +90,15 @@ public class EmbeddedTomcat {
 		}
 		else {
 			int indexConf = path.lastIndexOf("/conf");
-			if(indexConf > -1) {
-				String webapp = path.substring(0, indexConf) + "/webapp";
-				logger.error(webapp);
-				this.webAppPath = webapp;
-			}
+            if (indexConf > -1) {
+                String webapp = path.substring(0, indexConf) + "/webapp";
+                logger.error(webapp);
+                this.webAppPath = webapp;
+            } else {
+                String webapp = path + (path.endsWith("/") ? "webapp" : "/webapp");
+                logger.error(webapp);
+                this.webAppPath = webapp;
+            }
 		}
 	}
 
