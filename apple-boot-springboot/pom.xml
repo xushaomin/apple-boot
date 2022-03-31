@@ -13,7 +13,7 @@
 	<url>http://maven.apache.org</url>
 	
 	<properties>
-		<springboot.version>1.5.12.RELEASE</springboot.version>
+		<springboot.version>2.5.12</springboot.version>
 	</properties>
 	
 	<dependencies>
